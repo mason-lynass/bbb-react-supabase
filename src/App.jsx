@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
+import { Routes, Route, Link} from "react-router-dom"
+
+import Home from "./home.jsx"
 import './App.css'
 
 const url = import.meta.env.VITE_SUPABASE_URL
@@ -36,24 +39,29 @@ function App() {
     setReviews(data)
   }
 
-  console.log(users)
+
+  // <div>
+  //       {users.map((user) => (
+  //         <p key={user.username}>{user.username}</p>
+  //       ))}
+  //     </div>
+  //     <div>
+  //       {bathrooms.map((bathroom) => (
+  //         <div key={bathroom.name}>
+  //           <h2>{bathroom.location_name}</h2>
+  //           <h3>{bathroom.address}</h3>
+  //           <p>{bathroom.description}</p>
+  //         </div>
+  //       ))}
+  //     </div>
+
+  console.log(bathrooms)
 
   return (
     <>
-      <div>
-        {users.map((user) => (
-          <p key={user.username}>{user.username}</p>
-        ))}
-      </div>
-      <div>
-        {bathrooms.map((bathroom) => (
-          <div key={bathroom.name}>
-            <h2>{bathroom.location_name}</h2>
-            <h3>{bathroom.address}</h3>
-            <p>{bathroom.description}</p>
-          </div>
-        ))}
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} ></Route>
+      </Routes>
     </>
   )
 }
