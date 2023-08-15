@@ -7,7 +7,7 @@ This repo is for the web version of Better Bathroom Bureau.
 After cloning this app, you should be able to run 
 
 `
-npm install
+npm install ->
 npm run dev
 `
 
