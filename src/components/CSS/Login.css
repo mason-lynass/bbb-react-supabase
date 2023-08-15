@@ -1,0 +1,23 @@
+#login > main {
+    display: block;
+    width: 90vw;
+    margin: auto;
+    background-color: grey;
+}
+
+#account-login, #sign-up {
+    width: fit-content;
+    background-color: #242424;
+}
+
+section h2, section div {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+section p, section button {
+    margin: 1vw;
+}
+

@@ -1,0 +1,44 @@
+#nav-bar {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#nav-title {
+    font-size: 28px;
+    padding: 0 20px;
+}
+
+nav,
+nav div {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+nav div a {
+    display: block;
+    width: 80px;
+    text-align: center;
+    margin: 1vw;
+}
+
+#login p {
+    margin: .5em;
+}
+
+#underline {
+    text-decoration: underline;
+    text-underline-offset: 10px;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}

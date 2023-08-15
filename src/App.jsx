@@ -3,6 +3,12 @@ import { createClient } from '@supabase/supabase-js'
 import { Routes, Route, Link} from "react-router-dom"
 
 import Home from "./home.jsx"
+import About from "./About.jsx"
+import Best from "./Best.jsx"
+import NearMe from "./NearMe.jsx"
+import Submit from './Submit.jsx'
+import SignUp from "./components/SignUp.jsx"
+import Login from "./components/Login.jsx"
 import './App.css'
 
 const url = import.meta.env.VITE_SUPABASE_URL
@@ -61,6 +67,12 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} ></Route>
+        <Route path="/about" element={<About />} ></Route>
+        <Route path="/best" element={<Best />} ></Route>
+        <Route path="/submit" element={<Submit />} ></Route>
+        <Route path="/near-me" element={<NearMe />} ></Route>
+        <Route path="/login" element={<Login />} ></Route>
+        <Route path="/signup" element={<SignUp />} ></Route>
       </Routes>
     </>
   )
