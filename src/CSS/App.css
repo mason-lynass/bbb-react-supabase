@@ -41,4 +41,6 @@ nav div a {
     left: 0;
     right: 0;
     text-align: center;
+    background-color: black;
+    color: white;
 }

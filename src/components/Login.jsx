@@ -3,7 +3,7 @@ import Footer from "./Footer";
 import NavBar from "./NavBar";
 import SignUp from "./SignUp";
 import { useState } from "react";
-import "./CSS/Login.css"
+import "../CSS/Login.css"
 
 export default function Login () {
 

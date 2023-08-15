@@ -9,7 +9,9 @@ import NearMe from "./NearMe.jsx"
 import Submit from './Submit.jsx'
 import SignUp from "./components/SignUp.jsx"
 import Login from "./components/Login.jsx"
-import './App.css'
+import NavBar from './components/NavBar.jsx'
+import Footer from './components/Footer.jsx'
+import './CSS/app.css'
 
 const url = import.meta.env.VITE_SUPABASE_URL
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY
@@ -45,35 +47,19 @@ function App() {
     setReviews(data)
   }
 
-
-  // <div>
-  //       {users.map((user) => (
-  //         <p key={user.username}>{user.username}</p>
-  //       ))}
-  //     </div>
-  //     <div>
-  //       {bathrooms.map((bathroom) => (
-  //         <div key={bathroom.name}>
-  //           <h2>{bathroom.location_name}</h2>
-  //           <h3>{bathroom.address}</h3>
-  //           <p>{bathroom.description}</p>
-  //         </div>
-  //       ))}
-  //     </div>
-
-  console.log(bathrooms)
-
   return (
     <>
+    <NavBar />
       <Routes>
-        <Route path="/" element={<Home />} ></Route>
-        <Route path="/about" element={<About />} ></Route>
-        <Route path="/best" element={<Best />} ></Route>
-        <Route path="/submit" element={<Submit />} ></Route>
-        <Route path="/near-me" element={<NearMe />} ></Route>
-        <Route path="/login" element={<Login />} ></Route>
-        <Route path="/signup" element={<SignUp />} ></Route>
+        <Route path="/" element={<Home bathrooms={bathrooms} reviews={reviews}/>} />
+        <Route path="/about" element={<About />} />
+        <Route path="/best" element={<Best bathrooms={bathrooms} reviews={reviews}/>} />
+        <Route path="/submit" element={<Submit />} />
+        <Route path="/near-me" element={<NearMe bathrooms={bathrooms} reviews={reviews}/>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
+      <Footer />
     </>
   )
 }
