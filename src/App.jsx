@@ -12,6 +12,7 @@ import Login from "./components/Login.jsx"
 import NavBar from './components/NavBar.jsx'
 import Footer from './components/Footer.jsx'
 import './CSS/app.css'
+import AllBathrooms from './AllBathrooms.jsx'
 
 const url = import.meta.env.VITE_SUPABASE_URL
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY
@@ -33,13 +34,19 @@ function App() {
   }, [])
 
   async function getUsers() {
-    const { data } = await supabase.from('users').select();
-    setUsers(data)
+    async function fetchUsers () {
+      const { data } = await supabase.from('users').select();
+      return data
+    }
+    setUsers(await fetchUsers())
   }
 
   async function getBathrooms() {
-    const { data } = await supabase.from('bathrooms').select();
-    setBathrooms(data)
+    async function fetchBathrooms () {
+      const { data } = await supabase.from('bathrooms').select();
+      return data
+    }
+    setBathrooms(await fetchBathrooms())
   }
 
   async function getReviews() {
@@ -47,15 +54,18 @@ function App() {
     setReviews(data)
   }
 
+  console.log('render')
+
   return (
     <>
     <NavBar />
       <Routes>
         <Route path="/" element={<Home bathrooms={bathrooms} reviews={reviews}/>} />
+        <Route path="/bathrooms" element={<AllBathrooms bathrooms={bathrooms} reviews={reviews} setBathrooms={setBathrooms} setReviews={setReviews}/>}/>
         <Route path="/about" element={<About />} />
-        <Route path="/best" element={<Best bathrooms={bathrooms} reviews={reviews}/>} />
+        <Route path="/best" element={<Best bathrooms={bathrooms} reviews={reviews} setBathrooms={setBathrooms} setReviews={setReviews}/>} />
         <Route path="/submit" element={<Submit />} />
-        <Route path="/near-me" element={<NearMe bathrooms={bathrooms} reviews={reviews}/>} />
+        <Route path="/near-me" element={<NearMe bathrooms={bathrooms} reviews={reviews} setBathrooms={setBathrooms} setReviews={setReviews} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>

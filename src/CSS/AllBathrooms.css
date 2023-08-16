@@ -1,0 +1,10 @@
+#all-bathrooms {
+    margin: 2vw;
+}
+
+.one-bathroom-all {
+    border-radius: 10px;
+    border: 1px solid whitesmoke;
+    margin: 15px 0;
+    padding: 20px;
+}

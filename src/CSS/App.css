@@ -24,6 +24,7 @@ nav div a {
     width: 80px;
     text-align: center;
     margin: 1vw;
+    line-height: 1.2;
 }
 
 #login p {
@@ -32,7 +33,7 @@ nav div a {
 
 #underline {
     text-decoration: underline;
-    text-underline-offset: 10px;
+    text-underline-offset: 8px;
 }
 
 #footer {
@@ -43,4 +44,12 @@ nav div a {
     text-align: center;
     background-color: black;
     color: white;
+}
+
+.one-bathroom-stock {
+    border: 1px solid gold;
+    width: 45vw;
+    max-width: 450px;
+    border-radius: 10px;
+    padding: 10px;
 }

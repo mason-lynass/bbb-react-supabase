@@ -11,11 +11,9 @@ export default function Login () {
 
     return (
         <div id='login'>
-            <NavBar />
             <main>
                 {hasAccount ? <AccountLogin hasAccount={hasAccount} setHasAccount={setHasAccount}/> : <SignUp hasAccount={hasAccount} setHasAccount={setHasAccount}/>}
             </main>
-            <Footer />
         </div>
     )
 }
