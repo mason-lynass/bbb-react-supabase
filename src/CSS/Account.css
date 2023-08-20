@@ -1,0 +1,14 @@
+#account {
+    width: 90vw;
+    max-width: 1000px;
+    margin: 50px auto;
+}
+
+#account :is(h2) {
+    text-align: center;
+}
+
+#account div button {
+    display: block;
+    margin: 0 auto;
+}

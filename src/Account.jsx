@@ -1,6 +1,11 @@
 import { useState } from "react"
+import { redirect, useNavigate } from "react-router-dom"
 
-export default function Account({ session, profile, supabase }) {
+import './CSS/Account.css'
+
+export default function Account({ session, profile, setProfile, supabase }) {
+
+    let navigate = useNavigate()
 
     const [username, setUsername] = useState('')
 
@@ -12,14 +17,15 @@ export default function Account({ session, profile, supabase }) {
 
     async function signOut() {
         const { error } = await supabase.auth.signOut()
+        setProfile(null)
+        navigate('/login')
     }
 
     if (profile) {
         console.log(profile)
 
         if (!profile.username) return (
-            <div>
-                <div>
+            <main id='account'>
                     <h2>Hi there, {profile.email}!</h2>
                     <h2>You don't have a username!</h2>
                     <form onSubmit={handleUsernameSubmit()}>
@@ -27,18 +33,16 @@ export default function Account({ session, profile, supabase }) {
                         <input id='username' name='username' autoComplete="username" type='username' value={username} onChange={(e) => setUsername(e.target.value)}></input>
                         <input type="submit" value='Submit'></input>
                     </form>
-                </div>
-                
-            </div>
+            </main>
         )
 
         else return (
-            <div>
+            <main id='account'>
                 <h2>Hi there, {profile.username}!</h2>
                 <div>
-                    <button onClick={signOut()} >Sign Out</button>
+                    <button onClick={signOut} >Sign Out</button>
                 </div>
-            </div>
+            </main>
         )
     }
 

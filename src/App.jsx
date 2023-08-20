@@ -23,6 +23,7 @@ const supabase = createClient(url, key)
 
 function App() {
   const [session, setSession] = useState(null)
+  const [sessionSwitch, setSessionSwitch] = useState(false)
   const [users, setUsers] = useState([])
   const [profile, setProfile] = useState(null)
   const [bathrooms, setBathrooms] = useState([])
@@ -33,11 +34,12 @@ function App() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
+      setSessionSwitch(true)
       getUsers(session) // this function needs session to setProfile
     })
 
-    getBathrooms()
-    getReviews()
+    // getBathrooms()
+    // getReviews()
 
     const {
       data: { subscription },
@@ -51,7 +53,7 @@ function App() {
   async function getUsers(session) {
     async function fetchUsers() {
       const { data, error } = await supabase.from('users').select(); // get the data from Supabase
-      setProfile(data.filter((user) => session.user.id === user.id)[0]) // setProfile by filtering the data
+      if (session) setProfile(data.filter((user) => session.user.id === user.id)[0]) // setProfile by filtering the data
       return data
     }
 
@@ -93,11 +95,13 @@ function App() {
     setReviews(data)
   }
 
-  console.log(session, users, reviews, bathrooms, profile)
+  // console.log(session, sessionSwitch)
+
+  // console.log(session, users, reviews, bathrooms, profile)
 
   return (
     <>
-      <NavBar session={session} />
+      <NavBar session={session} sessionSwitch={sessionSwitch} />
       <Routes>
         <Route path="/" element={<Home bathrooms={bathrooms} reviews={reviews} />} />
         <Route path="/bathrooms" element={<AllBathrooms bathrooms={bathrooms} reviews={reviews} setBathrooms={setBathrooms} setReviews={setReviews} />} />
@@ -105,8 +109,8 @@ function App() {
         <Route path="/best" element={<Best bathrooms={bathrooms} reviews={reviews} setBathrooms={setBathrooms} setReviews={setReviews} />} />
         <Route path="/submit" element={<Submit />} />
         <Route path="/near-me" element={<NearMe bathrooms={bathrooms} reviews={reviews} setBathrooms={setBathrooms} setReviews={setReviews} />} />
-        <Route path="/login" element={<Login supabase={supabase} session={session} />} />
-        <Route path="/account" element={<Account session={session} profile={profile} supabase={supabase} />} />
+        <Route path="/login" element={<Login supabase={supabase} users={users} session={session} setProfile={setProfile} profile={profile}/>} />
+        <Route path="/account" element={<Account session={session} profile={profile} setProfile={setProfile} supabase={supabase} />} />
       </Routes>
       <Footer />
     </>
