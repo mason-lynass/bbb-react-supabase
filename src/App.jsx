@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
-import { Auth } from '@supabase/auth-ui-react'
 import { Routes, Route, Link } from "react-router-dom"
 
 import Home from "./home.jsx"
@@ -9,13 +8,15 @@ import Best from "./Best.jsx"
 import NearMe from "./NearMe.jsx"
 import Submit from './Submit.jsx'
 import Account from './Account.jsx'
-import SignUp from "./components/SignUp.jsx"
 import Login from "./Login.jsx"
-import NavBar from './components/NavBar.jsx'
-import Footer from './components/Footer.jsx'
-import './CSS/app.css'
 import AllBathrooms from './AllBathrooms.jsx'
 
+import NavBar from './components/NavBar.jsx'
+import Footer from './components/Footer.jsx'
+
+import './CSS/app.css'
+
+// keys to Supabase
 const url = import.meta.env.VITE_SUPABASE_URL
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY
 
@@ -34,12 +35,11 @@ function App() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
-      setSessionSwitch(true)
+      setSessionSwitch(true) // this is mostly for console logs, I guess
       getUsers(session) // this function needs session to setProfile
     })
-
-    // getBathrooms()
-    // getReviews()
+    getBathrooms()
+    getReviews()
 
     const {
       data: { subscription },
@@ -56,26 +56,6 @@ function App() {
       if (session) setProfile(data.filter((user) => session.user.id === user.id)[0]) // setProfile by filtering the data
       return data
     }
-
-    // this stuff is in here to try to load a session, then users, then set a profile
-    // but I just moved the setProfile inside the fetchUsers(), using data instead of users, duh!
-    // async function getProfile() {
-    //   function returnSession() {
-    //     console.log('returnSession')
-    //     console.log(session)
-    //     return new Promise((resolve, reject) => {
-    //       if (session) {
-    //         resolve('there is a session')
-    //       } else {
-    //         reject('no session')
-    //       }
-    //     })
-    //   }
-
-    //   const profileSession = await returnSession().then(
-    //     setProfile(users.filter((user) => session.user.id === user.id))
-    //   )
-    // }
 
     setUsers(await fetchUsers())
     // getProfile()
@@ -97,7 +77,7 @@ function App() {
 
   // console.log(session, sessionSwitch)
 
-  // console.log(session, users, reviews, bathrooms, profile)
+  // console.log(session, profile)
 
   return (
     <>

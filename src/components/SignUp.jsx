@@ -1,5 +1,8 @@
 import { useState } from "react"
 
+// !!!
+// we are not using this because we are using the Auth component
+// !!!
 export default function SignUp({ setHasAccount, hasAccount, supabase }) {
 
     const [email, setEmail] = useState('')

@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { redirect, useNavigate } from "react-router-dom"
 
+// !!!
 // we are not using this because we are using the Auth component
+// !!!
 export default function AccountLogin({ hasAccount, setHasAccount, supabase, setProfile }) {
 
     const navigate = useNavigate()

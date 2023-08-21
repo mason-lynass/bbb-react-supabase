@@ -12,30 +12,43 @@ export default function Login({ supabase, session, setProfile, profile, users })
 
     const navigate = useNavigate()
 
-    const [hasAccount, setHasAccount] = useState(false)
+    // const [hasAccount, setHasAccount] = useState(false)
 
     console.log(session, profile)
 
+    // if there's no session, then you need to log in
     if (!session) return (
         <div id='Auth'>
+            {/* // it would be nice if I could add some functionality to this component but I don't think that I can */}
+            {/* // like it would be nice to do everything else in the if statements here */}
             <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} providers={[]} />
         </div>
     )
 
+    // if there is a session, then that means you must have been here before
     if (session && !profile) {
         try {
+            // this is what happens if you log in, because there's already a user created
             setProfile(users.filter((user) => session.user.id === user.id)[0])
-            navigate("/account")
+            // this is what happens when you sign up, because the user takes a split second to be created in the DB,
+            // and we're not re-fetching the users, so the user doesn't exist
+            if (!profile) {
+                setProfile({
+                    username: null,
+                    email: session.user.email,
+                    id: session.user.id
+                })
+            }
         }
         catch {
             console.log('uh oh!')
         }
     }
 
-    else return (<p>uh oh!</p>)
+    // I don't like this, but you can't re-render a component and update higher-level state at the same time, so I delayed the re-render a little bit.
+    if (session && profile) setTimeout(() => navigate("/account"), 100)
 
-    // this doesn't work
-    // if (session && profile) navigate("/account")
+    else return (<p>uh oh!</p>)
 
     // else return (
     //     <div id='login'>

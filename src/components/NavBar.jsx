@@ -2,10 +2,14 @@ import { Link } from "react-router-dom"
 
 export default function NavBar({ session, sessionSwitch }) {
 
-    function loginAccount () {
+    function loginOrAccount () {
         // console.log(session, sessionSwitch)
-        if (!session) return <Link id='login' to='/login' ><p id='underline'>Log In</p><p>Sign Up</p></Link>
-        else if (session.length === 0) return <Link id='login' to='/login' ><p id='underline'>Log In</p><p>Sign Up</p></Link>
+        if (!session) { 
+            return <Link id='login' to='/login' ><p id='underline'>Log In</p><p>Sign Up</p></Link>
+        }
+        else if (session.length === 0) {
+            return <Link id='login' to='/login' ><p id='underline'>Log In</p><p>Sign Up</p></Link>
+        }
         else return <Link to='/account' >Account</Link> 
     }
 
@@ -22,7 +26,7 @@ export default function NavBar({ session, sessionSwitch }) {
                     <Link to='/about' >Our Mission</Link>
                 </div>
                 <div>
-                    {loginAccount()}
+                    {loginOrAccount()}
                 </div>
             </nav>
         </div>

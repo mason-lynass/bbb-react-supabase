@@ -7,8 +7,7 @@ export default function Best({ bathrooms, reviews }) {
     const [loaded, setLoaded] = useState(false)
     const [best, setBest] = useState([])
 
-    console.log(loaded)
-
+    // the length in the dependency array should only change from null -> all of the bathrooms
     useEffect(() => {
         setBest(bathrooms)
         if (bathrooms.length > 0) {
@@ -19,8 +18,6 @@ export default function Best({ bathrooms, reviews }) {
     }, [bathrooms.length])
 
     function bestBathrooms() {
-        console.log(best)
-
         return (
             <div id='best-bathrooms'>
                 {best.map((bathroom) => {
@@ -30,7 +27,6 @@ export default function Best({ bathrooms, reviews }) {
                 })}
             </div>
         )
-
     }
 
     return (
