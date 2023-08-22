@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { motion as m } from 'framer-motion'
 
 import './CSS/Best.css'
 import BestBathroom from './components/BestBathroom'
@@ -30,8 +31,8 @@ export default function Best({ bathrooms, reviews }) {
     }
 
     return (
-        <>
+        <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
             {(loaded === true) ? bestBathrooms() : <h2>loading...</h2>}
-        </>
+        </m.div>
     )
 }

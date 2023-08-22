@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import { Routes, Route, Link } from "react-router-dom"
+import { motion as m } from 'framer-motion'
 
 import Home from "./home.jsx"
 import About from "./About.jsx"
@@ -46,7 +47,7 @@ function App() {
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
     })
-    
+
     return () => subscription.unsubscribe() // cleanup function
   }, [])
 
@@ -80,7 +81,11 @@ function App() {
   // console.log(session, profile)
 
   return (
-    <>
+    <m.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <NavBar session={session} sessionSwitch={sessionSwitch} />
       <Routes>
         <Route path="/" element={<Home bathrooms={bathrooms} reviews={reviews} />} />
@@ -89,11 +94,11 @@ function App() {
         <Route path="/best" element={<Best bathrooms={bathrooms} reviews={reviews} setBathrooms={setBathrooms} setReviews={setReviews} />} />
         <Route path="/submit" element={<Submit />} />
         <Route path="/near-me" element={<NearMe bathrooms={bathrooms} reviews={reviews} setBathrooms={setBathrooms} setReviews={setReviews} />} />
-        <Route path="/login" element={<Login supabase={supabase} users={users} session={session} setProfile={setProfile} profile={profile}/>} />
+        <Route path="/login" element={<Login supabase={supabase} users={users} session={session} setProfile={setProfile} profile={profile} />} />
         <Route path="/account" element={<Account session={session} profile={profile} setProfile={setProfile} supabase={supabase} />} />
       </Routes>
       <Footer />
-    </>
+    </m.div>
   )
 }
 

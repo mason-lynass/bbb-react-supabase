@@ -1,6 +1,7 @@
 import './CSS/AllBathrooms.css'
+import { motion as m } from 'framer-motion'
 
-export default function AllBathrooms ({bathrooms, reviews}) {
+export default function AllBathrooms({ bathrooms, reviews }) {
 
     function allTheBathrooms() {
         return (
@@ -17,8 +18,8 @@ export default function AllBathrooms ({bathrooms, reviews}) {
     }
 
     return (
-        <>
+        <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
             {bathrooms !== undefined ? allTheBathrooms() : <h2>loading...</h2>}
-        </>
+        </m.div>
     )
 }
