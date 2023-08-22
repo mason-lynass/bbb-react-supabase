@@ -16,6 +16,7 @@ import NavBar from './components/NavBar.jsx'
 import Footer from './components/Footer.jsx'
 
 import './CSS/app.css'
+import BathroomPage from './components/BathroomPage.jsx'
 
 // keys to Supabase
 const url = import.meta.env.VITE_SUPABASE_URL
@@ -90,6 +91,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home bathrooms={bathrooms} reviews={reviews} />} />
         <Route path="/bathrooms" element={<AllBathrooms bathrooms={bathrooms} reviews={reviews} setBathrooms={setBathrooms} setReviews={setReviews} />} />
+        {/* gonna need things like userReviews, setUserReviews, userFavorites, setUserFavorites */}
+        <Route path={`/bathrooms/:bathroomid`} element={<BathroomPage profile={profile}/>} />
         <Route path="/about" element={<About />} />
         <Route path="/best" element={<Best bathrooms={bathrooms} reviews={reviews} setBathrooms={setBathrooms} setReviews={setReviews} />} />
         <Route path="/submit" element={<Submit />} />

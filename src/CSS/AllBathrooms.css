@@ -8,3 +8,23 @@
     margin: 15px 0;
     padding: 20px;
 }
+
+#all-bathrooms-search {
+    display: block;
+    width: fit-content;
+    margin: 30px auto;
+}
+
+#all-bathrooms-search label {
+    margin-right: 10px;
+}
+
+#search {
+    width: 70vw;
+    max-width: 300px;
+}
+
+#all-bathrooms-search label, #search {
+    font-size: 20px;
+    height: 30px;
+}
