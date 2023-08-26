@@ -8,6 +8,8 @@ export default function Account({ session, profile, setProfile, supabase }) {
 
     let navigate = useNavigate()
 
+    console.log(profile)
+
     const [username, setUsername] = useState('')
 
     async function handleUsernameSubmit(e) {

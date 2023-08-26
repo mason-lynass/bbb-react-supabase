@@ -24,6 +24,8 @@ const key = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 const supabase = createClient(url, key)
 
+const GMKey = ''
+
 function App() {
   const [session, setSession] = useState(null)
   const [sessionSwitch, setSessionSwitch] = useState(false)
@@ -95,7 +97,7 @@ function App() {
         <Route path={`/bathrooms/:bathroomid`} element={<BathroomPage profile={profile}/>} />
         <Route path="/about" element={<About />} />
         <Route path="/best" element={<Best bathrooms={bathrooms} reviews={reviews} setBathrooms={setBathrooms} setReviews={setReviews} />} />
-        <Route path="/submit" element={<Submit />} />
+        <Route path="/submit" element={<Submit bathrooms={bathrooms} setBathrooms={setBathrooms} profile={profile} GMKey={GMKey} supabase={supabase}/>} />
         <Route path="/near-me" element={<NearMe bathrooms={bathrooms} reviews={reviews} setBathrooms={setBathrooms} setReviews={setReviews} />} />
         <Route path="/login" element={<Login supabase={supabase} users={users} session={session} setProfile={setProfile} profile={profile} />} />
         <Route path="/account" element={<Account session={session} profile={profile} setProfile={setProfile} supabase={supabase} />} />

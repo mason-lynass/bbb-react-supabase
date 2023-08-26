@@ -1,0 +1,17 @@
+#submit {
+    width: 90vw;
+    margin: 20px auto;
+}
+
+#submit-bathroom-title {
+    text-align: center;
+}
+
+label, input {
+    display: block;
+}
+
+form section {
+    border: 1px solid black;
+    margin: 10px auto;
+}
