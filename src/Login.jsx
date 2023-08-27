@@ -12,6 +12,7 @@ export default function Login({ supabase, session, setProfile, profile, users })
     // if there's no session, then you need to log in
     if (!session) return (
         <m.div id='Auth' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+            {/* this component comes straight from Supabase Auth UI React */}
             {/* // it would be nice if I could add some functionality to this component but I don't think that I can */}
             {/* // like it would be nice to do everything else in the if statements here */}
             <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} providers={[]} />

@@ -1,3 +1,5 @@
+// this was taken directly from the old BBB I did with Alex in Phase 4
+
 import React, { useState } from "react";
 
 export default function RatingButton( {rating, setRating} ) {

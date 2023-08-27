@@ -23,7 +23,7 @@ export default function Best({ bathrooms, reviews }) {
             <div id='best-bathrooms'>
                 {best.map((bathroom) => {
                     return (
-                        <BestBathroom bathroom={bathroom} />
+                        <BestBathroom bathroom={bathroom} key={bathroom.location_name}/>
                     )
                 })}
             </div>

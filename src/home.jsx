@@ -2,6 +2,15 @@ import { motion as m } from 'framer-motion'
 
 export default function Home({ bathrooms, reviews }) {
 
+    // for this page I was thinking it would be nice to see:
+
+    // "Welcome to the Better Bathroom Bureau"
+    // a link to the app on the App Store, something like "on the go? get the app!"
+    // a brief description of what BBB is - something like the text on the Mission page
+    // one bathroom - maybe the most recently submitted, or the highest rated, or the closest to you?
+    // one review - maybe the most recent, or something specific that we choose?
+    // mayyyyybe a map with all of the bathrooms on it as pins? might be an expensive feature if we load a map and all the pins every homepage visit
+
     return (
         <main id='home-main'>
             <m.div id='home'
