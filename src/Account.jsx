@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { redirect, useNavigate, useLoaderData } from "react-router-dom";
 import { motion as m } from "framer-motion";
 
 import "./CSS/Account.css";
 
-export default function Account({ session, profile, setProfile, supabase }) {
+export default function Account({ setProfile }) {
   let navigate = useNavigate();
+
+  const loaderData = useLoaderData()
+  const session = loaderData[0]
+  const profile = loaderData[1]
+  const supabase = loaderData[2]
 
   console.log(profile);
 

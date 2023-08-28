@@ -1,12 +1,19 @@
 import { motion as m } from "framer-motion";
 import AllBathroomsMap from "./components/NearMeMap";
 import Marker from "./components/Marker";
+import { useLoaderData } from "react-router-dom";
 
 // this page will be a big map from Google Maps JavaScript API
 // lex and I figured a lot of this out here:
 // https://github.com/alexbriannaughton/bbb-app/blob/main/client/src/components/MapViewHomepage.js
 
-export default function NearMe({ bathrooms, GMKey }) {
+export default function NearMe() {
+
+  const loaderData = useLoaderData()
+  const bathrooms = loaderData[0]
+  const GMKey = loaderData[1]
+
+
   const seattle = { lat: 47.6062, lng: -122.3321 };
 
   const allBathrooms = bathrooms.map((bathroom) => {

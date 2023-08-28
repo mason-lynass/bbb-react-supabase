@@ -1,49 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLoaderData } from "react-router-dom";
 
-// i'm thinking that a lot of this will be unnecessary once I figure out how the loader function in React Router works
-// let me work on this one for a bit
+export default function BathroomPage() {
 
-export default function BathroomPage({
-  profile,
-  reviews,
-  bathrooms,
-  setReviews,
-  setBathrooms,
-  supabase,
-}) {
-  const [bathroomFound, setBathroomFound] = useState(false);
-  const [thisBathroom, setThisBathroom] = useState({});
-
-  // this is an object with one key/value pair: { bathroomid: 'number'}
-  let params = useParams();
-
-  async function getThisBathroom() {
-    console.log("we here");
-    const { bathroomFromSupabase } = await supabase
-      .from("bathrooms")
-      .select()
-      .eq("id", params.bathroomid[0]);
-    setThisBathroom(await bathroomFromSupabase)
-    console.log(bathroomFromSupabase);
-  }
-
-  useEffect(() => {
-    console.log(params, bathrooms);
-    // bathrooms.filter returns an array with one element, we need to access that element
-    if (bathrooms.length && params.bathroomid) {
-      console.log("this");
-      setThisBathroom(
-        bathrooms.filter((bathroom) => bathroom.id == params.bathroomid)[0]
-      );
-      setBathroomFound(true)
-    } else {
-      console.log("else");
-      getThisBathroom();
-    }
-  }, []);
-
-    // if (thisBathroom.id) setBathroomFound(true);
+  let loaderData = useLoaderData();
+  const params = loaderData[0];
+  const bathroom = loaderData[1][0];
+  console.log(loaderData);
 
   function singleBathroom(bathroom) {
     const bathroomPublic = bathroom.public == "true" ? "public" : "private";
@@ -64,15 +27,9 @@ export default function BathroomPage({
     );
   }
 
-  // console.log(thisBathroom)
-
   return (
     <main>
-      {bathroomFound === true ? (
-        singleBathroom(thisBathroom)
-      ) : (
-        <p>loading...</p>
-      )}
+      {singleBathroom(bathroom)}
     </main>
   );
 }

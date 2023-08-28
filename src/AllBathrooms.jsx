@@ -1,10 +1,13 @@
 import { useMemo, useState } from "react";
 import "./CSS/AllBathrooms.css";
 import { motion as m } from "framer-motion";
-import { Link } from "react-router-dom"
+import { Link, useLoaderData } from "react-router-dom"
 
-export default function AllBathrooms({ bathrooms, reviews }) {
+export default function AllBathrooms() {
   const [query, setQuery] = useState("");
+
+  // we can do it in one line here because we're only returning one thing in the allBathroomsLoader()
+  const bathrooms = useLoaderData()
 
   const filteredBathrooms = useMemo(() => {
     return bathrooms.filter((b) =>

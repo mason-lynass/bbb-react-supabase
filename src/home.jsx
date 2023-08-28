@@ -1,6 +1,7 @@
 import { motion as m } from 'framer-motion'
+import { useLoaderData } from 'react-router-dom'
 
-export default function Home({ bathrooms, reviews }) {
+export default function Home() {
 
     // for this page I was thinking it would be nice to see:
 
@@ -10,6 +11,11 @@ export default function Home({ bathrooms, reviews }) {
     // one bathroom - maybe the most recently submitted, or the highest rated, or the closest to you?
     // one review - maybe the most recent, or something specific that we choose?
     // mayyyyybe a map with all of the bathrooms on it as pins? might be an expensive feature if we load a map and all the pins every homepage visit
+
+    const loaderData = useLoaderData()
+
+    const bathrooms = loaderData[0]
+    const reviews = loaderData[1]
 
     return (
         <main id='home-main'>

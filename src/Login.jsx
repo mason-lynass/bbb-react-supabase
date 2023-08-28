@@ -2,12 +2,18 @@ import { useEffect, useState } from "react";
 import "./CSS/Login.css"
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared"
-import { Navigate } from "react-router-dom";
+import { Navigate, useLoaderData } from "react-router-dom";
 import { motion as m } from 'framer-motion'
 
-export default function Login({ supabase, session, setProfile, profile, users }) {
+export default function Login({ setProfile }) {
 
     // const [hasAccount, setHasAccount] = useState(false)
+
+    const loaderData = useLoaderData()
+    const session = loaderData[0]
+    const profile = loaderData[1]
+    const supabase = loaderData[2]
+    const users = loaderData[3]
 
     // if there's no session, then you need to log in
     if (!session) return (

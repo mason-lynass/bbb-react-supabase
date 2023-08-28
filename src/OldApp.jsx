@@ -25,7 +25,9 @@ const supabase = createClient(url, key);
 
 const GMKey = "";
 
-function App() {
+// this version uses BrowserRouter instead of createBrowserRouter
+// we're gonna use NewApp
+function OldApp() {
   const [session, setSession] = useState(null);
   const [sessionSwitch, setSessionSwitch] = useState(false);
   const [users, setUsers] = useState([]);
@@ -41,8 +43,8 @@ function App() {
       setSessionSwitch(true); // this is mostly for console logs, I guess
       getUsers(session); // this function needs session to setProfile
     });
-    getBathrooms();
-    getReviews();
+    // getBathrooms();
+    // getReviews();
 
     const {
       data: { subscription },
@@ -86,6 +88,17 @@ function App() {
 
   // console.log(session, profile)
 
+  async function homepageLoader() {
+
+  }
+
+  async function allBathroomsLoader() {
+    console.log(users, bathrooms, reviews)
+    if (users.length < 1) getUsers(session)
+    if (bathrooms.length < 1) getBathrooms()
+    if (reviews.length < 1) getReviews()
+  }
+
   return (
     <m.div
       initial={{ opacity: 0 }}
@@ -102,7 +115,7 @@ function App() {
         <Route
           path="/bathrooms"
           // getBathrooms
-          // loader={}
+          loader={allBathroomsLoader}
           element={
             <AllBathrooms
               bathrooms={bathrooms}
@@ -196,4 +209,4 @@ function App() {
   );
 }
 
-export default App;
+export default OldApp;
