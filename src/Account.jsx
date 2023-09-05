@@ -12,14 +12,14 @@ export default function Account({ setProfile }) {
   const profile = loaderData[1]
   const supabase = loaderData[2]
 
-  console.log(profile);
+  // console.log(profile, session, supabase);
 
   const [username, setUsername] = useState("");
 
   async function handleUsernameSubmit(e) {
     e.preventDefault();
     // this updates the username in the users table where the id === logged in user id
-    const { error } = await supabase
+    const { newName, error } = await supabase
       .from("users")
       .update({ username: username })
       .eq("id", profile.id);
@@ -27,7 +27,7 @@ export default function Account({ setProfile }) {
     setProfile({
       id: profile.id,
       email: profile.email,
-      username: username,
+      username: await newName,
     });
   }
 

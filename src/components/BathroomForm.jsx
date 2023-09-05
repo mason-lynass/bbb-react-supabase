@@ -80,6 +80,7 @@ export default function BathroomForm({
         function_rating: bathroomFunctionRating,
         style,
         style_rating: styleRating,
+        average_rating: ((cleanlinessRating + bathroomFunctionRating + styleRating) / 3).toFixed(2)
       };
 
       // console.log(reviewSupabase)
