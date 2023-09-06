@@ -17,7 +17,7 @@
     margin: auto;
 }
 
-section h2, section div {
+#login section h2, #login section div {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;

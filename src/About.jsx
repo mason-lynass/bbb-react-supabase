@@ -34,7 +34,7 @@ export default function About() {
             </p>
           </div>
         </div>
-        <div>
+        <div id='about-data'>
           <h3>About our data:</h3>
           <p>
             Better Bathroom Bureau maintains a database of bathrooms and reviews
@@ -70,7 +70,7 @@ export default function About() {
           </p>
         </div>
         <hr/>
-        <div>
+        <div id='references-contact'>
           <p>
             Many public bathrooms in our database come from the{" "}
             <ANewTab

@@ -1,30 +1,47 @@
+
+
 #all-bathrooms {
-    margin: 2vw;
+  margin: 2vw;
 }
 
 .one-bathroom-all {
-    border-radius: 10px;
-    border: 1px solid whitesmoke;
-    margin: 15px 0;
-    padding: 20px;
+  border-radius: 10px;
+  border: 2px solid var(--blue-light);
+  color: var(--main-white);
+  background-color: inherit;
+  margin: 15px 0;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 45% 25% 25%;
+  gap: 1%;
+}
+
+#all-bathrooms a:nth-of-type(odd) {
+    text-align: left;
+    background-color: var(--blue-dark);
+}
+
+#all-bathrooms a:nth-of-type(even) {
+    background-color:var(--green-dark);
 }
 
 #all-bathrooms-search {
-    display: block;
-    width: fit-content;
-    margin: 30px auto;
+  display: block;
+  width: fit-content;
+  margin: 30px auto;
 }
 
 #all-bathrooms-search label {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 #search {
-    width: 70vw;
-    max-width: 300px;
+  width: 70vw;
+  max-width: 300px;
 }
 
-#all-bathrooms-search label, #search {
-    font-size: 20px;
-    height: 30px;
+#all-bathrooms-search label,
+#search {
+  font-size: 20px;
+  height: 30px;
 }

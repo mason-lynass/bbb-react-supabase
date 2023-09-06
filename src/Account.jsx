@@ -7,14 +7,21 @@ import "./CSS/Account.css";
 export default function Account({ setProfile }) {
   let navigate = useNavigate();
 
-  const loaderData = useLoaderData()
-  const session = loaderData[0]
-  const profile = loaderData[1]
-  const supabase = loaderData[2]
+  const loaderData = useLoaderData();
+  const session = loaderData[0];
+  const profile = loaderData[1];
+  const supabase = loaderData[2];
+  const bathrooms = loaderData[3];
+  const reviews = loaderData[4];
+  const favorites = loaderData[5];
 
   // console.log(profile, session, supabase);
 
   const [username, setUsername] = useState("");
+  const [profileBathrooms, setProfileBathrooms] = useState([]);
+  const [profileReviews, setProfileReviews] = useState([]);
+  const [profileFavorites, setProfileFavorites] = useState([]);
+  const [open, setOpen] = useState(null);
 
   async function handleUsernameSubmit(e) {
     e.preventDefault();
@@ -31,10 +38,69 @@ export default function Account({ setProfile }) {
     });
   }
 
+  useEffect(() => {
+    if (profile) {
+      setProfileBathrooms(
+        bathrooms.filter((b) => b.submitted_by === profile.id)
+      );
+      setProfileReviews(
+        reviews.filter((review) => review.user_id === profile.id)
+      );
+      // setProfileFavorites(favorites.filter((favorite) => favorite.user_id === profile.id))
+    }
+  }, [profile]);
+
   async function signOut() {
     const { error } = await supabase.auth.signOut();
     setProfile(null);
     navigate("/login");
+  }
+
+  function myBathrooms() {
+    if (open === "bathrooms") {
+      return profileBathrooms.map((bathroom) => {
+        return (
+          <div className="one-bathroom">
+            <p>{bathroom.location_name}</p>
+            <p>{bathroom.address}</p>
+            <p>{bathroom.number_of_favorites}</p>
+          </div>
+        );
+      });
+    }
+  }
+
+  function myReviews() {
+    if (open === "reviews") {
+      return profileReviews.map((review) => {
+        let thisBathroom = bathrooms.filter(
+          (bathroom) => bathroom.id === review.bathroom_id
+        )[0];
+        return (
+          <div className="one-review">
+            <p>{thisBathroom.location_name}</p>
+            <p>{review.description.slice(0, 80)}...</p>
+            <p>{review.average_rating}</p>
+          </div>
+        );
+      });
+    }
+  }
+
+  function myFavorites() {
+    if (open === "favorites") {
+      return profileFavorites.map((fav) => {
+        let thisBathroom = bathrooms.filter(
+          (bathroom) => bathroom.id === fav.bathroom_id
+        )[0];
+        return (
+          <div className="one-favorite">
+            <p>{thisBathroom.location_name}</p>
+            <p>{thisBathroom.neighborhood}</p>
+          </div>
+        );
+      });
+    }
   }
 
   if (profile) {
@@ -78,19 +144,28 @@ export default function Account({ setProfile }) {
             <h2>Hi there, {profile.username}!</h2>
             {/* it would be cool if there was a section for Bathrooms, Reviews, and Favorites */}
             {/* and they each had their own sort of header that you could click on to open or hide the content */}
-            <div id="account-bathrooms">
+            <section id="account-bathrooms">
               {/* this will change once we tie users to bathrooms */}
               {/* would need to add a "submitted_by" column to the DB */}
-              <h3>You've submitted 0 bathrooms:</h3>
-            </div>
-            <div id="account-reviews">
+              <h3 onClick={(e) => open === 'bathrooms' ? setOpen(null) : setOpen('bathrooms')}>
+                You've submitted {profileBathrooms.length} bathrooms:
+              </h3>
+              <div id='my-bathrooms'>{myBathrooms()}</div>
+            </section>
+            <section id="account-reviews">
               {/* this will change once we tie users to reviews */}
-              <h3>You've submitted 0 reviews:</h3>
-            </div>
-            <div id="account-favorites">
+              <h3 onClick={(e) => open === 'reviews' ? setOpen(null) : setOpen('reviews')}>
+                You've submitted {profileReviews.length} {profileReviews.length === 1 ? 'review' : 'reviews'}:
+              </h3>
+              <div id='my-reviews'>{myReviews()}</div>
+            </section>
+            <section id="account-favorites">
               {/* this will change once we tie users to favorites */}
-              <h3>Here are your favorite bathrooms:</h3>
-            </div>
+              <h3 onClick={(e) => open === 'favorites' ? setOpen(null) : setOpen('favorites')}>
+                Here are your favorite bathrooms:
+                <div id='account-favorites'>{myFavorites()}</div>
+              </h3>
+            </section>
             <div id="sign-out">
               <button onClick={signOut}>Sign Out</button>
             </div>

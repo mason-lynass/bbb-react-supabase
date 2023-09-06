@@ -228,7 +228,7 @@ function NewApp() {
 
   async function accountLoader() {
     // console.log(session, profile);
-    return [session, profile, supabase];
+    return [session, profile, supabase, bathrooms, reviews];
   }
 
   return (

@@ -7,7 +7,7 @@ export default function AllBathrooms() {
   const [query, setQuery] = useState("");
 
   // we can do it in one line here because we're only returning one thing in the allBathroomsLoader()
-  const bathrooms = useLoaderData()
+  const bathrooms = useLoaderData().filter((b) => b.approved === true)
 
   const filteredBathrooms = useMemo(() => {
     return bathrooms.filter((b) =>

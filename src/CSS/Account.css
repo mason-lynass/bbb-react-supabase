@@ -6,9 +6,61 @@
 
 #account :is(h2) {
     text-align: center;
+    background-color: var(--green-dark);
+    padding: 10px;
+    margin: 0;
 }
 
 #account div button {
     display: block;
     margin: 0 auto;
+}
+
+section h3 {
+    background-color: var(--blue-middle);
+    padding: 20px;
+    margin: 0px;
+
+}
+
+#account-reviews, #acccount-bathrooms, #account-favorites {
+    margin: 0px;
+}
+
+#account-bathrooms h3 {
+    background-color: #0b2266;
+}
+
+#account-reviews h3 {
+    background-color: #142e7c;
+}
+
+.one-bathroom, .one-review, .one-favorite {
+    display: grid;
+    grid-template-columns: 50% 40% 5%;
+    gap: 2.5%;
+    justify-content: left;
+    align-items: center;
+    margin: 0px;
+    padding: 10px 20px;
+}
+
+.one-bathroom:hover, .one-review:hover, .one-favorite:hover {
+    background-color: var(--green-dark);
+}
+
+.one-bathroom, .one-review, .one-favorite > p {
+    background-color: inherit;
+}
+
+section div {
+    background-color: var(--blue-dark);
+}
+
+#sign-out {
+    margin: 20px auto;
+}
+
+#sign-out button {
+    background-color: var(--green-dark);
 }

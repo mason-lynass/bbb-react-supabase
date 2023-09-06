@@ -4,6 +4,10 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    background-color: var(--blue-dark);
+    position: sticky;
+    top: 0;
+    left: 0;
 }
 
 #nav-title {
@@ -34,6 +38,10 @@ nav div a {
 #underline {
     text-decoration: underline;
     text-underline-offset: 8px;
+}
+
+#layout-outlet {
+    margin: 0px 0px 60px 0px;
 }
 
 #footer {
