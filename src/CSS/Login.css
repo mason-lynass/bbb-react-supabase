@@ -24,7 +24,7 @@
     align-items: center;
 }
 
-section p, section button {
+#login section p, #login section button {
     margin: 1vw;
 }
 

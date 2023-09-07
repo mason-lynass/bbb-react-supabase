@@ -1,5 +1,5 @@
 import { motion as m } from "framer-motion";
-import AllBathroomsMap from "./components/NearMeMap";
+import NearMeMap from "./components/NearMeMap";
 import Marker from "./components/Marker";
 import { useLoaderData } from "react-router-dom";
 
@@ -35,9 +35,9 @@ export default function NearMe() {
       <main>
         {/* // this won't work until we get a Google Maps key */}
         {/* <Wrapper classname="Wrapper" apiKey={GMKey}>
-          <AllBathroomsMap center={seattle} zoom={11}>
+          <NearMeMap center={seattle} zoom={11}>
             {allBathrooms}
-          </AllBathroomsMap>
+          </NearMeMap>
         </Wrapper> */}
       </main>
     </m.div>

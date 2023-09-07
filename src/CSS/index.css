@@ -3,7 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  --main-darkest: #0D0221 ;
+  --main-darkest: rgb(23, 23, 74) ;
   --blue-dark: #0c073d;
   --blue-middle: #26408B;
   --blue-light: #4266d3;

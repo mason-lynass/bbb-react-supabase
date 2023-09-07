@@ -1,0 +1,48 @@
+#new-bathroom-container {
+    width: 95vw;
+    max-width: 1000px;
+    background-color: var(--blue-middle);
+    margin: auto;
+}
+
+#bathroom-fields input, #bathroom-fields label, #bathroom-fields textarea  {
+    width: 90%;
+    margin: auto;
+    display: block;
+}
+
+#bathroom-fields label {
+    margin-top: 30px;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+#bathroom-fields input {
+    font-size: 24px;
+    height: 30px;
+    padding: 5px;
+}
+
+#all-nb-radios {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 20px;
+}
+
+.nb-bool {
+    width: 200px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-self: center;
+    gap: 5px;
+    padding: 20px;
+}
+
+#bathroom-fields .nb-radios label {
+    margin: 0 auto;
+    width: fit-content;
+    text-align: center;
+}
+

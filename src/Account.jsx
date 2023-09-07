@@ -144,7 +144,7 @@ export default function Account({ setProfile }) {
             <h2>Hi there, {profile.username}!</h2>
             {/* it would be cool if there was a section for Bathrooms, Reviews, and Favorites */}
             {/* and they each had their own sort of header that you could click on to open or hide the content */}
-            <section id="account-bathrooms">
+            <section className="account-section" id="account-bathrooms">
               {/* this will change once we tie users to bathrooms */}
               {/* would need to add a "submitted_by" column to the DB */}
               <h3 onClick={(e) => open === 'bathrooms' ? setOpen(null) : setOpen('bathrooms')}>
@@ -152,14 +152,14 @@ export default function Account({ setProfile }) {
               </h3>
               <div id='my-bathrooms'>{myBathrooms()}</div>
             </section>
-            <section id="account-reviews">
+            <section className="account-section" id="account-reviews">
               {/* this will change once we tie users to reviews */}
               <h3 onClick={(e) => open === 'reviews' ? setOpen(null) : setOpen('reviews')}>
                 You've submitted {profileReviews.length} {profileReviews.length === 1 ? 'review' : 'reviews'}:
               </h3>
               <div id='my-reviews'>{myReviews()}</div>
             </section>
-            <section id="account-favorites">
+            <section className="account-section" id="account-favorites">
               {/* this will change once we tie users to favorites */}
               <h3 onClick={(e) => open === 'favorites' ? setOpen(null) : setOpen('favorites')}>
                 Here are your favorite bathrooms:

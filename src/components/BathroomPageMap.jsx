@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function NearMeMap({ center, zoom, children }) {
+export default function BathroomPageMap({ center, zoom, children }) {
     const ref = React.useRef(null)
     const [map, setMap] = React.useState()
 
@@ -12,7 +12,7 @@ export default function NearMeMap({ center, zoom, children }) {
 
     return (
     <>
-        <div id="AllBathroomsMap" ref={ref}
+        <div id="BathroomPageMap" ref={ref}
         //  style={{ height: "500px", width: "500px" }}
          />
         {

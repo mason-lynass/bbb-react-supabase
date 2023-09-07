@@ -118,6 +118,8 @@ function NewApp() {
     },
   ]);
 
+  console.log(profile)
+
   // fetch functions, getting data from Supabase
   // sometimes we will need to get individual rows instead of all of the rows
   // like fetchOneBathroom for the case where a user lands on /bathrooms/:bathroom_id without first going to any other page where we get all of the bathrooms

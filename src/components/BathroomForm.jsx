@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import { Navigate, useNavigate } from "react-router-dom";
+import "../CSS/BathroomForm.css"
 
 import RatingButton from "./RatingButton";
 
@@ -19,6 +20,8 @@ export default function BathroomForm({
   const [locationName, setLocationName] = useState("");
   const [bathroomDescription, setBathroomDescription] = useState("");
   const [publicBool, setPublicBool] = useState(null);
+  const [gnBool, setGNBool] = useState(null);
+  const [ADABool, setADABool] = useState(null);
 
   // review fields
   const [date, setDate] = useState(new Date());
@@ -148,9 +151,11 @@ export default function BathroomForm({
               onChange={(e) => setBathroomDescription(e.target.value)}
             ></textarea>
           </div>
-          <div>
+          <div id='all-nb-radios'>
+          <div className='nb-radios' id='nb-public'>
             <label htmlFor="nb-public-bool">Public?</label>
-            <div id="nb-public-bool">
+            <div className="nb-bool" id="nb-public-bool">
+            <label>Yes</label>
               <input
                 className="nb-public-radio"
                 name="public-radio-true"
@@ -158,7 +163,7 @@ export default function BathroomForm({
                 value={true}
                 onChange={(e) => setPublicBool(e.target.value === "true")}
               ></input>
-              <label>True</label>
+              <label>No</label>
               <input
                 className="nb-public-radio"
                 name="public-radio-false"
@@ -166,7 +171,52 @@ export default function BathroomForm({
                 value={false}
                 onChange={(e) => setPublicBool(e.target.value === "true")}
               ></input>
-              <label>False</label>
+              
+            </div>
+          </div>
+          <div className='nb-radios' id='nb-gn'>
+            <label htmlFor="nb-gn-bool">Gender neutral?</label>
+            <div className="nb-bool" id="nb-gn-bool">
+            <label>Yes</label>
+              <input
+                className="nb-gn-radio"
+                name="gn-radio-true"
+                type="radio"
+                value={true}
+                onChange={(e) => setGNBool(e.target.value === "true")}
+              ></input>
+              
+              <label>No</label>
+              <input
+                className="nb-gn-radio"
+                name="gn-radio-false"
+                type="radio"
+                value={false}
+                onChange={(e) => setGNBool(e.target.value === "true")}
+              ></input>
+              
+            </div>
+          </div>
+          <div className='nb-radios' id='nb-ada'>
+            <label htmlFor="nb-ada-bool">ADA compliant facilities?</label>
+            <div className="nb-bool" id="nb-ada-bool">
+            <label>Yes</label>
+              <input
+                className="nb-ada-radio"
+                name="ada-radio-true"
+                type="radio"
+                value={true}
+                onChange={(e) => setADABool(e.target.value === "true")}
+              ></input>
+              <label>No</label>
+              <input
+                className="nb-ada-radio"
+                name="ada-radio-false"
+                type="radio"
+                value={false}
+                onChange={(e) => setADABool(e.target.value === "true")}
+              ></input>
+              </div>
             </div>
           </div>
         </section>

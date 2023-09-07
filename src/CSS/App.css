@@ -55,9 +55,10 @@ nav div a {
 }
 
 .one-bathroom-stock {
-    border: 1px solid gold;
+    border: 1px solid var(--green-light);
     width: 45vw;
     max-width: 450px;
     border-radius: 10px;
     padding: 10px;
+    background-color: var(--blue-middle);
 }

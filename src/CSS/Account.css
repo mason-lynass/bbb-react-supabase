@@ -16,7 +16,7 @@
     margin: 0 auto;
 }
 
-section h3 {
+.account-section h3 {
     background-color: var(--blue-middle);
     padding: 20px;
     margin: 0px;
@@ -53,7 +53,7 @@ section h3 {
     background-color: inherit;
 }
 
-section div {
+.account-section div {
     background-color: var(--blue-dark);
 }
 

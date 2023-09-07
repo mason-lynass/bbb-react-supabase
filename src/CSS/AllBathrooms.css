@@ -45,3 +45,36 @@
   font-size: 20px;
   height: 30px;
 }
+
+/* for one bathroom */
+
+#bathroom-name {
+  text-align: center;
+}
+
+#bathroom-top-split {
+  display: grid;
+  grid-template-columns: 1fr 500px;
+  margin: auto 20px;
+  gap: 20px;
+}
+
+#one-bathroom-location, #one-bathroom-stats {
+  display:  flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1vw;
+}
+
+#one-bathroom-description {
+  text-align: center;
+}
+
+#one-bathroom-buttons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
