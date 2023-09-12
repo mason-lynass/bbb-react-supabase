@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
 import { Routes, Route, Link } from "react-router-dom";
+import { createClient } from "@supabase/supabase-js";
+import { useQuery, useMutation, useQueryClient, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { motion as m } from "framer-motion";
 
 import Home from "./home.jsx";
@@ -22,6 +23,8 @@ const url = import.meta.env.VITE_SUPABASE_URL;
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 const supabase = createClient(url, key);
+
+const queryClient = new QueryClient()
 
 const GMKey = "";
 
@@ -88,17 +91,6 @@ function OldApp() {
 
   // console.log(session, profile)
 
-  async function homepageLoader() {
-
-  }
-
-  async function allBathroomsLoader() {
-    console.log(users, bathrooms, reviews)
-    if (users.length < 1) getUsers(session)
-    if (bathrooms.length < 1) getBathrooms()
-    if (reviews.length < 1) getReviews()
-  }
-
   return (
     <m.div
       initial={{ opacity: 0 }}
@@ -109,13 +101,10 @@ function OldApp() {
       <Routes>
         <Route
           path="/"
-          // loader={}
           element={<Home bathrooms={bathrooms} reviews={reviews} />}
         />
         <Route
           path="/bathrooms"
-          // getBathrooms
-          loader={allBathroomsLoader}
           element={
             <AllBathrooms
               bathrooms={bathrooms}
@@ -128,8 +117,6 @@ function OldApp() {
         {/* gonna need things like userReviews, setUserReviews, userFavorites, setUserFavorites */}
         <Route
           path='/bathrooms/:bathroomid'
-          // get the one bathroom
-          // loader={}
           element={
             <BathroomPage
               profile={profile}

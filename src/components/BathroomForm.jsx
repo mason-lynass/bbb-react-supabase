@@ -4,6 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import "../CSS/BathroomForm.css"
 
 import RatingButton from "./RatingButton";
+import { globalStore } from "../Zustand";
 
 export default function BathroomForm({
   profile,
@@ -98,7 +99,8 @@ export default function BathroomForm({
       console.log(bathroomResult, reviewResult, errors);
       // Navigate(`/bathrooms/${createdBathroom.id}`)
       // maybe this needs to be inside another array?
-      setBathrooms([...bathrooms], createdBathroom);
+      globalStore.setState({ bathrooms: [...bathrooms], createdBathroom})
+      // setBathrooms([...bathrooms], createdBathroom);
     } catch (error) {
       console.log(error);
       setErrors(error);

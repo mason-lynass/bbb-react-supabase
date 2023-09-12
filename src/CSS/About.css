@@ -38,3 +38,13 @@ hr {
     width: 200px;
     margin: 20px auto;
 }
+
+@media (prefers-color-scheme: light) { 
+    #about-flex div, #about-data, #references-contact { 
+        background-color: var(--green-light);
+    }
+
+    #about a {
+        color: var(--blue-darkest)
+    }
+}

@@ -64,3 +64,9 @@
 #sign-out button {
     background-color: var(--green-dark);
 }
+
+@media (prefers-color-scheme: light) {
+    #account * {
+        color: white;
+    }
+}

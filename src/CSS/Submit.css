@@ -15,3 +15,13 @@ form section {
     border: 1px solid black;
     margin: 10px auto;
 }
+
+@media (prefers-color-scheme: light) {
+    #submit {
+        color: white;
+    }
+
+    #submit h1 {
+        color: var(--main-darkest)
+    }
+}

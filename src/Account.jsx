@@ -3,17 +3,47 @@ import { redirect, useNavigate, useLoaderData } from "react-router-dom";
 import { motion as m } from "framer-motion";
 
 import "./CSS/Account.css";
+import { globalStore } from "./Zustand";
+import { supabase } from "./NewApp";
+import {
+  fetchBathrooms,
+  fetchFavorites,
+  fetchReviews,
+} from "./fetch-functions";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Account({ setProfile }) {
   let navigate = useNavigate();
 
-  const loaderData = useLoaderData();
-  const session = loaderData[0];
-  const profile = loaderData[1];
-  const supabase = loaderData[2];
-  const bathrooms = loaderData[3];
-  const reviews = loaderData[4];
-  const favorites = loaderData[5];
+  const {
+    status,
+    error,
+    data: bathrooms,
+  } = useQuery({
+    queryKey: ["bathrooms"],
+    queryFn: fetchBathrooms,
+  });
+
+  const {
+    status: rstatus,
+    error: rerror,
+    data: reviews,
+  } = useQuery({
+    queryKey: ["reviews"],
+    queryFn: fetchReviews,
+  });
+
+  const {
+    status: fstatus,
+    error: ferror,
+    data: favorites,
+  } = useQuery({
+    queryKey: ["favorites"],
+    queryFn: fetchFavorites,
+  });
+
+  const session = globalStore((state) => state.session);
+  const profile = globalStore((state) => state.profile);
 
   // console.log(profile, session, supabase);
 
@@ -39,7 +69,7 @@ export default function Account({ setProfile }) {
   }
 
   useEffect(() => {
-    if (profile) {
+    if (profile && bathrooms) {
       setProfileBathrooms(
         bathrooms.filter((b) => b.submitted_by === profile.id)
       );
@@ -48,7 +78,7 @@ export default function Account({ setProfile }) {
       );
       // setProfileFavorites(favorites.filter((favorite) => favorite.user_id === profile.id))
     }
-  }, [profile]);
+  }, [profile, bathrooms]);
 
   async function signOut() {
     const { error } = await supabase.auth.signOut();
@@ -147,23 +177,36 @@ export default function Account({ setProfile }) {
             <section className="account-section" id="account-bathrooms">
               {/* this will change once we tie users to bathrooms */}
               {/* would need to add a "submitted_by" column to the DB */}
-              <h3 onClick={(e) => open === 'bathrooms' ? setOpen(null) : setOpen('bathrooms')}>
+              <h3
+                onClick={(e) =>
+                  open === "bathrooms" ? setOpen(null) : setOpen("bathrooms")
+                }
+              >
                 You've submitted {profileBathrooms.length} bathrooms:
               </h3>
-              <div id='my-bathrooms'>{myBathrooms()}</div>
+              <div id="my-bathrooms">{myBathrooms()}</div>
             </section>
             <section className="account-section" id="account-reviews">
               {/* this will change once we tie users to reviews */}
-              <h3 onClick={(e) => open === 'reviews' ? setOpen(null) : setOpen('reviews')}>
-                You've submitted {profileReviews.length} {profileReviews.length === 1 ? 'review' : 'reviews'}:
+              <h3
+                onClick={(e) =>
+                  open === "reviews" ? setOpen(null) : setOpen("reviews")
+                }
+              >
+                You've submitted {profileReviews.length}{" "}
+                {profileReviews.length === 1 ? "review" : "reviews"}:
               </h3>
-              <div id='my-reviews'>{myReviews()}</div>
+              <div id="my-reviews">{myReviews()}</div>
             </section>
             <section className="account-section" id="account-favorites">
               {/* this will change once we tie users to favorites */}
-              <h3 onClick={(e) => open === 'favorites' ? setOpen(null) : setOpen('favorites')}>
+              <h3
+                onClick={(e) =>
+                  open === "favorites" ? setOpen(null) : setOpen("favorites")
+                }
+              >
                 Here are your favorite bathrooms:
-                <div id='account-favorites'>{myFavorites()}</div>
+                <div id="account-favorites">{myFavorites()}</div>
               </h3>
             </section>
             <div id="sign-out">
