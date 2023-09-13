@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 import { motion as m } from "framer-motion";
 
 import { globalStore } from "./Zustand";
-import { supabase } from "./NewApp";
+import { supabase } from "./ReactQueryApp";
 import "./CSS/Login.css";
 
 export default function Login() {
@@ -58,5 +58,5 @@ export default function Login() {
   if (session && profile) {
     return <Navigate to="/account" replace={true} />;
   } else return <p>uh oh!</p>;
-  
+
 }

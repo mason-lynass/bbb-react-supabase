@@ -13,7 +13,6 @@ import Login from "./Login.jsx";
 import AllBathrooms from "./AllBathrooms.jsx";
 import BathroomPage from "./components/BathroomPage.jsx";
 import NavBar from "./components/NavBar.jsx";
-import Footer from "./components/Footer.jsx";
 
 import "./CSS/app.css";
 
@@ -31,15 +30,36 @@ export const GMKey = "";
 // this version uses BrowserRouter instead of createBrowserRouter
 // we're gonna use this version of the main App component
 function RQApp() {
-  const session = globalStore((state) => state.bathrooms);
-  const users = globalStore((state) => state.users);
+  // const session = globalStore((state) => state.bathrooms);
+  // const users = globalStore((state) => state.users);
+  const profile = globalStore((state) => state.profile);
 
-  const { getTheUsers, isLoading, isError } = useQuery({
+  const {
+    data: users,
+    isLoading: usersLoading,
+    isError: usersError,
+  } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const { data, error } = await supabase.from("users").select(); // get the data from Supabase
-      globalStore.setState({ users: data });
+      globalStore.setState({ users: users });
       return data;
+    },
+  });
+
+  const {
+    data: session,
+    isLoading: sessionLoading,
+    isError: sessionError,
+  } = useQuery({
+    queryKey: ["session"],
+    queryFn: async () => {
+      const { data, error } = await supabase.auth.getSession();
+      if (data.session) {
+        globalStore.setState({ session: data.session });
+        setSessionSwitch(true);
+      }
+      return data.session;
     },
   });
 
@@ -47,17 +67,12 @@ function RQApp() {
 
   // initial loading of data from database
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      globalStore.setState({ session: session });
-      setSessionSwitch(true); // this is mostly for console logs, I guess
-
-      if (session && users.length) {
-        globalStore.setState({
-          profile: users.find((user) => session.user.id === user.id)[0],
-        }); // this function needs session to setProfile
-        // setLoading(false);
-      }
-    });
+    if (session && users) {
+      globalStore.setState({
+        profile: users.find((user) => session.user.id === user.id),
+      }); // this function needs session to setProfile
+      // setLoading(false);
+    }
 
     const {
       data: { subscription },
@@ -66,7 +81,7 @@ function RQApp() {
     });
 
     return () => subscription.unsubscribe(); // cleanup function
-  }, []);
+  }, [users, session]);
 
   return (
     <m.div

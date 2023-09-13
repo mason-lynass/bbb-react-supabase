@@ -20,7 +20,7 @@ export default function Submit({ setBathrooms }) {
     queryKey: ['bathrooms'],
     queryFn: fetchBathrooms
 })
-  const profile = globalStore((state) => state.bathrooms);
+  const profile = globalStore((state) => state.profile);
 
   // check to see if there's a logged in user, if not, make them log in
   if (!profile) {
@@ -54,8 +54,6 @@ export default function Submit({ setBathrooms }) {
             bathrooms={bathrooms}
             setBathrooms={setBathrooms}
             profile={profile}
-            GMKey={GMKey}
-            supabase={supabase}
           />
         </main>
       </m.div>

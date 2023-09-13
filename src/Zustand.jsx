@@ -2,17 +2,17 @@ import { create } from 'zustand'
 
 export const globalStore = create((set) => ({
     session: null,
-    setSession: (session) => set(() => ({session})),
+    setSessiony: (input) => set(() => ({session: input})),
     profile: null,
-    setProfile: (profile) => set(() => ({profile})),
+    setProfile: (input) => set(() => ({profile: input})),
     users: [],
-    setUsers: (users) => set(() => ({users})),
+    setUsers: (input) => set(() => ({users: input})),
     bathrooms: [],
-    setBathrooms: (bathrooms) => set(() => ({bathrooms})),
+    setBathrooms: (input) => set(() => ({bathrooms: input})),
     reviews: [],
-    setReviews: (reviews) => set(() => ({reviews})),
+    setReviews: (input) => set(() => ({reviews: input})),
     favorites: [],
-    setFavorites: (favorites) => set(() => ({favorites}))
+    setFavorites: (input) => set(() => ({favorites: input}))
 }))
 
 // const createSessionStore = (set) => ({

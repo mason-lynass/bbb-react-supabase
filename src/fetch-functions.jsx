@@ -1,4 +1,4 @@
-import { supabase } from "./NewApp";
+import { supabase } from "./ReactQueryApp";
 
 // fetch functions, getting data from Supabase using react-query
 // sometimes we will need to get individual rows instead of all of the rows

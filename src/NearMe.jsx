@@ -1,10 +1,9 @@
 import { motion as m } from "framer-motion";
 import NearMeMap from "./components/NearMeMap";
 import Marker from "./components/Marker";
-import { useLoaderData } from "react-router-dom";
 import { fetchBathrooms } from "./fetch-functions";
 import { useQuery } from "@tanstack/react-query";
-import { GMKey } from "./NewApp";
+import { GMKey } from "./ReactQueryApp";
 
 // this page will be a big map from Google Maps JavaScript API
 // lex and I figured a lot of this out here:

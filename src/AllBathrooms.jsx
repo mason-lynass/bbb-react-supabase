@@ -3,7 +3,6 @@ import "./CSS/AllBathrooms.css";
 import { motion as m } from "framer-motion";
 import { Link} from "react-router-dom"
 import { globalStore } from "./Zustand";
-import { getBathrooms } from "./NewApp";
 import { fetchBathrooms } from "./fetch-functions";
 import { useQuery } from "@tanstack/react-query";
 

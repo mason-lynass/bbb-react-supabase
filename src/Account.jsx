@@ -4,7 +4,7 @@ import { motion as m } from "framer-motion";
 
 import "./CSS/Account.css";
 import { globalStore } from "./Zustand";
-import { supabase } from "./NewApp";
+import { supabase } from "./ReactQueryApp";
 import {
   fetchBathrooms,
   fetchFavorites,
@@ -45,7 +45,7 @@ export default function Account({ setProfile }) {
   const session = globalStore((state) => state.session);
   const profile = globalStore((state) => state.profile);
 
-  // console.log(profile, session, supabase);
+  console.log(profile, session, supabase);
 
   const [username, setUsername] = useState("");
   const [profileBathrooms, setProfileBathrooms] = useState([]);
