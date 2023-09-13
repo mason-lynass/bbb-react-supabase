@@ -1,26 +1,19 @@
 import { motion as m } from "framer-motion";
-import { useLoaderData } from "react-router-dom";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 
 import BathroomForm from "./components/BathroomForm";
 import "./CSS/Submit.css";
 
-import { supabase, GMKey, getBathrooms } from "./NewApp";
+import { supabase, GMKey } from "./ReactQueryApp";
 import { globalStore } from "./Zustand";
 import { fetchBathrooms } from "./fetch-functions";
 import { useQuery } from "@tanstack/react-query";
 
-// export async function submitLoader() {
-//     const bathrooms = globalStore((state) => state.bathrooms);
-//   if (bathrooms.length <= 1) getBathrooms();
-//   return [bathrooms, profile, GMKey, supabase];
+// // this might be how you submit things to the database, add an action to the route and import it in NewApp
+// export function submitAction() {
+//   console.log("submit");
 // }
-
-// this is how you submit things to the database, add an action to the route and import it in NewApp
-export function submitAction() {
-  console.log("submit");
-}
 
 export default function Submit({ setBathrooms }) {
   const { status, error, data: bathrooms} = useQuery({

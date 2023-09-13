@@ -1,6 +1,7 @@
 import "./CSS/About.css";
 import ANewTab from "./components/ANewTab";
 import { motion as m } from "framer-motion";
+import Footer from "./components/Footer";
 
 export default function About() {
   return (
@@ -93,6 +94,7 @@ export default function About() {
             </a>
           </p>
         </div>
+        <Footer />
       </main>
     </m.div>
   );

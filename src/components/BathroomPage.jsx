@@ -1,41 +1,34 @@
 import { useEffect, useState } from "react";
-import { useParams, useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import NewReview from "./NewReview";
 import BathroomPageMap from "./BathroomPageMap";
-import { fetchOneBathroom } from "../fetch-functions";
+import { fetchOneBathroom, fetchOneBathroomReviews } from "../fetch-functions";
 import { useQuery } from "@tanstack/react-query";
-
-// export async function oneBathroomLoader({ params }) {
-//   // if there are no bathrooms, or one bathroom, then we need to get ONE bathroom from the database
-//   // because we could either not have any bathroom, or possibly have a different single bathroom stored in state
-//   if (bathrooms.length <= 1) {
-//     return [params, await fetchOneBathroom(params)];
-//   } else {
-//     // if there is more than one bathroom, then we should have ALL of the bathrooms
-//     // so we just need to filter all of the bathrooms
-//     let bathroom = bathrooms.filter(
-//       (b) => b.id == parseInt(params.bathroomid)
-//     );
-//     return [params, bathroom];
-//   }
-// }
+import { globalStore } from "../Zustand";
 
 export default function BathroomPage({ params }) {
-  const id = useParams()
-  console.log(id)
-  const { status: oBStatus, error: oBError, data: bathroom} = useQuery({
-    queryKey: ['bathrooms', parseInt(id.bathroomid)],
-    queryFn: () => fetchOneBathroom(id)
-})
 
-  // let loaderData = useLoaderData();
-  // const params = loaderData[0];
-  // const bathroom = loaderData[1][0];
-  // console.log(loaderData);
+  const id = useParams();
+  const users = globalStore((state) => state.users);
+  const [showReview, setShowReview] = useState(false);
 
+  const {
+    status: oBStatus,
+    error: oBError,
+    data: bathroom,
+  } = useQuery({
+    queryKey: ["bathrooms", parseInt(id.bathroomid)],
+    queryFn: () => fetchOneBathroom(id),
+  });
 
-
-  const [showReview, setShowReview] = useState(false)
+  const {
+    status: oBReviewStatus,
+    error: oBReviewError,
+    data: bathroomReviews,
+  } = useQuery({
+    queryKey: ["reviews", { bathroom: parseInt(id) }],
+    queryFn: () => fetchOneBathroomReviews(id),
+  });
 
   function singleBathroom(bathroom) {
     const bathroomPublic = bathroom.public == "true" ? "public restroom" : "";
@@ -52,10 +45,11 @@ export default function BathroomPage({ params }) {
             <h3>{bathroom.address}</h3>
             <h3>{bathroom.neighborhood}</h3>
           </div>
-          <p id='one-bathroom-description'>{bathroom.description}</p>
+          <p id="one-bathroom-description">{bathroom.description}</p>
           <div id="one-bathroom-stats">
             <p>
-              Average review score: {bathroom.average_score} (number reviews)
+              Average review score: {bathroom.average_score} (
+              {bathroomReviews.length || 0} reviews)
             </p>
             <p>Number of favorites: {bathroom.number_of_favorites}</p>
           </div>
@@ -69,13 +63,12 @@ export default function BathroomPage({ params }) {
     );
   }
 
-  function addFavorite () {
-
-  }
+  // this should be a request to Supabase to add a row to the favorites table with a user_id and a bathroom_id
+  function addFavorite() {}
 
   function singleBathroomButtons() {
     return (
-      <div id='one-bathroom-buttons'>
+      <div id="one-bathroom-buttons">
         {/* this will open up a modal over the whole window that displays the NewReview component */}
         <button onClick={() => setShowReview(true)}>Write a Review</button>
         {/* this will make a DB request to create a new favorite with the user id and bathroom id */}
@@ -84,13 +77,46 @@ export default function BathroomPage({ params }) {
     );
   }
 
-  function singleBathroomReviews(bathroom) {
-    return <p>da reviews</p>;
+  function oneReview(review) {
+    const user = users.find((u) => u.id === review.user_id);
+    return (
+      <div className="one-bathroom-one-review">
+        <div>
+          <p>{user.username}</p>
+          <p>{review.average_rating}</p>
+        </div>
+        <p>{review.description}</p>
+        <div>
+          <p>cleanliness: {review.cleanliness_rating}</p>
+          <p>{review.cleanliness}</p>
+        </div>
+        <div>
+          <p>function: {review.function_rating}</p>
+          <p>{review.function}</p>
+        </div>
+        <div>
+          <p>style: {review.style_rating}</p>
+          <p>{review.style}</p>
+        </div>
+      </div>
+    );
   }
 
-  if (oBStatus === 'loading') return <p>loading...</p>
+  function singleBathroomReviews() {
+    console.log(bathroomReviews);
+    return (
+      <>
+        <h2 id="reviews-title">Reviews</h2>
+        <div id="one-bathroom-reviews">
+          {bathroomReviews.map((r) => oneReview(r))}
+        </div>
+      </>
+    );
+  }
 
-  console.log(oBStatus)
+  if (oBStatus === "loading") return <p>loading...</p>;
+
+  console.log(users);
 
   // maybe NewReview comes up in a modal after a button press?
   return (
@@ -102,8 +128,8 @@ export default function BathroomPage({ params }) {
         </section>
         {/* <BathroomPageMap /> */}
       </div>
-      {singleBathroomReviews(bathroom)}
-      {showReview === true ? <NewReview /> : "" }
+      {bathroomReviews.length ? <section>{singleBathroomReviews(bathroom)}</section> : ''}
+      {showReview === true ? <NewReview /> : ""}
     </main>
   );
 }

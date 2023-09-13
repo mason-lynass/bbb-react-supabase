@@ -66,7 +66,7 @@
   gap: 1vw;
 }
 
-#one-bathroom-description {
+#one-bathroom-description, #reviews-title {
   text-align: center;
 }
 
@@ -76,6 +76,38 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+}
+
+#one-bathroom-reviews {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.one-bathroom-one-review {
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 20px;
+  width: 45vw;
+  max-width: 500px;
+  padding: 10px;
+}
+
+.one-bathroom-one-review div:first-child {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.one-bathroom-one-review p {
+  margin: 0;
+}
+
+.one-bathroom-one-review div {
+  margin: 20px auto;
 }
 
 @media (prefers-color-scheme: light) {

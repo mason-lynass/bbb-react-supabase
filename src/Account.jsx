@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { redirect, useNavigate, useLoaderData } from "react-router-dom";
+import { Link, redirect, useNavigate} from "react-router-dom";
 import { motion as m } from "framer-motion";
 
 import "./CSS/Account.css";
@@ -25,8 +25,8 @@ export default function Account({ setProfile }) {
   });
 
   const {
-    status: rstatus,
-    error: rerror,
+    status: reviewStatus,
+    error: reviewError,
     data: reviews,
   } = useQuery({
     queryKey: ["reviews"],
@@ -34,8 +34,8 @@ export default function Account({ setProfile }) {
   });
 
   const {
-    status: fstatus,
-    error: ferror,
+    status: favStatus,
+    error: favError,
     data: favorites,
   } = useQuery({
     queryKey: ["favorites"],
@@ -69,16 +69,18 @@ export default function Account({ setProfile }) {
   }
 
   useEffect(() => {
-    if (profile && bathrooms) {
+    if (profile && bathrooms && reviews && favorites) {
       setProfileBathrooms(
         bathrooms.filter((b) => b.submitted_by === profile.id)
       );
       setProfileReviews(
         reviews.filter((review) => review.user_id === profile.id)
       );
-      // setProfileFavorites(favorites.filter((favorite) => favorite.user_id === profile.id))
+      setProfileFavorites(
+        favorites.filter((favorite) => favorite.user_id === profile.id)
+      );
     }
-  }, [profile, bathrooms]);
+  }, [profile, bathrooms, reviews, favorites]);
 
   async function signOut() {
     const { error } = await supabase.auth.signOut();
@@ -89,12 +91,14 @@ export default function Account({ setProfile }) {
   function myBathrooms() {
     if (open === "bathrooms") {
       return profileBathrooms.map((bathroom) => {
+        let linkto = `/bathrooms/${bathroom.id}`
         return (
-          <div className="one-bathroom">
+          <Link to={linkto}>
+          <div className="one-bathroom" key={bathroom.id}>
             <p>{bathroom.location_name}</p>
             <p>{bathroom.address}</p>
             <p>{bathroom.number_of_favorites}</p>
-          </div>
+          </div></Link>
         );
       });
     }
@@ -106,12 +110,14 @@ export default function Account({ setProfile }) {
         let thisBathroom = bathrooms.filter(
           (bathroom) => bathroom.id === review.bathroom_id
         )[0];
+        let linkto = `/bathrooms/${thisBathroom.id}`
         return (
-          <div className="one-review">
+          <Link to={linkto} >
+          <div className="one-review" key={review.id}>
             <p>{thisBathroom.location_name}</p>
             <p>{review.description.slice(0, 80)}...</p>
             <p>{review.average_rating}</p>
-          </div>
+          </div></Link>
         );
       });
     }
@@ -119,15 +125,19 @@ export default function Account({ setProfile }) {
 
   function myFavorites() {
     if (open === "favorites") {
+      console.log(favorites)
       return profileFavorites.map((fav) => {
         let thisBathroom = bathrooms.filter(
           (bathroom) => bathroom.id === fav.bathroom_id
         )[0];
+        let linkto = `/bathrooms/${thisBathroom.id}`
         return (
-          <div className="one-favorite">
+          <Link to={linkto}>
+          <div className="one-favorite" key={fav.bathroom_id}>
             <p>{thisBathroom.location_name}</p>
             <p>{thisBathroom.neighborhood}</p>
           </div>
+          </Link>
         );
       });
     }
@@ -172,11 +182,7 @@ export default function Account({ setProfile }) {
             transition={{ duration: 0.5 }}
           >
             <h2>Hi there, {profile.username}!</h2>
-            {/* it would be cool if there was a section for Bathrooms, Reviews, and Favorites */}
-            {/* and they each had their own sort of header that you could click on to open or hide the content */}
             <section className="account-section" id="account-bathrooms">
-              {/* this will change once we tie users to bathrooms */}
-              {/* would need to add a "submitted_by" column to the DB */}
               <h3
                 onClick={(e) =>
                   open === "bathrooms" ? setOpen(null) : setOpen("bathrooms")
@@ -187,7 +193,6 @@ export default function Account({ setProfile }) {
               <div id="my-bathrooms">{myBathrooms()}</div>
             </section>
             <section className="account-section" id="account-reviews">
-              {/* this will change once we tie users to reviews */}
               <h3
                 onClick={(e) =>
                   open === "reviews" ? setOpen(null) : setOpen("reviews")

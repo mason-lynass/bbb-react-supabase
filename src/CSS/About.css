@@ -39,6 +39,15 @@ hr {
     margin: 20px auto;
 }
 
+#footer {
+    text-align: center;
+    margin-top: 40px;
+}
+
+#footer p {
+    margin: auto;
+}
+
 @media (prefers-color-scheme: light) { 
     #about-flex div, #about-data, #references-contact { 
         background-color: var(--green-light);

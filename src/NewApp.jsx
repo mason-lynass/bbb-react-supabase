@@ -1,3 +1,5 @@
+// hey we are not using this version of App now because we are using ReactQueryApp.jsx
+
 import { createContext, useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { Link, createBrowserRouter, RouterProvider } from "react-router-dom";

@@ -1,3 +1,5 @@
+// hey we are not using this version of App, we are using ReactQueryApp.jsx
+
 import { useEffect, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
@@ -28,8 +30,7 @@ const queryClient = new QueryClient()
 
 const GMKey = "";
 
-// this version uses BrowserRouter instead of createBrowserRouter
-// we're gonna use NewApp
+
 function OldApp() {
   const [session, setSession] = useState(null);
   const [sessionSwitch, setSessionSwitch] = useState(false);

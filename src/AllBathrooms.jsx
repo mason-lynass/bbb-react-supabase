@@ -14,10 +14,8 @@ export default function AllBathrooms() {
     queryFn: fetchBathrooms
 })
 
+  // this is for the search filter
   const [query, setQuery] = useState("");
-
-  // we can do it in one line here because we're only returning one thing in the allBathroomsLoader()
-  // const bathrooms = useLoaderData().filter((b) => b.approved === true)
 
   const filteredBathrooms = useMemo(() => {
     if (bathrooms) return bathrooms.filter((b) =>

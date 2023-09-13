@@ -58,37 +58,5 @@ export default function Login() {
   if (session && profile) {
     return <Navigate to="/account" replace={true} />;
   } else return <p>uh oh!</p>;
-
-  // if there is a session, then that means you must have been here before
-  // if (session && !profile) {
-  //     try {
-  //         console.log('yay')
-  //         // // this is what happens if you log in, because there's already a user created
-  //         // setProfile(users.filter((user) => session.user.id === user.id)[0])
-  //         // // this is what happens when you sign up, because the user takes a split second to be created in the DB,
-  //         // // and we're not re-fetching the users, so the user doesn't exist
-  //         // if (!profile) {
-  //         //     setProfile({
-  //         //         username: null,
-  //         //         email: session.user.email,
-  //         //         id: session.user.id
-  //         //     })
-  //         // }
-  //     }
-  //     catch {
-  //         console.log('uh oh!')
-  //     }
-  // }
-
-  // else return (
-  //     <div id='login'>
-  //         <main>
-  //             {hasAccount ?
-  //                 <AccountLogin hasAccount={hasAccount} setHasAccount={setHasAccount} supabase={supabase} setProfile={setProfile} />
-  //                 :
-  //                 <SignUp hasAccount={hasAccount} setHasAccount={setHasAccount} supabase={supabase} />
-  //             }
-  //         </main>
-  //     </div>
-  // )
+  
 }

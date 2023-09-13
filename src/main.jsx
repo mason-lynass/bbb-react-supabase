@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import OldAppRQ from "./OldAppReactQuery.jsx";
+import RQApp from "./ReactQueryApp.jsx";
 import NewApp from "./NewApp.jsx";
 import OldApp from "./OldApp.jsx";
 import "./CSS/index.css";
@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <OldAppRQ />
+        <RQApp />
         <ReactQueryDevtools />
       </BrowserRouter>
     </QueryClientProvider>

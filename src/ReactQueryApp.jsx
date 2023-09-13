@@ -19,12 +19,6 @@ import "./CSS/app.css";
 
 import { useQuery } from "@tanstack/react-query";
 import { globalStore } from "./Zustand.jsx";
-import {
-  fetchBathrooms,
-  fetchOneBathroom,
-  fetchReviews,
-  fetchUsers,
-} from "./fetch-functions.jsx";
 
 // keys to Supabase
 const url = import.meta.env.VITE_SUPABASE_URL;
@@ -35,8 +29,8 @@ export const supabase = createClient(url, key);
 export const GMKey = "";
 
 // this version uses BrowserRouter instead of createBrowserRouter
-// we're gonna use NewApp
-function OldApp() {
+// we're gonna use this version of the main App component
+function RQApp() {
   const session = globalStore((state) => state.bathrooms);
   const users = globalStore((state) => state.users);
 
@@ -97,9 +91,9 @@ function OldApp() {
         <Route path="/login" element={<Login />} />
         <Route path="/account" element={<Account />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </m.div>
   );
 }
 
-export default OldApp;
+export default RQApp;
