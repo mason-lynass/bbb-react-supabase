@@ -9,6 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 import { supabase } from "../ReactQueryApp";
 import { submitBathroom, submitReview } from "../mutations";
 
+// this works for now but once we start using the Google Maps APIs we'll need to make sure that the Geocoding is working correctly
 export default function BathroomForm({ GMKey, bathrooms }) {
 
   const profile = globalStore((state) => state.profile);

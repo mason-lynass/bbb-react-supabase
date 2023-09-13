@@ -110,6 +110,25 @@
   margin: 20px auto;
 }
 
+#new-review-dialog {
+  z-index: 5;
+  width: 95vw;
+  max-width: 1000px;
+  position: absolute;
+  top: 100px;
+  right: 0;
+}
+
+#new-review-title {
+  text-align: center;
+}
+
+#new-review-submit {
+  display: block;
+  background-color: white;
+  margin: 30px auto 0 auto;
+}
+
 @media (prefers-color-scheme: light) {
   #all-bathrooms a:nth-of-type(odd) {
     text-align: left;

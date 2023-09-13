@@ -43,6 +43,14 @@ export async function fetchOneBathroom(params) {
   return data[0];
 }
 
+export async function fetchOneBathroomReviewsUsers (paramsArray) {
+  console.log(paramsArray)
+  let searchArray = []
+  paramsArray.forEach((p) => searchArray.push(p.id))
+  const {data, error } = await supabase.from('users').select().eq('id', searchArray)
+  return data
+}
+
 ///
 
 export async function fetchReviews() {

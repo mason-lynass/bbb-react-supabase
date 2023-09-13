@@ -112,8 +112,8 @@ export default function Account({ setProfile }) {
         )[0];
         let linkto = `/bathrooms/${thisBathroom.id}`
         return (
-          <Link to={linkto} >
-          <div className="one-review" key={review.id}>
+          <Link to={linkto} key={review.id}>
+          <div className="one-review" >
             <p>{thisBathroom.location_name}</p>
             <p>{review.description.slice(0, 80)}...</p>
             <p>{review.average_rating}</p>

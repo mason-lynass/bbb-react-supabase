@@ -2,15 +2,22 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NewReview from "./NewReview";
 import BathroomPageMap from "./BathroomPageMap";
-import { fetchOneBathroom, fetchOneBathroomReviews } from "../fetch-functions";
+import {
+  fetchOneBathroom,
+  fetchOneBathroomReviews,
+  fetchOneBathroomReviewsUsers,
+  fetchUsers
+} from "../fetch-functions";
 import { useQuery } from "@tanstack/react-query";
 import { globalStore } from "../Zustand";
 
 export default function BathroomPage({ params }) {
-
   const id = useParams();
-  const users = globalStore((state) => state.users);
+  // const users = globalStore((state) => state.users);
   const [showReview, setShowReview] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+
+  // console.log(id)
 
   const {
     status: oBStatus,
@@ -18,7 +25,7 @@ export default function BathroomPage({ params }) {
     data: bathroom,
   } = useQuery({
     queryKey: ["bathrooms", parseInt(id.bathroomid)],
-    queryFn: () => fetchOneBathroom(id),
+    queryFn: async () => fetchOneBathroom(id),
   });
 
   const {
@@ -26,9 +33,18 @@ export default function BathroomPage({ params }) {
     error: oBReviewError,
     data: bathroomReviews,
   } = useQuery({
-    queryKey: ["reviews", { bathroom: parseInt(id) }],
-    queryFn: () => fetchOneBathroomReviews(id),
+    queryKey: ["reviews", { bathroom: parseInt(id.bathroomid) }],
+    queryFn: async () => fetchOneBathroomReviews(id),
   });
+
+  const { data: users } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => fetchUsers(),
+  });
+
+  useEffect(() => {
+    if (users && bathroomReviews) setLoaded(true);
+  }, [users, bathroomReviews]);
 
   function singleBathroom(bathroom) {
     const bathroomPublic = bathroom.public == "true" ? "public restroom" : "";
@@ -36,6 +52,8 @@ export default function BathroomPage({ params }) {
       bathroom.ada_compliant == "true" ? "ADA compliant facilities" : "";
     const genderNeutral =
       bathroom.gender_neutral == "true" ? "gender neutral facilities" : "";
+    let numberOfReviews = 0;
+    if (bathroomReviews) numberOfReviews = bathroomReviews.length;
 
     return (
       <>
@@ -48,8 +66,8 @@ export default function BathroomPage({ params }) {
           <p id="one-bathroom-description">{bathroom.description}</p>
           <div id="one-bathroom-stats">
             <p>
-              Average review score: {bathroom.average_score} (
-              {bathroomReviews.length || 0} reviews)
+              Average review score: {bathroom.average_score} ({numberOfReviews}{" "}
+              reviews)
             </p>
             <p>Number of favorites: {bathroom.number_of_favorites}</p>
           </div>
@@ -80,7 +98,7 @@ export default function BathroomPage({ params }) {
   function oneReview(review) {
     const user = users.find((u) => u.id === review.user_id);
     return (
-      <div className="one-bathroom-one-review">
+      <div className="one-bathroom-one-review" key={review.id}>
         <div>
           <p>{user.username}</p>
           <p>{review.average_rating}</p>
@@ -116,7 +134,7 @@ export default function BathroomPage({ params }) {
 
   if (oBStatus === "loading") return <p>loading...</p>;
 
-  console.log(users);
+  console.log(bathroom, bathroomReviews, users);
 
   // maybe NewReview comes up in a modal after a button press?
   return (
@@ -128,8 +146,12 @@ export default function BathroomPage({ params }) {
         </section>
         {/* <BathroomPageMap /> */}
       </div>
-      {bathroomReviews.length ? <section>{singleBathroomReviews(bathroom)}</section> : ''}
-      {showReview === true ? <NewReview /> : ""}
+      {loaded === true ? (
+        <section>{singleBathroomReviews(bathroom)}</section>
+      ) : (
+        ""
+      )}
+      {showReview === true ? <NewReview bathroom={bathroom} /> : ""}
     </main>
   );
 }
