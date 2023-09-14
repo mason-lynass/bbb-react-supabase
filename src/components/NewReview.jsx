@@ -7,7 +7,7 @@ import RatingButton from "./RatingButton";
 import { supabase } from "../ReactQueryApp";
 
 export default function NewReview({ bathroom }) {
-    const profile = globalStore((state) => state.profile)
+  const profile = globalStore((state) => state.profile);
 
   const [errors, setErrors] = useState([]);
 
@@ -62,8 +62,10 @@ export default function NewReview({ bathroom }) {
 
   return (
     <div>
-      <dialog id='new-review-dialog' open>
-        <h2 id='new-review-title'>Add your review for {bathroom.location_name}</h2>
+      <dialog id="new-review-dialog" open>
+        <h2 id="new-review-title">
+          Add your review for {bathroom.location_name}
+        </h2>
         <form id="new-review-form" onSubmit={handleSubmit}>
           <section id="review-fields">
             <div>
@@ -78,50 +80,58 @@ export default function NewReview({ bathroom }) {
                 onChange={(e) => setReviewDescription(e.target.value)}
               />
             </div>
-            <div>
-              <label htmlFor="nr-cleanliness">Cleanliness:</label>
-              <textarea
-                id="nr-cleanliness"
-                type="text"
-                value={cleanliness}
-                onChange={(e) => setCleanliness(e.target.value)}
-              />
+            <div class='nr-flex'>
+              <div>
+                <label htmlFor="nr-cleanliness">Cleanliness:</label>
+                <textarea
+                  id="nr-cleanliness"
+                  type="text"
+                  value={cleanliness}
+                  onChange={(e) => setCleanliness(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="nr-cleanliness-rating">
+                  Cleanliness rating:
+                </label>
+                <RatingButton
+                  rating={cleanlinessRating}
+                  setRating={setCleanlinessRating}
+                />
+              </div>
             </div>
-            <div>
-              <label htmlFor="nr-cleanliness-rating">Cleanliness rating:</label>
-              <RatingButton
-                rating={cleanlinessRating}
-                setRating={setCleanlinessRating}
-              />
+            <div class='nr-flex'>
+              <div>
+                <label htmlFor="nr-function">Function:</label>
+                <textarea
+                  id="nr-function"
+                  type="text"
+                  value={bathroomFunction}
+                  onChange={(e) => setBathroomFunction(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="nr-function-rating">Function rating:</label>
+                <RatingButton
+                  rating={bathroomFunctionRating}
+                  setRating={setBathroomFunctionRating}
+                />
+              </div>
             </div>
-            <div>
-              <label htmlFor="nr-function">Function:</label>
-              <textarea
-                id="nr-function"
-                type="text"
-                value={bathroomFunction}
-                onChange={(e) => setBathroomFunction(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="nr-function-rating">Function rating:</label>
-              <RatingButton
-                rating={bathroomFunctionRating}
-                setRating={setBathroomFunctionRating}
-              />
-            </div>
-            <div>
-              <label htmlFor="nr-style">Style:</label>
-              <textarea
-                id="nr-style"
-                type="text"
-                value={style}
-                onChange={(e) => setStyle(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="nr-style-rating">Style rating:</label>
-              <RatingButton rating={styleRating} setRating={setStyleRating} />
+            <div class='nr-flex'>
+              <div>
+                <label htmlFor="nr-style">Style:</label>
+                <textarea
+                  id="nr-style"
+                  type="text"
+                  value={style}
+                  onChange={(e) => setStyle(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="nr-style-rating">Style rating:</label>
+                <RatingButton rating={styleRating} setRating={setStyleRating} />
+              </div>
             </div>
             <button id="new-review-submit" type="submit">
               {/* {loading === "submit" ? "Submit" : "Loading..."} */}

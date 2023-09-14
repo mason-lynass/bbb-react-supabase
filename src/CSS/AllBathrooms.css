@@ -117,16 +117,26 @@
   position: absolute;
   top: 100px;
   right: 0;
+  padding: 0 1em;
 }
 
 #new-review-title {
   text-align: center;
 }
 
+.nr-flex {
+  margin: 20px auto;
+}
+
+#review-fields .nr-flex label {
+  margin-top: 5px;
+}
+
 #new-review-submit {
   display: block;
-  background-color: white;
+  background-color: var(--green-light);
   margin: 30px auto 0 auto;
+  color: var(--main-darkest)
 }
 
 @media (prefers-color-scheme: light) {
