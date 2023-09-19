@@ -18,7 +18,7 @@ import NavBar from "./components/NavBar.jsx";
 import Footer from "./components/Footer.jsx";
 import BathroomPage from "./components/BathroomPage.jsx";
 
-import "./CSS/app.css";
+import "./CSS/App.css";
 
 // keys to Supabase
 const url = import.meta.env.VITE_SUPABASE_URL;

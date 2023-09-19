@@ -41,7 +41,7 @@ import {
   fetchUsers,
 } from "./fetch-functions.jsx";
 
-import "./CSS/app.css";
+import "./CSS/App.css";
 
 // keys to Supabase
 const url = import.meta.env.VITE_SUPABASE_URL;

@@ -14,7 +14,7 @@ import AllBathrooms from "./AllBathrooms.jsx";
 import BathroomPage from "./components/BathroomPage.jsx";
 import NavBar from "./components/NavBar.jsx";
 
-import "./CSS/app.css";
+import "./CSS/App.css";
 
 import { useQuery } from "@tanstack/react-query";
 import { globalStore } from "./Zustand.jsx";
