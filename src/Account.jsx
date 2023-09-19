@@ -115,7 +115,7 @@ export default function Account({ setProfile }) {
           <Link to={linkto} key={review.id}>
           <div className="one-review" >
             <p>{thisBathroom.location_name}</p>
-            <p>{review.description.slice(0, 80)}...</p>
+            <p>{review.description.slice(0, 80)}{review.description.length > 80 ?  '...' : ''}</p>
             <p>{review.average_rating}</p>
           </div></Link>
         );
