@@ -1,24 +1,29 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import { Navigate, useNavigate } from "react-router-dom";
+import "../CSS/BathroomForm.css";
 
 import RatingButton from "./RatingButton";
+import { globalStore } from "../Zustand";
+import { useMutation } from "@tanstack/react-query";
+import { supabase } from "../ReactQueryApp";
+import { submitBathroom, submitReview } from "../mutations";
 
-export default function BathroomForm({
-  profile,
-  bathrooms,
-  setBathrooms,
-  GMKey,
-  supabase,
-}) {
+// this works for now but once we start using the Google Maps APIs we'll need to make sure that the Geocoding is working correctly
+export default function BathroomForm({ GMKey, bathrooms }) {
+
+  const profile = globalStore((state) => state.profile);
+
   const [errors, setErrors] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState('submit');
 
   // bathroom fields
   const [address, setAddress] = useState("");
   const [locationName, setLocationName] = useState("");
   const [bathroomDescription, setBathroomDescription] = useState("");
-  const [publicBool, setPublicBool] = useState(null);
+  const [publicBool, setPublicBool] = useState(false);
+  const [gnBool, setGNBool] = useState(false);
+  const [ADABool, setADABool] = useState(false);
 
   // review fields
   const [date, setDate] = useState(new Date());
@@ -30,11 +35,69 @@ export default function BathroomForm({
   const [style, setStyle] = useState("");
   const [styleRating, setStyleRating] = useState(null);
 
-  console.log();
+  const [bathroomid, setBathroomId] = useState(null)
+
+  const bathroomSupabase = {
+    address: address,
+    location_name: locationName,
+    // latitude: newGeocode.results[0].geometry.location.lat,
+    // longitude: newGeocode.results[0].geometry.location.lng,
+    latitude: 47.3,
+    longitude: -122.5,
+    // neighborhood: newGeocode.results[0].address_components[2].long_name,
+    neighborhood: "Columbia City",
+    description: bathroomDescription,
+    public: publicBool,
+  };
+
+  const reviewSupabase = {
+    user_id: profile.id,
+    bathroom_id: null,
+    date: date.toDateString(),
+    description: reviewDescription,
+    cleanliness,
+    cleanliness_rating: cleanlinessRating,
+    function: bathroomFunction,
+    function_rating: bathroomFunctionRating,
+    style,
+    style_rating: styleRating,
+    average_rating: (
+      (cleanlinessRating + bathroomFunctionRating + styleRating) /
+      3
+    ).toFixed(2),
+  };
+
+  const reviewMutation = useMutation({
+    mutationFn: () =>  {
+      console.log(reviewSupabase)
+      return supabase.from("reviews").insert(reviewSupabase).select()
+    },
+    onSuccess: (data) => {
+      console.log(data)
+      setBathroomId(data.data[0].bathroom_id);
+      setLoading('finished')
+    },
+  });
+
+  const bathroomMutation = useMutation({
+    mutationFn: () => {
+      // console.log(bathroomSupabase)
+      return supabase.from("bathrooms").insert(bathroomSupabase).select()
+    },
+    onSuccess: (data) => {
+      // console.log('first success!')
+      // console.log(reviewSupabase)
+      // console.log(data)
+      reviewSupabase.bathroom_id = data.data[0].id;
+      reviewMutation.mutate()
+    },
+  });
+
+
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setLoading(true);
+    setLoading('submitting');
 
     try {
       // const googleResp = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location},seattle&key=${GMKey}`)
@@ -46,62 +109,54 @@ export default function BathroomForm({
 
       // these are the fields that we'll need to provide in order to successfully add a row to the bathrooms table in the DB
       // there are other columns that have default values that we do not need to provide here
-      const bathroomSupabase = {
-        address: address,
-        location_name: locationName,
-        // latitude: newGeocode.results[0].geometry.location.lat,
-        // longitude: newGeocode.results[0].geometry.location.lng,
-        latitude: 47.3,
-        longitude: -122.5,
-        // neighborhood: newGeocode.results[0].address_components[2].long_name,
-        neighborhood: "Capitol Hill",
-        description: bathroomDescription,
-        public: publicBool,
-      };
+      
 
-      const bathroomResult = await supabase
-        .from("bathrooms")
-        .insert(bathroomSupabase)
-        .select();
+      // const bathroomResult = await supabase
+      //   .from("bathrooms")
+      //   .insert(bathroomSupabase)
+      //   .select();
       // console.log(await bathroomResult)
-      const createdBathroom = await bathroomResult.data[0];
+      // const createdBathroom = await bathroomResult.data[0];
+
+      bathroomMutation.mutate(bathroomSupabase)
+      // .then(reviewMutation.mutate);
+
+      // const createdBathroom = postBathroom
+
+      // console.log(createdBathroom)
 
       // // i changed this line to throw instead of console.log, fwiw
-      if (!bathroomResult) throw bathroomResult.error;
+      // if (!bathroomResult) throw bathroomResult.error;
 
-      const reviewSupabase = {
-        user_id: profile.id,
-        bathroom_id: await createdBathroom.id,
-        date: date.toDateString(),
-        description: reviewDescription,
-        cleanliness,
-        cleanliness_rating: cleanlinessRating,
-        function: bathroomFunction,
-        function_rating: bathroomFunctionRating,
-        style,
-        style_rating: styleRating,
-        average_rating: ((cleanlinessRating + bathroomFunctionRating + styleRating) / 3).toFixed(2)
-      };
+      // reviewMutation.mutate(reviewSupabase)
 
-      // console.log(reviewSupabase)
+      // const reviewResult = await supabase
+      //   .from("reviews")
+      //   .insert(reviewSupabase)
+      //   .select();
+      // const createdReview = await reviewMutation.data[0];
+      // const createdReview = await reviewMutation.data.data[0];
+      // if (!reviewResult) throw createdReview.error;
 
-      const reviewResult = await supabase
-        .from("reviews")
-        .insert(reviewSupabase)
-        .select();
-      const createdReview = await reviewResult.data[0];
-      if (!reviewResult) throw createdReview.error;
+      console.log(
+        // bathroomMutation,
+        reviewSupabase.bathroom_id,
+        errors
+      );
 
-      console.log(bathroomResult, reviewResult, errors);
-      // Navigate(`/bathrooms/${createdBathroom.id}`)
+      
+      
       // maybe this needs to be inside another array?
-      setBathrooms([...bathrooms], createdBathroom);
+      // globalStore.setState({ bathrooms: [...bathrooms], createdBathroom });
+      // setBathrooms([...bathrooms], createdBathroom);
     } catch (error) {
       console.log(error);
       setErrors(error);
-      setLoading(false);
+      setLoading(error);
     }
   }
+
+  if (bathroomid !== null) return <Navigate to={`/bathrooms/${bathroomid}`} />
 
   return (
     <div id="new-bathroom-container">
@@ -148,25 +203,70 @@ export default function BathroomForm({
               onChange={(e) => setBathroomDescription(e.target.value)}
             ></textarea>
           </div>
-          <div>
-            <label htmlFor="nb-public-bool">Public?</label>
-            <div id="nb-public-bool">
-              <input
-                className="nb-public-radio"
-                name="public-radio-true"
-                type="radio"
-                value={true}
-                onChange={(e) => setPublicBool(e.target.value === "true")}
-              ></input>
-              <label>True</label>
-              <input
-                className="nb-public-radio"
-                name="public-radio-false"
-                type="radio"
-                value={false}
-                onChange={(e) => setPublicBool(e.target.value === "true")}
-              ></input>
-              <label>False</label>
+          <div id="all-nb-radios">
+            <div className="nb-radios" id="nb-public">
+              <label htmlFor="nb-public-bool">Public?</label>
+              <div className="nb-bool" id="nb-public-bool">
+                <label>Yes</label>
+                <input
+                  className="nb-public-radio"
+                  name="public-radio-true"
+                  type="radio"
+                  value={true}
+                  onChange={(e) => setPublicBool(e.target.value === "true")}
+                ></input>
+                <label>No</label>
+                <input
+                  className="nb-public-radio"
+                  name="public-radio-false"
+                  type="radio"
+                  value={false}
+                  onChange={(e) => setPublicBool(e.target.value === "true")}
+                ></input>
+              </div>
+            </div>
+            <div className="nb-radios" id="nb-gn">
+              <label htmlFor="nb-gn-bool">Gender neutral?</label>
+              <div className="nb-bool" id="nb-gn-bool">
+                <label>Yes</label>
+                <input
+                  className="nb-gn-radio"
+                  name="gn-radio-true"
+                  type="radio"
+                  value={true}
+                  onChange={(e) => setGNBool(e.target.value === "true")}
+                ></input>
+
+                <label>No</label>
+                <input
+                  className="nb-gn-radio"
+                  name="gn-radio-false"
+                  type="radio"
+                  value={false}
+                  onChange={(e) => setGNBool(e.target.value === "true")}
+                ></input>
+              </div>
+            </div>
+            <div className="nb-radios" id="nb-ada">
+              <label htmlFor="nb-ada-bool">ADA compliant facilities?</label>
+              <div className="nb-bool" id="nb-ada-bool">
+                <label>Yes</label>
+                <input
+                  className="nb-ada-radio"
+                  name="ada-radio-true"
+                  type="radio"
+                  value={true}
+                  onChange={(e) => setADABool(e.target.value === "true")}
+                ></input>
+                <label>No</label>
+                <input
+                  className="nb-ada-radio"
+                  name="ada-radio-false"
+                  type="radio"
+                  value={false}
+                  onChange={(e) => setADABool(e.target.value === "true")}
+                ></input>
+              </div>
             </div>
           </div>
         </section>
@@ -230,7 +330,7 @@ export default function BathroomForm({
           </div>
         </section>
         <button id="new-bathroom-submit" type="submit">
-          {loading ? "Loading..." : "Submit"}
+          {loading === 'submit' ? "Submit" : "Loading..."}
         </button>
         <br />
         {/* {errors.map((err) => (

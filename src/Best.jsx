@@ -1,31 +1,41 @@
 import { useEffect, useState } from "react";
 import { motion as m } from "framer-motion";
-import { useLoaderData, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./CSS/Best.css";
 import BestBathroom from "./components/BestBathroom";
+import { globalStore } from "./Zustand";
+import { fetchBathrooms } from "./fetch-functions";
+import { useQuery } from "@tanstack/react-query";
 
-export default function Best() {
+export default function Best({}) {
+  // we could write a new fetch function and queryKey to fetch only bathrooms with a review >= 8
+  // instead of using bestBathrooms, the useEffect, etc.
+  const {
+    status,
+    error,
+    data: bathrooms,
+  } = useQuery({
+    queryKey: ["bathrooms"],
+    queryFn: fetchBathrooms,
+  });
+
   const [loaded, setLoaded] = useState(false);
   const [best, setBest] = useState([]);
 
-  const bathrooms = useLoaderData();
-
   console.log(bathrooms);
 
-  // the length in the dependency array should only change from null -> all of the bathrooms
+  // the dependency in the dependency array should only change from undefined -> all of the bathrooms
   useEffect(() => {
-    // setBest(bathrooms)
-    if (bathrooms.length > 0) {
-      // change this to filter best bathrooms and not public ones
+    if (bathrooms) {
       setBest(
         [...bathrooms]
-          .filter((bathroom) => bathroom.public === true)
+          .filter((bathroom) => bathroom.average_score >= 8)
           .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at))
       );
       setLoaded(true);
     }
-  }, [bathrooms.length]);
+  }, [bathrooms]);
 
   function bestBathrooms() {
     return (
@@ -40,6 +50,8 @@ export default function Best() {
       </div>
     );
   }
+
+  if (status === "loading") return <p>loading...</p>;
 
   return (
     <m.div

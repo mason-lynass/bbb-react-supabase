@@ -1,29 +1,32 @@
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
+import { globalStore } from "../Zustand"
 
-export default function NavBar({ session, sessionSwitch }) {
+export default function NavBar({ sessionSwitch }) {
+
+    const session = globalStore(state => state.session)
 
     function loginOrAccount () {
         // console.log(session, sessionSwitch)
         if (!session) { 
-            return <Link id='login' to='/login' ><p id='underline'>Log In</p><p>Sign Up</p></Link>
+            return <NavLink id='login' to='/login' ><p id='underline'>Log In</p><p>Sign Up</p></NavLink>
         }
         else if (session.length === 0) {
-            return <Link id='login' to='/login' ><p id='underline'>Log In</p><p>Sign Up</p></Link>
+            return <NavLink id='login' to='/login' ><p id='underline'>Log In</p><p>Sign Up</p></NavLink>
         }
-        else return <Link to='/account' >Account</Link> 
+        else return <NavLink to='/account' >Account</NavLink> 
     }
 
     return (
         <div id="nav-bar">
-            <Link to='/'><h1 id='nav-title'>Better Bathroom Bureau</h1></Link>
+            <NavLink to='/'><h1 id='nav-title'>Better Bathroom Bureau</h1></NavLink>
             <nav>
                 <div>
 
-                    <Link to='/bathrooms' >All Bathrooms</Link>
-                    <Link to='/best' >Best New Bathrooms</Link>
-                    <Link to='/near-me' >Bathrooms Near Me</Link>
-                    <Link to='/submit' >Submit a Bathroom</Link>
-                    <Link to='/about' >Our Mission</Link>
+                    <NavLink to='/bathrooms' >All Bathrooms</NavLink>
+                    <NavLink to='/best' >Best New Bathrooms</NavLink>
+                    <NavLink to='/near-me' >Bathrooms Near Me</NavLink>
+                    <NavLink to='/submit' >Submit a Bathroom</NavLink>
+                    <NavLink to='/about' >Our Mission</NavLink>
                 </div>
                 <div>
                     {loginOrAccount()}

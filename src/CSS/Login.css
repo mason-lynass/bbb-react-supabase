@@ -17,14 +17,14 @@
     margin: auto;
 }
 
-section h2, section div {
+#login section h2, #login section div {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
 }
 
-section p, section button {
+#login section p, #login section button {
     margin: 1vw;
 }
 

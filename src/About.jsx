@@ -1,6 +1,7 @@
 import "./CSS/About.css";
 import ANewTab from "./components/ANewTab";
 import { motion as m } from "framer-motion";
+import Footer from "./components/Footer";
 
 export default function About() {
   return (
@@ -34,7 +35,7 @@ export default function About() {
             </p>
           </div>
         </div>
-        <div>
+        <div id='about-data'>
           <h3>About our data:</h3>
           <p>
             Better Bathroom Bureau maintains a database of bathrooms and reviews
@@ -70,7 +71,7 @@ export default function About() {
           </p>
         </div>
         <hr/>
-        <div>
+        <div id='references-contact'>
           <p>
             Many public bathrooms in our database come from the{" "}
             <ANewTab
@@ -93,6 +94,7 @@ export default function About() {
             </a>
           </p>
         </div>
+        <Footer />
       </main>
     </m.div>
   );

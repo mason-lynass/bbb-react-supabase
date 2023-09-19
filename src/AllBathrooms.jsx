@@ -1,21 +1,30 @@
 import { useMemo, useState } from "react";
 import "./CSS/AllBathrooms.css";
 import { motion as m } from "framer-motion";
-import { Link, useLoaderData } from "react-router-dom"
+import { Link} from "react-router-dom"
+import { globalStore } from "./Zustand";
+import { fetchBathrooms } from "./fetch-functions";
+import { useQuery } from "@tanstack/react-query";
 
 export default function AllBathrooms() {
+
+  const { status, error, data: bathrooms} = useQuery({
+    queryKey: ['bathrooms'],
+    queryFn: fetchBathrooms
+})
+
+  // this is for the search filter
   const [query, setQuery] = useState("");
 
-  // we can do it in one line here because we're only returning one thing in the allBathroomsLoader()
-  const bathrooms = useLoaderData()
-
   const filteredBathrooms = useMemo(() => {
-    return bathrooms.filter((b) =>
+    if (bathrooms) return bathrooms.filter((b) =>
       b.location_name.toLowerCase().includes(query.toLowerCase())
     );
   }, [bathrooms, query]);
 
   function allTheBathrooms() {
+    if (status === 'loading') return <p>loading....</p>
+    
     return (
       <div id="all-bathrooms">
         {filteredBathrooms.map((bathroom) => (

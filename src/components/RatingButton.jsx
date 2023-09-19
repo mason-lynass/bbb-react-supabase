@@ -5,7 +5,7 @@ import React, { useState } from "react";
 export default function RatingButton( {rating, setRating} ) {
     const [hover, setHover] = useState(0);
     return (
-        <div>
+        <div id='all-rating-buttons'>
             {[...Array(10)].map((toilet, index) => {
                 index += 1
                 return (
