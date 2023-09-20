@@ -8,12 +8,16 @@
 }
 
 .one-bathroom-stock {
-    border: 1px solid var(--green-light);
+    border: 1px solid var(--light-blue1);
     width: 45vw;
     max-width: 450px;
     border-radius: 10px;
     padding: 10px 20px;
-    background-color: var(--blue-middle);
+    background-color: var(--dark-blue3);
+}
+
+.one-bathroom-stock:hover {
+    box-shadow: 0px 0px 10px 2px white;
 }
 
 .one-bathroom-stock h2, .one-bathroom-stock h3 {

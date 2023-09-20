@@ -18,20 +18,20 @@
     width: 48vw;
     max-width: 500px;
     min-width: 400px;
-    background-color: var(--blue-dark);
+    background-color: var(--dark-blue4);
     padding: 10px 20px;
     border-radius: 20px;
-    border: 1px solid var(--blue-light);
+    border: 1px solid var(--light-blue4);
 }
 
 #about-data, #references-contact {
     width: 90vw;
     max-width: 1000px;
     margin: 20px auto;
-    background-color: var(--blue-dark);
+    background-color: var(--dark-blue4);
     padding: 10px 20px;
     border-radius: 20px;
-    border: 1px solid var(--blue-light);
+    border: 1px solid var(--light-blue4);
 }
 
 hr {
@@ -50,10 +50,10 @@ hr {
 
 @media (prefers-color-scheme: light) { 
     #about-flex div, #about-data, #references-contact { 
-        background-color: var(--green-light);
+        background-color: var(--blue-light1);
     }
 
     #about a {
-        color: var(--blue-darkest)
+        color: var(--blue-dark5)
     }
 }

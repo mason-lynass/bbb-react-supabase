@@ -3,14 +3,14 @@ import "./CSS/AllBathrooms.css";
 import { motion as m } from "framer-motion";
 import { Link} from "react-router-dom"
 import { globalStore } from "./Zustand";
-import { fetchBathrooms } from "./fetch-functions";
+import { fetchApprovedBathrooms } from "./fetch-functions";
 import { useQuery } from "@tanstack/react-query";
 
 export default function AllBathrooms() {
 
   const { status, error, data: bathrooms} = useQuery({
-    queryKey: ['bathrooms'],
-    queryFn: fetchBathrooms
+    queryKey: ['approved-bathrooms'],
+    queryFn: fetchApprovedBathrooms
 })
 
   // this is for the search filter

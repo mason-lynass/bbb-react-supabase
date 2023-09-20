@@ -7,7 +7,7 @@ import "./CSS/Submit.css";
 
 import { supabase, GMKey } from "./ReactQueryApp";
 import { globalStore } from "./Zustand";
-import { fetchBathrooms } from "./fetch-functions";
+import { fetchAllBathrooms } from "./fetch-functions";
 import { useQuery } from "@tanstack/react-query";
 
 // // this might be how you submit things to the database, add an action to the route and import it in NewApp
@@ -17,8 +17,8 @@ import { useQuery } from "@tanstack/react-query";
 
 export default function Submit({ setBathrooms }) {
   const { status, error, data: bathrooms} = useQuery({
-    queryKey: ['bathrooms'],
-    queryFn: fetchBathrooms
+    queryKey: ['all-bathrooms'],
+    queryFn: fetchAllBathrooms
 })
   const profile = globalStore((state) => state.profile);
 

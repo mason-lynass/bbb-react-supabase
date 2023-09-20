@@ -28,3 +28,7 @@
     margin: 1vw;
 }
 
+.supabase-auth-ui_ui-container input {
+    color: white;
+}
+

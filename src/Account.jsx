@@ -1,27 +1,26 @@
 import { useState, useEffect } from "react";
-import { Link, redirect, useNavigate} from "react-router-dom";
+import { Link, redirect, useNavigate, Navigate} from "react-router-dom";
 import { motion as m } from "framer-motion";
 
 import "./CSS/Account.css";
 import { globalStore } from "./Zustand";
 import { supabase } from "./ReactQueryApp";
 import {
-  fetchBathrooms,
+  fetchAllBathrooms,
   fetchFavorites,
   fetchReviews,
 } from "./fetch-functions";
 import { useQuery } from "@tanstack/react-query";
 
 export default function Account({ setProfile }) {
-  let navigate = useNavigate();
 
   const {
     status,
     error,
     data: bathrooms,
   } = useQuery({
-    queryKey: ["bathrooms"],
-    queryFn: fetchBathrooms,
+    queryKey: ["all-bathrooms"],
+    queryFn: fetchAllBathrooms,
   });
 
   const {
@@ -29,7 +28,7 @@ export default function Account({ setProfile }) {
     error: reviewError,
     data: reviews,
   } = useQuery({
-    queryKey: ["reviews"],
+    queryKey: ["all-reviews"],
     queryFn: fetchReviews,
   });
 
@@ -38,14 +37,12 @@ export default function Account({ setProfile }) {
     error: favError,
     data: favorites,
   } = useQuery({
-    queryKey: ["favorites"],
+    queryKey: ["all-favorites"],
     queryFn: fetchFavorites,
   });
 
   const session = globalStore((state) => state.session);
   const profile = globalStore((state) => state.profile);
-
-  console.log(profile, session, supabase);
 
   const [username, setUsername] = useState("");
   const [profileBathrooms, setProfileBathrooms] = useState([]);
@@ -84,8 +81,7 @@ export default function Account({ setProfile }) {
 
   async function signOut() {
     const { error } = await supabase.auth.signOut();
-    setProfile(null);
-    navigate("/login");
+    globalStore.setState({ profile: null });
   }
 
   function myBathrooms() {
@@ -97,6 +93,7 @@ export default function Account({ setProfile }) {
           <div className="one-bathroom" key={bathroom.id}>
             <p>{bathroom.location_name}</p>
             <p>{bathroom.address}</p>
+            <p>{bathroom.approved === true ? '' : 'NA'}</p>
             <p>{bathroom.number_of_favorites}</p>
           </div></Link>
         );
@@ -224,5 +221,5 @@ export default function Account({ setProfile }) {
 
   // if you don't have a profile, you're not supposed to end up here on the Account page,
   // you're only supposed to get to the account page if you have a profile
-  else useEffect(() => navigate("/login"), []);
+  else return <Navigate to="/login" replace={true} />;
 }

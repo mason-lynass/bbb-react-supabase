@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "./CSS/Best.css";
 import BestBathroom from "./components/BestBathroom";
 import { globalStore } from "./Zustand";
-import { fetchBathrooms } from "./fetch-functions";
+import { fetchApprovedBathrooms } from "./fetch-functions";
 import { useQuery } from "@tanstack/react-query";
 
 export default function Best({}) {
@@ -16,8 +16,8 @@ export default function Best({}) {
     error,
     data: bathrooms,
   } = useQuery({
-    queryKey: ["bathrooms"],
-    queryFn: fetchBathrooms,
+    queryKey: ["approved-bathrooms"],
+    queryFn: fetchApprovedBathrooms,
   });
 
   const [loaded, setLoaded] = useState(false);

@@ -18,7 +18,7 @@ form section {
 
 @media (prefers-color-scheme: light) {
     #submit {
-        color: white;
+        color: var(--white);
     }
 
     #submit h1 {

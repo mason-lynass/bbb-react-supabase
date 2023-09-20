@@ -30,8 +30,13 @@ export async function fetchOneUserFavorites(params) {
 
 ///
 
-export async function fetchBathrooms() {
-  const { data, error } = await supabase.from("bathrooms").select();
+export async function fetchAllBathrooms() {
+  const { data, error } = await supabase.from("bathrooms").select().order('id', {ascending: false});
+  return data;
+}
+
+export async function fetchApprovedBathrooms() {
+  const { data, error } = await supabase.from("bathrooms").select().eq('approved', true).order('id', {ascending: false});
   return data;
 }
 

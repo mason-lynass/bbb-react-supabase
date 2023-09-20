@@ -4,8 +4,8 @@
 
 .one-bathroom-all {
   border-radius: 10px;
-  border: 2px solid var(--blue-light);
-  color: var(--main-white);
+  border: 2px solid var(--light-blue1);
+  color: var(--white);
   background-color: inherit;
   margin: 15px 0;
   padding: 20px;
@@ -14,13 +14,22 @@
   gap: 1%;
 }
 
+.one-bathroom-all:hover {
+  box-shadow: 0px 0px 10px 2px white;
+}
+
+.one-bathroom-all h2, .one-bathroom-all h3 {
+  height: fit-content;
+  margin: auto 0px;
+}
+
 #all-bathrooms a:nth-of-type(odd) {
   text-align: left;
-  background-color: var(--blue-dark);
+  background-color: var(--dark-blue5);
 }
 
 #all-bathrooms a:nth-of-type(even) {
-  background-color: var(--green-dark);
+  background-color: var(--dark-blue4);
 }
 
 #all-bathrooms-search {
@@ -48,13 +57,18 @@
 
 #bathroom-name {
   text-align: center;
+  margin-top: 30px;
 }
 
 #bathroom-top-split {
   display: grid;
   grid-template-columns: 1fr 500px;
-  margin: auto 20px;
   gap: 20px;
+}
+
+#bathroom-top-split section {
+  background-color: var(--dark-blue3);
+  padding: 20px;
 }
 
 #one-bathroom-location,
@@ -76,6 +90,12 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  margin-bottom: 30px;
+}
+
+#one-bathroom-buttons button {
+  background-color: var(--dark-blue1);
+  border: black;
 }
 
 #one-bathroom-reviews {
@@ -83,7 +103,13 @@
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
-  margin: 20px;
+  margin: 0px;
+  background-color: var(--dark-blue3);
+  min-height: 600px;
+}
+
+#reviews-title {
+  margin: 10px auto;
 }
 
 .one-bathroom-one-review {
@@ -93,6 +119,7 @@
   width: 45vw;
   max-width: 500px;
   padding: 10px;
+  background-color: var(--dark-blue1);
 }
 
 .one-bathroom-one-review div:first-child {
@@ -136,7 +163,7 @@
   display: block;
   background-color: var(--green-light);
   margin: 30px auto 0 auto;
-  color: var(--main-darkest)
+  color: var(--dark-blue1);
 }
 
 @media (prefers-color-scheme: light) {

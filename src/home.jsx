@@ -1,5 +1,5 @@
 import { motion as m } from "framer-motion";
-import { fetchBathrooms, fetchReviews } from "./fetch-functions";
+import { fetchApprovedBathrooms, fetchReviews } from "./fetch-functions";
 import { globalStore } from "./Zustand";
 import { useQuery } from "@tanstack/react-query";
 
@@ -9,8 +9,8 @@ export default function Home() {
     error,
     data: bathrooms,
   } = useQuery({
-    queryKey: ["bathrooms"],
-    queryFn: fetchBathrooms,
+    queryKey: ["approved-bathrooms"],
+    queryFn: fetchApprovedBathrooms,
   });
 
   const {
@@ -18,7 +18,7 @@ export default function Home() {
     error: rerror,
     data: reviews,
   } = useQuery({
-    queryKey: ["reviews"],
+    queryKey: ["all-reviews"],
     queryFn: fetchReviews,
   });
 

@@ -1,7 +1,7 @@
 import { motion as m } from "framer-motion";
 import NearMeMap from "./components/NearMeMap";
 import Marker from "./components/Marker";
-import { fetchBathrooms } from "./fetch-functions";
+import { fetchApprovedBathrooms } from "./fetch-functions";
 import { useQuery } from "@tanstack/react-query";
 import { GMKey } from "./ReactQueryApp";
 
@@ -13,8 +13,8 @@ import { GMKey } from "./ReactQueryApp";
 export default function NearMe() {
 
   const { status, error, data: bathrooms} = useQuery({
-    queryKey: ['bathrooms'],
-    queryFn: fetchBathrooms
+    queryKey: ['approved-bathrooms'],
+    queryFn: fetchApprovedBathrooms
 })
 
   const seattle = { lat: 47.6062, lng: -122.3321 };
