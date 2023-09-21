@@ -98,7 +98,7 @@ export default function NearMe() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <main>
+      <main id='near-me'>
         <section id='where-are-you'>
           <h3>Where are you?</h3>
           <form onSubmit={handleAddressSubmit}>

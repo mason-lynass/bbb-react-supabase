@@ -29,6 +29,7 @@
 
 #account-reviews, #acccount-bathrooms, #account-favorites {
     margin: 0px;
+    background-color: var(--light-blue4);
 }
 
 #account-bathrooms h3 {
@@ -42,10 +43,10 @@
 .one-bathroom, .one-review, .one-favorite {
     display: grid;
     grid-template-columns: 50% 35% 5% 5%;
+    border: 1px solid var(--light-blue1);
     gap: 2.5%;
     justify-content: left;
     align-items: center;
-    margin: 0px;
     padding: 10px 20px;
 }
 
@@ -67,6 +68,41 @@
 
 #sign-out button {
     background-color: var(--dark-blue1);
+}
+
+#account #no-username {
+    background-color: var(--dark-blue2);
+    border-radius: 0 0 20px 20px;
+    width: fit-content;
+    padding: 10px 100px;
+    margin: auto;
+}
+
+#choose-username {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 40px auto;
+}
+
+#choose-username label {
+    font-size: 24px;
+}
+
+#username  {
+    height: 50px;
+    padding: 0 10px;
+    font-size: 20px;
+}
+
+#username-submit  {
+    font-size: 24px;
+    height: 50px;
+    padding: 0 20px;
+    border-radius: 5px;
+
 }
 
 @media (prefers-color-scheme: light) {

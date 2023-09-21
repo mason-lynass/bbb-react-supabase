@@ -168,6 +168,8 @@ export default function BathroomForm({ bathrooms }) {
     }
   }
 
+  console.log(publicBool, gnBool, ADABool)
+
   // if (bathroomid !== null) return <Navigate to={`/bathrooms/${bathroomid}`} />
 
   return (
@@ -215,70 +217,36 @@ export default function BathroomForm({ bathrooms }) {
               onChange={(e) => setBathroomDescription(e.target.value)}
             ></textarea>
           </div>
-          <div id="all-nb-radios">
-            <div className="nb-radios" id="nb-public">
-              <label htmlFor="nb-public-bool">Public?</label>
-              <div className="nb-bool" id="nb-public-bool">
-                <label>Yes</label>
+          <div id="all-nb-checks">
+            <div className="nb-checks" id="nb-public">
+              <label htmlFor="nb-public-check">Public?</label>
                 <input
-                  className="nb-public-radio"
-                  name="public-radio-true"
-                  type="radio"
+                  className="nb-public-check"
+                  name="public-check-true"
+                  type="checkbox"
                   value={true}
-                  onChange={(e) => setPublicBool(e.target.value === "true")}
+                  onChange={(e) => setPublicBool(!publicBool)}
                 ></input>
-                <label>No</label>
-                <input
-                  className="nb-public-radio"
-                  name="public-radio-false"
-                  type="radio"
-                  value={false}
-                  onChange={(e) => setPublicBool(e.target.value === "true")}
-                ></input>
-              </div>
             </div>
-            <div className="nb-radios" id="nb-gn">
-              <label htmlFor="nb-gn-bool">Gender neutral?</label>
-              <div className="nb-bool" id="nb-gn-bool">
-                <label>Yes</label>
+            <div className="nb-checks" id="nb-gn">
+              <label htmlFor="nb-gn-check">Gender neutral?</label>
                 <input
-                  className="nb-gn-radio"
-                  name="gn-radio-true"
-                  type="radio"
+                  className="nb-gn-check"
+                  name="gn-check-true"
+                  type="checkbox"
                   value={true}
-                  onChange={(e) => setGNBool(e.target.value === "true")}
+                  onChange={(e) => setGNBool(!gnBool)}
                 ></input>
-
-                <label>No</label>
-                <input
-                  className="nb-gn-radio"
-                  name="gn-radio-false"
-                  type="radio"
-                  value={false}
-                  onChange={(e) => setGNBool(e.target.value === "true")}
-                ></input>
-              </div>
             </div>
-            <div className="nb-radios" id="nb-ada">
-              <label htmlFor="nb-ada-bool">ADA compliant facilities?</label>
-              <div className="nb-bool" id="nb-ada-bool">
-                <label>Yes</label>
+            <div className="nb-checks" id="nb-ada">
+              <label htmlFor="nb-ada-check">ADA compliant facilities?</label>
                 <input
-                  className="nb-ada-radio"
-                  name="ada-radio-true"
-                  type="radio"
+                  className="nb-ada-check"
+                  name="ada-check-true"
+                  type="checkbox"
                   value={true}
-                  onChange={(e) => setADABool(e.target.value === "true")}
+                  onChange={(e) => setADABool(!ADABool)}
                 ></input>
-                <label>No</label>
-                <input
-                  className="nb-ada-radio"
-                  name="ada-radio-false"
-                  type="radio"
-                  value={false}
-                  onChange={(e) => setADABool(e.target.value === "true")}
-                ></input>
-              </div>
             </div>
           </div>
         </section>

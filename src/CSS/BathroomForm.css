@@ -1,145 +1,159 @@
 #new-bathroom-container {
-    width: 95vw;
-    max-width: 1000px;
-    margin: auto;
+  width: 95vw;
+  max-width: 1000px;
+  margin: auto;
 }
 
-#bathroom-fields, #review-fields {
-    background-color: var(--dark-blue3);
-    margin: 20px auto;
-    border-radius: 20px;
-    border: 1px solid var(--light-blue1);
+#bathroom-fields,
+#review-fields {
+  background-color: var(--dark-blue3);
+  margin: 20px auto;
+  border-radius: 20px;
+  border: 1px solid var(--light-blue1);
 }
 
 #review-fields {
-    padding-bottom: 30px;
+  padding-bottom: 30px;
 }
 
-#bathroom-fields input, #bathroom-fields label, #bathroom-fields textarea, #review-fields input, #review-fields label, #review-fields textarea  {
-    width: 90%;
-    margin: auto;
-    display: block;
-    
+#bathroom-fields input,
+#bathroom-fields label,
+#bathroom-fields textarea,
+#review-fields input,
+#review-fields label,
+#review-fields textarea {
+  width: 90%;
+  margin: auto;
+  display: block;
 }
 
-#bathroom-fields label, #review-fields label {
-    margin-top: 30px;
-    margin-bottom: 5px;
-    font-size: 20px;
+#bathroom-fields label,
+#review-fields label {
+  margin-top: 30px;
+  margin-bottom: 5px;
+  font-size: 20px;
 }
 
-#bathroom-fields input, #review-fields input, #bathroom-fields textarea, #review-fields textarea {
-    font-size: 24px;
-    padding: 5px;
-    background-color: var(--light-blue1);
-    color: black;
+#bathroom-fields input,
+#review-fields input,
+#bathroom-fields textarea,
+#review-fields textarea {
+  font-size: 24px;
+  padding: 5px;
+  background-color: var(--light-blue1);
+  color: black;
 }
 
-#bathroom-fields input, #review-fields input {
-    height: 30px;
-    border-radius: 5px;
-    border-style: none;
+#bathroom-fields input,
+#review-fields input {
+  height: 30px;
+  border-radius: 5px;
+  border-style: none;
 }
 
-#bathroom-fields textarea, #review-fields textarea {
-    height: 60px;
+#bathroom-fields textarea,
+#review-fields textarea {
+  height: 60px;
 }
 
-#all-nb-radios {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
-    margin: 40px 20px;
+#all-nb-checks {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 20px;
 }
 
-.nb-bool {
-    width: 200px;
-    display: grid;
-    grid-template-columns: 50% 50%;
-    justify-self: center;
-    gap: 5px;
-    padding: 20px;
+.nb-check {
+  width: 200px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  justify-self: center;
+  gap: 5px;
+  padding: 20px;
 }
 
-.nb-gn-radio {
-    background-color: var(--light-blue3);
+#all-nb-checks .nb-checks label {
+  width: 250px;
+  text-align: center;
+  margin: 10px auto;
 }
 
-#bathroom-fields .nb-radios label {
-    margin: 0 auto;
-    width: fit-content;
-    text-align: center;
+#all-nb-checks .nb-checks input {
+  height: 30px;
+  margin: 10px auto 30px auto;
 }
 
 #all-rating-buttons {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-evenly;
-    align-items: center;
-    max-width: 800px;
-    margin: 10px auto;
-    gap: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  max-width: 800px;
+  margin: 10px auto;
+  gap: 10px;
 }
 
 #all-rating-buttons button {
-    background-color: var(--light-blue4);
+  background-color: var(--light-blue4);
 }
 
-.hover-on {
-    opacity: 1;
+#all-rating-buttons .hover-on {
+  opacity: 1;
+  background-color: var(--light-blue1);
 }
 
-.hover-off {
-    opacity: .7;
+#all-rating-buttons .hover-off {
+    background-color: var(--light-blue5);
 }
 
 #new-bathroom-submit {
-    display: block;
-    width: 150px;
-    height: 60px;
-    font-size: 24px;
-    color: white;
-    background-color: var(--light-blue5);
-    border: 2px solid var(--white);
-    margin: 40px auto;
+  display: block;
+  width: 150px;
+  height: 60px;
+  font-size: 24px;
+  color: white;
+  background-color: var(--light-blue5);
+  border: 2px solid var(--white);
+  margin: 40px auto;
 }
 
 #new-bathroom-submit:hover {
-    box-shadow: 0 0 10px 2px var(--light-blue1);
+  box-shadow: 0 0 10px 2px var(--light-blue1);
 }
 
 dialog {
-    display: block;
-    position: fixed;
-    top: 200px;
-    width: 50%;
-    max-width: 600px;
-    z-index: 3;
-    left: 0;
-    margin: auto;
-    padding: 20px;
-    padding-bottom: 40px;
-    border-radius: 10px;
+  display: block;
+  position: fixed;
+  top: 200px;
+  width: 50%;
+  max-width: 600px;
+  z-index: 3;
+  left: 0;
+  margin: auto;
+  padding: 20px;
+  padding-bottom: 40px;
+  border-radius: 10px;
 }
 
 .bodyBlur::after {
-    content: '';
-    height: 200vh;
-    overflow: hidden;
-    background-color: grey;
-    opacity: .7;
-    position: absolute;
-    /* position: -webkit-sticky;
+  content: "";
+  height: 200vh;
+  overflow: hidden;
+  background-color: grey;
+  opacity: 0.7;
+  position: absolute;
+  /* position: -webkit-sticky;
     position: sticky; */
-    inset: 0;
+  inset: 0;
 }
 
-dialog h3, dialog p {
-    text-align: center;
+dialog h3,
+dialog p {
+  text-align: center;
 }
 
 dialog button {
-    display: block;
-    margin: 0 auto;
+  display: block;
+  margin: 0 auto;
 }

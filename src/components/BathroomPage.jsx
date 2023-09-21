@@ -8,10 +8,11 @@ import {
   fetchOneBathroomReviewsUsers,
   fetchUsers,
 } from "../fetch-functions";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { globalStore } from "../Zustand";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import { GMKey } from "../ReactQueryApp";
+import { supabase } from "../ReactQueryApp";
 import Marker from "./Marker";
 
 export default function BathroomPage({ params }) {
@@ -19,6 +20,8 @@ export default function BathroomPage({ params }) {
   const [showReview, setShowReview] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [location, setLocation] = useState(null);
+
+  const profile = globalStore((state) => state.profile)
 
   // console.log(id)
 
@@ -43,6 +46,20 @@ export default function BathroomPage({ params }) {
   const { data: users } = useQuery({
     queryKey: ["users"],
     queryFn: async () => fetchUsers(),
+  });
+
+  const favoriteMutation = useMutation({
+    mutationFn: () => {
+      // console.log(bathroomSupabase)
+      return supabase.from("favorites").insert({
+        bathroom_id: bathroom.id,
+        user_id: profile.id
+      }).select()
+    },
+    onSuccess: (data) => {
+      console.log('first success!')
+      console.log(data)
+    },
   });
 
   useEffect(() => {
@@ -92,15 +109,17 @@ export default function BathroomPage({ params }) {
   }
 
   // this should be a request to Supabase to add a row to the favorites table with a user_id and a bathroom_id
-  function addFavorite() {}
+  function addFavorite() {
+    favoriteMutation.mutate({})
+  }
 
   function singleBathroomButtons() {
-    return (
+    if (profile) return (
       <div id="one-bathroom-buttons">
         {/* this will open up a modal over the whole window that displays the NewReview component */}
         <button onClick={() => setShowReview(true)}>Write a Review</button>
         {/* this will make a DB request to create a new favorite with the user id and bathroom id */}
-        <button onClick={() => console.log("favorite")}>Favorite</button>
+        <button onClick={() => addFavorite()}>Favorite</button>
       </div>
     );
   }
