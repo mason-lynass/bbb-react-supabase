@@ -23,7 +23,7 @@ export default function AllBathrooms() {
   }, [bathrooms, query]);
 
   function allTheBathrooms() {
-    if (status === 'loading') return <p>loading....</p>
+    if (status === 'loading') return <p className='loading-component'>loading....</p>
     
     return (
       <div id="all-bathrooms">

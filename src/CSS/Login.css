@@ -32,3 +32,9 @@
     color: white;
 }
 
+@media (prefers-color-scheme: light) {
+    .supabase-auth-ui_ui-container input {
+        color: var(--main-darkest);
+    }
+}
+

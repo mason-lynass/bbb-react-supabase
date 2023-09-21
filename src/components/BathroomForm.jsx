@@ -10,11 +10,14 @@ import { useMutation } from "@tanstack/react-query";
 import { supabase } from "../ReactQueryApp";
 import { GMKey } from "../ReactQueryApp";
 import { submitBathroom, submitReview } from "../mutations";
+import { queryClient } from "../main";
 
 // this works for now but once we start using the Google Maps APIs we'll need to make sure that the Geocoding is working correctly
 export default function BathroomForm({ bathrooms }) {
   
   const profile = globalStore((state) => state.profile);
+
+  console.log(profile)
 
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState('submit');
@@ -39,18 +42,18 @@ export default function BathroomForm({ bathrooms }) {
 
   const [bathroomid, setBathroomId] = useState(null)
 
-  const bathroomSupabase = {
-    address: address,
-    location_name: locationName,
-    // latitude: newGeocode.results[0].geometry.location.lat,
-    // longitude: newGeocode.results[0].geometry.location.lng,
-    latitude: 47.3,
-    longitude: -122.5,
-    // neighborhood: newGeocode.results[0].address_components[2].long_name,
-    neighborhood: "Columbia City",
-    description: bathroomDescription,
-    public: publicBool,
-  };
+  // const bathroomSupabase = {
+  //   address: address,
+  //   location_name: locationName,
+  //   // latitude: newGeocode.results[0].geometry.location.lat,
+  //   // longitude: newGeocode.results[0].geometry.location.lng,
+  //   latitude: 47.3,
+  //   longitude: -122.5,
+  //   // neighborhood: newGeocode.results[0].address_components[2].long_name,
+  //   neighborhood: "Columbia City",
+  //   description: bathroomDescription,
+  //   public: publicBool,
+  // };
 
   const reviewSupabase = {
     user_id: profile.id,
@@ -78,6 +81,7 @@ export default function BathroomForm({ bathrooms }) {
       console.log(data)
       setBathroomId(data.data[0].bathroom_id);
       setLoading('finished')
+      queryClient.invalidateQueries({queryKey: ['all-bathrooms']})
     },
   });
 
@@ -130,6 +134,7 @@ export default function BathroomForm({ bathrooms }) {
         neighborhood: newGeocode.results[0].address_components[3].long_name,
         description: bathroomDescription,
         public: publicBool,
+        submitted_by: profile.id,
       })
       // .then(reviewMutation.mutate);
 

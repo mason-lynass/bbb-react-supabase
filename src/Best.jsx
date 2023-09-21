@@ -51,7 +51,7 @@ export default function Best({}) {
     );
   }
 
-  if (status === "loading") return <p>loading...</p>;
+  if (status === "loading") return <p className="loading-component">loading...</p>;
 
   return (
     <m.div

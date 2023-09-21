@@ -27,7 +27,7 @@ export default function NearMe() {
 
   const seattle = { lat: 47.6262, lng: -122.3321 };
 
-  if (bathroomsLoading == true) return <h2>loading...</h2>;
+  if (bathroomsLoading == true) return <h2 className="loading-component">loading...</h2>;
 
   const allBathrooms = bathrooms.map((bathroom) => {
     let position = {

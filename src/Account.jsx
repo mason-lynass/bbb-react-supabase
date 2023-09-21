@@ -13,7 +13,6 @@ import {
 import { useQuery } from "@tanstack/react-query";
 
 export default function Account({ setProfile }) {
-
   const {
     status,
     error,
@@ -39,12 +38,12 @@ export default function Account({ setProfile }) {
   } = useQuery({
     queryKey: ["all-favorites"],
     queryFn: async () => {
-      const { data: favs, error } = await supabase.from('favorites').select('*');
+      const { data: favs, error } = await supabase
+        .from("favorites")
+        .select("*");
       return favs;
     },
   });
-
-
 
   const session = globalStore((state) => state.session);
   const profile = globalStore((state) => state.profile);
@@ -114,8 +113,21 @@ export default function Account({ setProfile }) {
           (bathroom) => bathroom.id === review.bathroom_id
         )[0];
         let linkto = `/bathrooms/${thisBathroom.id}`;
-        return (
-          <Link to={linkto} key={review.id}>
+        if (thisBathroom.approved === true) {
+          return (
+            <Link to={linkto} key={review.id}>
+              <div className="one-review">
+                <p>{thisBathroom.location_name}</p>
+                <p>
+                  {review.description.slice(0, 80)}
+                  {review.description.length > 80 ? "..." : ""}
+                </p>
+                <p>{review.average_rating}</p>
+              </div>
+            </Link>
+          );
+        } else
+          return (
             <div className="one-review">
               <p>{thisBathroom.location_name}</p>
               <p>
@@ -124,14 +136,13 @@ export default function Account({ setProfile }) {
               </p>
               <p>{review.average_rating}</p>
             </div>
-          </Link>
-        );
+          );
       });
     }
   }
 
   function myFavorites() {
-    console.log(profileFavorites)
+    console.log(profileFavorites);
     if (open === "favorites") {
       return profileFavorites.map((fav) => {
         let thisBathroom = bathrooms.filter(
@@ -161,8 +172,8 @@ export default function Account({ setProfile }) {
             transition={{ duration: 0.5 }}
           >
             <h2>Hi there, {profile.email}!</h2>
-            <h2 id='no-username'>You don't have a username!</h2>
-            <form id='choose-username' onSubmit={handleUsernameSubmit}>
+            <h2 id="no-username">You don't have a username!</h2>
+            <form id="choose-username" onSubmit={handleUsernameSubmit}>
               <label htmlFor="username">Claim your username:</label>
               <input
                 id="username"
@@ -172,7 +183,7 @@ export default function Account({ setProfile }) {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               ></input>
-              <input id='username-submit' type="submit" value="Submit"></input>
+              <input id="username-submit" type="submit" value="Submit"></input>
             </form>
             <div id="sign-out">
               <button onClick={signOut}>Sign Out</button>
@@ -218,8 +229,8 @@ export default function Account({ setProfile }) {
                 }
               >
                 Here are your favorite bathrooms:
-                <div id="account-favorites">{myFavorites()}</div>
               </h3>
+              <div id="account-favorites">{myFavorites()}</div>
             </section>
             <div id="sign-out">
               <button onClick={signOut}>Sign Out</button>

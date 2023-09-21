@@ -161,7 +161,7 @@ export default function BathroomPage({ params }) {
     );
   }
 
-  if (oBStatus === "loading") return <p>loading...</p>;
+  if (oBStatus === "loading") return <p className="loading-component">loading...</p>;
 
   function renderMap() {
     if (location) {

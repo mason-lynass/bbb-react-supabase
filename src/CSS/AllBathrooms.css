@@ -64,6 +64,7 @@
   display: grid;
   grid-template-columns: 1fr 500px;
   background-color: var(--dark-blue3);
+  padding: 20px;
 }
 
 #bathroom-top-split section {
@@ -109,7 +110,7 @@
   align-items: center;
   margin: 0px;
   background-color: var(--dark-blue3);
-  min-height: 600px;
+  min-height: 400px;
 }
 
 #reviews-title {

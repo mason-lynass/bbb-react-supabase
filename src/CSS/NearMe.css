@@ -36,7 +36,13 @@ form button {
     width: 90vw;
     max-width: 1400px;
     height: 70vh;
-    margin: 0 auto;
-    margin-top: 40px;
-    border: 20px solid  var(--dark-blue1);
+    margin: 40px auto;
+    border: 10px solid  var(--dark-blue3);
+}
+
+@media (prefers-color-scheme: light) {
+    #where-are-you h3 { 
+        text-shadow: none;
+    }
+
 }
