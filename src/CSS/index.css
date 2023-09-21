@@ -83,12 +83,12 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: var(--main-darkest);
-    background-color: var(--main-white);
+    background-color: var(--white);
   }
   a:hover {
-    color: var(--green-light);
+    color: var(--white);
   }
   button {
-    background-color: var(--main-lightest);
+    background-color: var(--light-blue3);
   }
 }

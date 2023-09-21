@@ -63,11 +63,10 @@
 #bathroom-top-split {
   display: grid;
   grid-template-columns: 1fr 500px;
-  gap: 20px;
+  background-color: var(--dark-blue3);
 }
 
 #bathroom-top-split section {
-  background-color: var(--dark-blue3);
   padding: 20px;
 }
 
@@ -96,6 +95,11 @@
 #one-bathroom-buttons button {
   background-color: var(--dark-blue1);
   border: black;
+}
+
+#bathroom-page-map {
+  margin: 15px;
+  border: 5px solid var(--dark-blue3);
 }
 
 #one-bathroom-reviews {
@@ -169,14 +173,30 @@
 @media (prefers-color-scheme: light) {
   #all-bathrooms a:nth-of-type(odd) {
     text-align: left;
-    background-color: var(--blue-light);
+    background-color: var(--light-blue1);
   }
 
   #all-bathrooms a:nth-of-type(even) {
-    background-color: var(--green-light);
+    background-color: var(--light-blue2);
+  }
+
+  #all-bathrooms p, #all-bathrooms h3, #all-bathrooms h2 {
+    color: var(--main-darkest)
   }
 
   .one-bathroom-all {
     border: 1px solid var(--blue-dark);
+  }
+
+  #bathroom-top-split, #one-bathroom-reviews { 
+    background-color: var(--light-blue1);
+  }
+
+  .one-bathroom-one-review {
+    background-color: var(--light-blue3);
+  }
+
+  #one-bathroom-buttons button {
+    color: var(--white);
   }
 }

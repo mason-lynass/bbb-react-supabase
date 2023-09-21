@@ -25,7 +25,8 @@ const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export const supabase = createClient(url, key);
 
-export const GMKey = "";
+// export const GMKey = "";
+export const GMKey = import.meta.env.VITE_GOOGLE_MAPS_KEY;
 
 // this version uses BrowserRouter instead of createBrowserRouter
 // we're gonna use this version of the main App component

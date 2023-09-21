@@ -108,3 +108,38 @@
 #new-bathroom-submit:hover {
     box-shadow: 0 0 10px 2px var(--light-blue1);
 }
+
+dialog {
+    display: block;
+    position: fixed;
+    top: 200px;
+    width: 50%;
+    max-width: 600px;
+    z-index: 3;
+    left: 0;
+    margin: auto;
+    padding: 20px;
+    padding-bottom: 40px;
+    border-radius: 10px;
+}
+
+.bodyBlur::after {
+    content: '';
+    height: 200vh;
+    overflow: hidden;
+    background-color: grey;
+    opacity: .7;
+    position: absolute;
+    /* position: -webkit-sticky;
+    position: sticky; */
+    inset: 0;
+}
+
+dialog h3, dialog p {
+    text-align: center;
+}
+
+dialog button {
+    display: block;
+    margin: 0 auto;
+}

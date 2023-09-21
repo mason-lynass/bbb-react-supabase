@@ -35,7 +35,7 @@ export default function AllBathrooms() {
             >
               <h2>{bathroom.location_name}</h2>
               <h3>{bathroom.address}</h3>
-              <p>{bathroom.description}</p>
+              <p>{bathroom.description.slice(0, 80)}{bathroom.description.length > 80 ?  '...' : ''}</p>
             </div>
           </Link>
         ))}

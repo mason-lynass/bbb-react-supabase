@@ -1,0 +1,27 @@
+
+
+#where-are-you h3 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#where-are-you form {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+form input {
+    height: 30px;
+    font-size: 18px;
+}
+
+#all-bathrooms-map {
+    width: 90vw;
+    max-width: 1400px;
+    height: 70vh;
+    margin: 5vh auto;
+}

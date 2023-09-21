@@ -4,14 +4,16 @@ import { Navigate, useNavigate } from "react-router-dom";
 import "../CSS/BathroomForm.css";
 
 import RatingButton from "./RatingButton";
+import SubmittedDialog from "./SubmittedDialog";
 import { globalStore } from "../Zustand";
 import { useMutation } from "@tanstack/react-query";
 import { supabase } from "../ReactQueryApp";
+import { GMKey } from "../ReactQueryApp";
 import { submitBathroom, submitReview } from "../mutations";
 
 // this works for now but once we start using the Google Maps APIs we'll need to make sure that the Geocoding is working correctly
-export default function BathroomForm({ GMKey, bathrooms }) {
-
+export default function BathroomForm({ bathrooms }) {
+  
   const profile = globalStore((state) => state.profile);
 
   const [errors, setErrors] = useState([]);
@@ -80,9 +82,9 @@ export default function BathroomForm({ GMKey, bathrooms }) {
   });
 
   const bathroomMutation = useMutation({
-    mutationFn: () => {
+    mutationFn: (bathroomData) => {
       // console.log(bathroomSupabase)
-      return supabase.from("bathrooms").insert(bathroomSupabase).select()
+      return supabase.from("bathrooms").insert(bathroomData).select()
     },
     onSuccess: (data) => {
       // console.log('first success!')
@@ -100,12 +102,14 @@ export default function BathroomForm({ GMKey, bathrooms }) {
     setLoading('submitting');
 
     try {
-      // const googleResp = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location},seattle&key=${GMKey}`)
-      // const newGeocode = await googleResp.json()
+      const googleResp = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address},seattle&key=${GMKey}`)
+      const newGeocode = await googleResp.json()
 
-      // if (!googleResp.ok || newGeocode.results[0].geometry === undefined) {
-      //     throw ["You need to enter a valid address"]
-      // }
+      console.log(newGeocode)
+
+      if (!googleResp.ok || newGeocode.results[0].geometry === undefined) {
+          throw ["You need to enter a valid address"]
+      }
 
       // these are the fields that we'll need to provide in order to successfully add a row to the bathrooms table in the DB
       // there are other columns that have default values that we do not need to provide here
@@ -118,7 +122,15 @@ export default function BathroomForm({ GMKey, bathrooms }) {
       // console.log(await bathroomResult)
       // const createdBathroom = await bathroomResult.data[0];
 
-      bathroomMutation.mutate(bathroomSupabase)
+      bathroomMutation.mutate({
+        address: address,
+        location_name: locationName,
+        latitude: newGeocode.results[0].geometry.location.lat,
+        longitude: newGeocode.results[0].geometry.location.lng,
+        neighborhood: newGeocode.results[0].address_components[3].long_name,
+        description: bathroomDescription,
+        public: publicBool,
+      })
       // .then(reviewMutation.mutate);
 
       // const createdBathroom = postBathroom
@@ -156,7 +168,7 @@ export default function BathroomForm({ GMKey, bathrooms }) {
     }
   }
 
-  if (bathroomid !== null) return <Navigate to={`/bathrooms/${bathroomid}`} />
+  // if (bathroomid !== null) return <Navigate to={`/bathrooms/${bathroomid}`} />
 
   return (
     <div id="new-bathroom-container">
@@ -333,9 +345,7 @@ export default function BathroomForm({ GMKey, bathrooms }) {
           {loading === 'submit' ? "Submit" : "Loading..."}
         </button>
         <br />
-        {/* {errors.map((err) => (
-                    <p key={err}>{err}</p>
-                ))} */}
+        {bathroomid ? <SubmittedDialog locationName={locationName} /> : ''}
       </form>
     </div>
   );

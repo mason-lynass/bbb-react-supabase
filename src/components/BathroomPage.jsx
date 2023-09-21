@@ -6,16 +6,19 @@ import {
   fetchOneBathroom,
   fetchOneBathroomReviews,
   fetchOneBathroomReviewsUsers,
-  fetchUsers
+  fetchUsers,
 } from "../fetch-functions";
 import { useQuery } from "@tanstack/react-query";
 import { globalStore } from "../Zustand";
+import { Wrapper } from "@googlemaps/react-wrapper";
+import { GMKey } from "../ReactQueryApp";
+import Marker from "./Marker";
 
 export default function BathroomPage({ params }) {
   const id = useParams();
-  // const users = globalStore((state) => state.users);
   const [showReview, setShowReview] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [location, setLocation] = useState(null);
 
   // console.log(id)
 
@@ -45,6 +48,13 @@ export default function BathroomPage({ params }) {
   useEffect(() => {
     if (users && bathroomReviews) setLoaded(true);
   }, [users, bathroomReviews]);
+
+  useEffect(() => {
+    if (bathroom) setLocation({
+      lat: bathroom.latitude,
+      lng: bathroom.longitude
+    }) 
+  }, [bathroom])
 
   function singleBathroom(bathroom) {
     const bathroomPublic = bathroom.public == "true" ? "public restroom" : "";
@@ -121,7 +131,7 @@ export default function BathroomPage({ params }) {
   }
 
   function singleBathroomReviews() {
-    console.log(bathroomReviews);
+    // console.log(bathroomReviews);
     return (
       <>
         <h2 id="reviews-title">Reviews</h2>
@@ -134,7 +144,19 @@ export default function BathroomPage({ params }) {
 
   if (oBStatus === "loading") return <p>loading...</p>;
 
-  console.log(bathroom, bathroomReviews, users);
+  function renderMap() {
+    if (location) {
+      return (
+        <Wrapper apiKey={GMKey}>
+          <BathroomPageMap center={location} zoom={14}>
+            <Marker position={location} bathroom={bathroom}/>
+          </BathroomPageMap>
+        </Wrapper>
+      );
+    }
+  }
+
+  // console.log(bathroom, bathroomReviews, users);
 
   // maybe NewReview comes up in a modal after a button press?
   return (
@@ -144,7 +166,7 @@ export default function BathroomPage({ params }) {
           {singleBathroom(bathroom)}
           {singleBathroomButtons()}
         </section>
-        {/* <BathroomPageMap /> */}
+        {renderMap()}
       </div>
       {loaded === true ? (
         <section>{singleBathroomReviews(bathroom)}</section>

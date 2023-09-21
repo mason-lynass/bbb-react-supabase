@@ -23,3 +23,11 @@
 .one-bathroom-stock h2, .one-bathroom-stock h3 {
     text-align: center;
 }
+
+@media (prefers-color-scheme: light) { 
+    .one-bathroom-stock {
+        background-color: var(--light-blue2);
+        border: 2px solid goldenrod;
+        color: var(--main-darkest);
+    }
+}
