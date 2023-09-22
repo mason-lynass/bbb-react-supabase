@@ -1,9 +1,10 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: 'Space Mono'; */
   line-height: 1.5;
   font-weight: 400;
 
-  --main-darkest: rgb(23, 23, 74) ;
+  /* mostly not using these anymore  */
   --blue-dark: #0c073d;
   --blue-middle: #26408B;
   --blue-light: #4266d3;
@@ -13,7 +14,7 @@
   --green-lightest: #d7ece4;
   --main-white: #f6fffb;
 
-
+  --main-darkest: rgb(23, 23, 74) ;
   --black: rgb(5,5,5);
   --white: #f6fffb;
   --blue-grey: #3C4B64;
