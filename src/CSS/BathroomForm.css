@@ -1,7 +1,11 @@
-#new-bathroom-container {
-  width: 95vw;
-  max-width: 1000px;
-  margin: auto;
+#new-bathroom-flex {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-width: 500px;
+  gap: 40px;
 }
 
 #bathroom-fields,
@@ -10,6 +14,8 @@
   margin: 20px auto;
   border-radius: 20px;
   border: 1px solid var(--light-blue1);
+  width: 45%;
+  min-width: 500px;
 }
 
 #review-fields {
@@ -29,16 +35,16 @@
 
 #bathroom-fields label,
 #review-fields label {
-  margin-top: 30px;
+  margin-top: 20px;
   margin-bottom: 5px;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 #bathroom-fields input,
 #review-fields input,
 #bathroom-fields textarea,
 #review-fields textarea {
-  font-size: 24px;
+  font-size: 18px;
   padding: 5px;
   background-color: var(--light-blue1);
   color: black;
@@ -87,15 +93,18 @@
 #all-rating-buttons {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   max-width: 800px;
   margin: 10px auto;
-  gap: 10px;
+  gap: 5px;
 }
 
 #all-rating-buttons button {
+  padding: 10px;
+  margin: 0;
   background-color: var(--light-blue4);
+  display: block;
 }
 
 #all-rating-buttons .hover-on {

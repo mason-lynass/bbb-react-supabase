@@ -22,6 +22,8 @@ export default function Submit({ setBathrooms }) {
 })
   const profile = globalStore((state) => state.profile);
 
+  console.log(profile)
+
   // check to see if there's a logged in user, if not, make them log in
   if (!profile) {
     return (
@@ -49,7 +51,7 @@ export default function Submit({ setBathrooms }) {
         transition={{ duration: 0.5 }}
       >
         <main id="submit">
-          <h1 id="submit-bathroom-title">Add a new bathroom</h1>
+          <h2 id="submit-bathroom-title">Add a new bathroom</h2>
           <BathroomForm
             bathrooms={bathrooms}
             setBathrooms={setBathrooms}

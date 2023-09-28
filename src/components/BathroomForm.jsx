@@ -175,6 +175,7 @@ export default function BathroomForm({ bathrooms }) {
   return (
     <div id="new-bathroom-container">
       <form id="new-bathroom-form" onSubmit={handleSubmit}>
+        <div id='new-bathroom-flex'>
         <section id="bathroom-fields">
           <div>
             <label htmlFor="nb-location-name">Name of business or place:</label>
@@ -273,14 +274,14 @@ export default function BathroomForm({ bathrooms }) {
             />
           </div>
           <div>
-            <label htmlFor="nr-cleanliness-rating">Cleanliness rating:</label>
+            <label htmlFor="nr-cleanliness-rating">Cleanliness rating: {cleanlinessRating}</label>
             <RatingButton
               rating={cleanlinessRating}
               setRating={setCleanlinessRating}
             />
           </div>
           <div>
-            <label htmlFor="nr-function">Function:</label>
+            <label htmlFor="nr-function">Function: </label>
             <textarea
               id="nr-function"
               type="text"
@@ -289,7 +290,7 @@ export default function BathroomForm({ bathrooms }) {
             />
           </div>
           <div>
-            <label htmlFor="nr-function-rating">Function rating:</label>
+            <label htmlFor="nr-function-rating">Function rating: {bathroomFunctionRating}</label>
             <RatingButton
               rating={bathroomFunctionRating}
               setRating={setBathroomFunctionRating}
@@ -305,10 +306,12 @@ export default function BathroomForm({ bathrooms }) {
             />
           </div>
           <div>
-            <label htmlFor="nr-style-rating">Style rating:</label>
+            <label htmlFor="nr-style-rating">Style rating: {styleRating}</label>
             <RatingButton rating={styleRating} setRating={setStyleRating} />
           </div>
+          
         </section>
+        </div>
         <button id="new-bathroom-submit" type="submit">
           {loading === 'submit' ? "Submit" : "Loading..."}
         </button>
