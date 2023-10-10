@@ -23,7 +23,7 @@ export default function Best({}) {
   const [loaded, setLoaded] = useState(false);
   const [best, setBest] = useState([]);
 
-  console.log(bathrooms);
+  // console.log(bathrooms);
 
   // the dependency in the dependency array should only change from undefined -> all of the bathrooms
   useEffect(() => {

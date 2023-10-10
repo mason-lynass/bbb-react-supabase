@@ -127,7 +127,7 @@ export default function BathroomForm({ bathrooms }) {
         location_name: locationName,
         latitude: newGeocode.results[0].geometry.location.lat,
         longitude: newGeocode.results[0].geometry.location.lng,
-        neighborhood: newGeocode.results[0].address_components[3].long_name,
+        neighborhood: newGeocode.results[0].address_components[2].long_name,
         description: bathroomDescription,
         public: publicBool,
       })
