@@ -31,6 +31,37 @@ export default function Home() {
   // one review - maybe the most recent, or something specific that we choose?
   // mayyyyybe a map with all of the bathrooms on it as pins? might be an expensive feature if we load a map and all the pins every homepage visit
 
+  
+
+  function mostRecentBathroom () {
+    const bathroom = bathrooms.sort((a, b) => b.id - a.id)[0]
+    // console.log(theBathroom)
+
+    const bathroomPublic = bathroom.public == "true" ? "public restroom" : "";
+    const ADACompliant =
+      bathroom.ada_compliant == "true" ? "ADA compliant facilities" : "";
+    const genderNeutral =
+      bathroom.gender_neutral == "true" ? "gender neutral facilities" : "";
+
+    return (
+      <>
+        <div id="single-bathroom-container">
+          <h1 id="bathroom-name">{bathroom.location_name}</h1>
+          <div id="one-bathroom-location">
+            <h3>{bathroom.address}</h3>
+            <h3>{bathroom.neighborhood}</h3>
+          </div>
+          <p id="one-bathroom-description">{bathroom.description}</p>
+          <div id="one-bathroom-filters">
+            <p>{bathroomPublic}</p>
+            <p>{genderNeutral}</p>
+            <p>{ADACompliant}</p>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   if (status === "loading" || rstatus === "loading")
     return (
       <main id="home-main">
@@ -54,6 +85,9 @@ export default function Home() {
           transition={{ duration: 0.5 }}
         >
           <h1>you're on the home page babes</h1>
+          <div>
+            {mostRecentBathroom()}
+          </div>
         </m.div>
       </main>
     );

@@ -40,3 +40,11 @@ form button {
     margin-top: 40px;
     border: 20px solid  var(--dark-blue1);
 }
+
+.marker-content-string {
+    color: var(--dark-blue4);
+}
+
+.marker-content-string:hover {
+    color: var(--dark-blue2);
+}

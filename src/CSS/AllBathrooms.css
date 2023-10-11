@@ -32,10 +32,18 @@
   background-color: var(--dark-blue4);
 }
 
+#all-filters {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark-blue3);
+}
+
 #all-bathrooms-search {
   display: block;
   width: fit-content;
-  margin: 30px auto;
+  margin: 10px;
 }
 
 #all-bathrooms-search label {
@@ -45,12 +53,50 @@
 #search {
   width: 70vw;
   max-width: 300px;
+  border: 0;
 }
 
-#all-bathrooms-search label,
-#search {
+#search::placeholder {
+  color: var(--white);
+}
+
+#search, #neighborhood select {
   font-size: 20px;
-  height: 30px;
+  height: 40px;
+  padding: 0 10px;
+  background-color: var(--dark-blue1);
+  color: var(--white);
+  border-radius: 5px;
+}
+
+#filters-and-neighborhood {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+#filter-buttons button {
+  background-color: var(--dark-blue2);
+  border: 1px solid var(--light-blue2);
+  margin: 10px;
+}
+
+#filter-buttons .button-active {
+  background-color: var(--dark-blue1);
+}
+
+#neighborhood {
+  margin: 10px;
+}
+
+#neighborhood option {
+  text-align: center;
+}
+
+#all-filters :is(input, button, select):hover {
+  box-shadow: 0px 0px 4px var(--white);
 }
 
 /* for one bathroom */

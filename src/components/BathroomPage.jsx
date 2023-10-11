@@ -168,7 +168,7 @@ export default function BathroomPage({ params }) {
       return (
         <Wrapper apiKey={GMKey}>
           <BathroomPageMap center={location} zoom={14}>
-            <Marker position={location} bathroom={bathroom}/>
+            <Marker position={location}/>
           </BathroomPageMap>
         </Wrapper>
       );

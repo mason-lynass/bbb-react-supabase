@@ -21,7 +21,7 @@ export default function AllBathrooms() {
   const [publicBool, setPublicBool] = useState(false);
   const [ADABool, setADABool] = useState(false);
   const [GNBool, setGNBool] = useState(false);
-  const [neighborhood, setNeighborhood] = useState('none');
+  const [neighborhood, setNeighborhood] = useState("none");
 
   const neighborhoods = [
     "Alki",
@@ -97,6 +97,42 @@ export default function AllBathrooms() {
       );
   }, [bathrooms, query]);
 
+  function handleFilterClick(button, e) {
+    const publicButton = document.getElementById("public-button");
+    const ADAButton = document.getElementById("ADA-button");
+    const GNButton = document.getElementById("GN-button");
+
+    switch (button) {
+      case "public":
+        setPublicBool(!publicBool);
+        if (publicButton.classList.contains("button-active")) {
+          publicButton.classList.remove("button-active");
+        } else {
+          publicButton.classList.add("button-active");
+        }
+        break;
+      case "ADA":
+        setADABool(!ADABool);
+        if (ADAButton.classList.contains("button-active")) {
+          ADAButton.classList.remove("button-active");
+        } else {
+          ADAButton.classList.add("button-active");
+        }
+        break;
+      case "GN":
+        setGNBool(!GNBool);
+        if (GNButton.classList.contains("button-active")) {
+          GNButton.classList.remove("button-active");
+        } else {
+          GNButton.classList.add("button-active");
+        }
+        break;
+      default:
+        console.log("nothing");
+        break;
+    }
+  }
+
   function allTheBathrooms() {
     if (status === "loading") return <p>loading....</p>;
 
@@ -142,9 +178,11 @@ export default function AllBathrooms() {
         break;
     }
 
-    if (neighborhood !== 'none') {
+    if (neighborhood !== "none") {
       // console.log(neighborhood)
-      allTheBathrooms = allTheBathrooms.filter((b) => b.neighborhood === neighborhood);
+      allTheBathrooms = allTheBathrooms.filter(
+        (b) => b.neighborhood === neighborhood
+      );
       // console.log(allTheBathrooms)
     }
 
@@ -172,51 +210,51 @@ export default function AllBathrooms() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div id="all-bathrooms-search">
-        <label htmlFor="search">Search:</label>
-        <input
-          id="search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          type="search"
-        ></input>
-      </div>
-      <div id="all-bathrooms-filters">
-        <div>
-          <label htmlFor="public-filter">Public restroom?</label>
+      <div id="all-filters">
+        <div id="all-bathrooms-search">
           <input
-            id="public-filter"
-            value={false}
-            type="checkbox"
-            onChange={(e) => setPublicBool(!publicBool)}
+            id="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            type="search"
+            placeholder="Search by bathroom name"
           ></input>
         </div>
-        <div>
-          <label htmlFor="ada-filter">ADA Compliant?</label>
-          <input
-            id="ada-filter"
-            value={false}
-            type="checkbox"
-            onChange={(e) => setADABool(!ADABool)}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="gn-filter">Gender neutral facilities?</label>
-          <input
-            id="gn-filter"
-            value={false}
-            type="checkbox"
-            onChange={(e) => setGNBool(!GNBool)}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="neighborhood-dropdown">Neighborhood:</label>
-          <select value={neighborhood} onChange={(e) => setNeighborhood(e.target.value)} id="neighborhood-dropdown">
-            <option value='none' key='null'>- select -</option>
-            {neighborhoods.map((n) => {
-              return <option value={n} key={n}>{n}</option>;
-            })}
-          </select>
+        <div id="filters-and-neighborhood">
+          <div id="filter-buttons">
+            <button
+              id="public-button"
+              onClick={(e) => handleFilterClick("public", e)}
+            >
+              Public restroom
+            </button>
+            <button id="ADA-button" onClick={(e) => handleFilterClick("ADA")}>
+              ADA compliant
+            </button>
+            <button id="GN-button" onClick={(e) => handleFilterClick("GN")}>
+              Gender neutral
+            </button>
+          </div>
+          <div id="neighborhood">
+            <div>
+              <select
+                value={neighborhood}
+                onChange={(e) => setNeighborhood(e.target.value)}
+                id="neighborhood-dropdown"
+              >
+                <option value="none" key="null">
+                  - Neighborhood -
+                </option>
+                {neighborhoods.map((n) => {
+                  return (
+                    <option value={n} key={n}>
+                      {n}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
         </div>
       </div>
       {bathrooms !== undefined ? allTheBathrooms() : <h2>loading...</h2>}
