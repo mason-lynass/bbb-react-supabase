@@ -191,8 +191,8 @@ export default function AllBathrooms() {
         {allTheBathrooms.map((bathroom) => (
           <Link to={`/bathrooms/${bathroom.id}`} key={bathroom.location_name}>
             <div className="one-bathroom-all" id={bathroom.location_name}>
-              <h2>{bathroom.location_name}</h2>
-              <h3>{bathroom.address}</h3>
+              <h3>{bathroom.location_name}</h3>
+              <h4>{bathroom.address}</h4>
               <p>
                 {bathroom.description.slice(0, 80)}
                 {bathroom.description.length > 80 ? "..." : ""}
@@ -209,6 +209,7 @@ export default function AllBathrooms() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
+      id="all-bathrooms-flex"
     >
       <div id="all-filters">
         <div id="all-bathrooms-search">
@@ -221,6 +222,24 @@ export default function AllBathrooms() {
           ></input>
         </div>
         <div id="filters-and-neighborhood">
+          <div id="neighborhood">
+            <select
+              value={neighborhood}
+              onChange={(e) => setNeighborhood(e.target.value)}
+              id="neighborhood-dropdown"
+            >
+              <option value="none" key="null">
+                - Neighborhood -
+              </option>
+              {neighborhoods.map((n) => {
+                return (
+                  <option value={n} key={n}>
+                    {n}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
           <div id="filter-buttons">
             <button
               id="public-button"
@@ -234,26 +253,6 @@ export default function AllBathrooms() {
             <button id="GN-button" onClick={(e) => handleFilterClick("GN")}>
               Gender neutral
             </button>
-          </div>
-          <div id="neighborhood">
-            <div>
-              <select
-                value={neighborhood}
-                onChange={(e) => setNeighborhood(e.target.value)}
-                id="neighborhood-dropdown"
-              >
-                <option value="none" key="null">
-                  - Neighborhood -
-                </option>
-                {neighborhoods.map((n) => {
-                  return (
-                    <option value={n} key={n}>
-                      {n}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
           </div>
         </div>
       </div>

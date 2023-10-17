@@ -102,6 +102,10 @@ export default function BathroomForm({ bathrooms }) {
     setLoading('submitting');
 
     try {
+
+      if (((cleanlinessRating + bathroomFunctionRating + styleRating) /
+      3) === 10) throw ["Was this really the best bathroom of all time? Please don't abuse our database."]
+
       const googleResp = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address},seattle&key=${GMKey}`)
       const newGeocode = await googleResp.json()
 

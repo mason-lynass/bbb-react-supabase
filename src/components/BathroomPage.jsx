@@ -4,6 +4,7 @@ import NewReview from "./NewReview";
 import BathroomPageMap from "./BathroomPageMap";
 import {
   fetchOneBathroom,
+  fetchOneBathroomFavorites,
   fetchOneBathroomReviews,
   fetchOneBathroomReviewsUsers,
   fetchUsers,
@@ -20,8 +21,9 @@ export default function BathroomPage({ params }) {
   const [showReview, setShowReview] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [location, setLocation] = useState(null);
+  const [userBathroomFavorite, setUserBathroomFavorite] = useState(null);
 
-  const profile = globalStore((state) => state.profile)
+  const profile = globalStore((state) => state.profile);
 
   // console.log(id)
 
@@ -48,17 +50,44 @@ export default function BathroomPage({ params }) {
     queryFn: async () => fetchUsers(),
   });
 
+  const {
+    status: oBFavoritesStatus,
+    error: oBFavoritesError,
+    data: oBFavorites,
+  } = useQuery({
+    queryKey: ["favorites", { favorite: parseInt(id.bathroomid) }],
+    queryFn: async () => fetchOneBathroomFavorites(id),
+  });
+
   const favoriteMutation = useMutation({
     mutationFn: () => {
       // console.log(bathroomSupabase)
-      return supabase.from("favorites").insert({
-        bathroom_id: bathroom.id,
-        user_id: profile.id
-      }).select()
+      return supabase
+        .from("favorites")
+        .insert({
+          bathroom_id: bathroom.id,
+          user_id: profile.id,
+        })
+        .select();
     },
     onSuccess: (data) => {
-      console.log('first success!')
-      console.log(data)
+      console.log("first success!");
+      setUserBathroomFavorite(data);
+      console.log(data);
+    },
+  });
+
+  const removeFavoriteMutation = useMutation({
+    mutationFn: () => {
+      return supabase
+        .from("favorites")
+        .delete()
+        .eq("id", userBathroomFavorite.id);
+    },
+    onSuccess: (data) => {
+      console.log("DELETED");
+      setUserBathroomFavorite(null);
+      console.log(data);
     },
   });
 
@@ -67,11 +96,21 @@ export default function BathroomPage({ params }) {
   }, [users, bathroomReviews]);
 
   useEffect(() => {
-    if (bathroom) setLocation({
-      lat: bathroom.latitude,
-      lng: bathroom.longitude
-    }) 
-  }, [bathroom])
+    if (bathroom)
+      setLocation({
+        lat: bathroom.latitude,
+        lng: bathroom.longitude,
+      });
+  }, [bathroom]);
+
+  useEffect(() => {
+    if (profile && oBFavorites) {
+      let thisFav = oBFavorites.filter(
+        (favs) => favs.user_id === profile.id
+      )[0];
+      if (thisFav !== undefined) setUserBathroomFavorite(thisFav)
+    }
+  }, [profile, oBFavorites]);
 
   function singleBathroom(bathroom) {
     const bathroomPublic = bathroom.public == "true" ? "public restroom" : "";
@@ -108,20 +147,34 @@ export default function BathroomPage({ params }) {
     );
   }
 
+  function favoriteButton() {
+    if (!userBathroomFavorite)
+      return <button onClick={() => addFavorite()}>Add to Favorites</button>;
+    else
+      return (
+        <button onClick={() => removeFavorite()}>Remove from Favorites</button>
+      );
+  }
+
   // this should be a request to Supabase to add a row to the favorites table with a user_id and a bathroom_id
   function addFavorite() {
-    favoriteMutation.mutate({})
+    favoriteMutation.mutate({});
+  }
+
+  function removeFavorite() {
+    removeFavoriteMutation.mutate({});
   }
 
   function singleBathroomButtons() {
-    if (profile) return (
-      <div id="one-bathroom-buttons">
-        {/* this will open up a modal over the whole window that displays the NewReview component */}
-        <button onClick={() => setShowReview(true)}>Write a Review</button>
-        {/* this will make a DB request to create a new favorite with the user id and bathroom id */}
-        <button onClick={() => addFavorite()}>Favorite</button>
-      </div>
-    );
+    if (profile)
+      return (
+        <div id="one-bathroom-buttons">
+          {/* this will open up a modal over the whole window that displays the NewReview component */}
+          <button onClick={() => setShowReview(true)}>Write a Review</button>
+          {/* this will make a DB request to create a new favorite with the user id and bathroom id */}
+          {favoriteButton()}
+        </div>
+      );
   }
 
   function oneReview(review) {
@@ -168,14 +221,12 @@ export default function BathroomPage({ params }) {
       return (
         <Wrapper apiKey={GMKey}>
           <BathroomPageMap center={location} zoom={14}>
-            <Marker position={location}/>
+            <Marker position={location} />
           </BathroomPageMap>
         </Wrapper>
       );
     }
   }
-
-  // console.log(bathroom, bathroomReviews, users);
 
   // maybe NewReview comes up in a modal after a button press?
   return (
