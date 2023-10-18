@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import RatingButton from "./RatingButton";
 import { supabase } from "../ReactQueryApp";
 
-export default function NewReview({ bathroom }) {
+export default function NewReview({ bathroom, setShowReview }) {
   const profile = globalStore((state) => state.profile);
 
   const [errors, setErrors] = useState([]);
@@ -44,15 +44,24 @@ export default function NewReview({ bathroom }) {
     },
     onSuccess: (data) => {
       console.log(data);
-      queryClient.invalidateQueries({
-        queryKey: ["reviews", { bathroom: bathroom.id }],
-      });
+      // setTimeout(() => queryClient.invalidateQueries({
+      //   queryKey: ["reviews", { bathroom: bathroom.id }],
+      // }), 20000);
     },
   });
 
   function handleSubmit(e) {
-    e.preventDefault;
+    e.preventDefault();
     try {
+      if (reviewDescription === "") throw ["Please leave a brief description."];
+      if (
+        cleanlinessRating === null ||
+        bathroomFunctionRating === null ||
+        styleRating === null
+      )
+        throw [
+          "Please rate cleanliness, function, and style on a scale from 1-10.",
+        ];
       reviewMutation.mutate();
     } catch (error) {
       console.log(error);
@@ -60,9 +69,16 @@ export default function NewReview({ bathroom }) {
     }
   }
 
+  function displayErrors() {
+    return errors.map((e) => {
+      return <p className="display-error">{e}</p>;
+    });
+  }
+
   return (
     <div>
       <dialog id="new-review-dialog" open>
+      <button id="new-review-close" onClick={() => setShowReview(false)}>x</button>
         <h2 id="new-review-title">
           Add your review for {bathroom.location_name}
         </h2>
@@ -80,7 +96,7 @@ export default function NewReview({ bathroom }) {
                 onChange={(e) => setReviewDescription(e.target.value)}
               />
             </div>
-            <div class='nr-flex'>
+            <div className="nr-flex">
               <div>
                 <label htmlFor="nr-cleanliness">Cleanliness:</label>
                 <textarea
@@ -100,7 +116,7 @@ export default function NewReview({ bathroom }) {
                 />
               </div>
             </div>
-            <div class='nr-flex'>
+            <div className="nr-flex">
               <div>
                 <label htmlFor="nr-function">Function:</label>
                 <textarea
@@ -118,7 +134,7 @@ export default function NewReview({ bathroom }) {
                 />
               </div>
             </div>
-            <div class='nr-flex'>
+            <div className="nr-flex">
               <div>
                 <label htmlFor="nr-style">Style:</label>
                 <textarea
@@ -137,6 +153,7 @@ export default function NewReview({ bathroom }) {
               {/* {loading === "submit" ? "Submit" : "Loading..."} */}
               Submit
             </button>
+            {displayErrors()}
           </section>
         </form>
       </dialog>

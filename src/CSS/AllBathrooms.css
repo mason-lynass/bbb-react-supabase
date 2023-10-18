@@ -233,6 +233,26 @@
   color: var(--dark-blue1);
 }
 
+#new-review-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background-color: red;
+  color: white;
+  border: 1px solid black;
+  border-radius: 2px;
+  font-size: 18px;
+}
+
+.display-error {
+  color: red;
+  width: 250px;
+  margin: 10px auto;
+}
+
 @media (prefers-color-scheme: light) {
   #all-bathrooms a:nth-of-type(odd) {
     text-align: left;

@@ -62,10 +62,12 @@ export default function Account({ setProfile }) {
       .update({ username: username })
       .eq("id", profile.id);
     // DB doesn't re-fetch (I think?), or there's a lag at least, so we update state
-    setProfile({
-      id: profile.id,
-      email: profile.email,
-      username: await newName,
+    globalStore.setState({
+      profile: {
+        id: profile.id,
+        email: profile.email,
+        username: await newName,
+      }
     });
   }
 

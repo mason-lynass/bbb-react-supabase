@@ -243,7 +243,7 @@ export default function BathroomPage({ params }) {
       ) : (
         ""
       )}
-      {showReview === true ? <NewReview bathroom={bathroom} /> : ""}
+      {showReview === true ? <NewReview bathroom={bathroom} setShowReview={setShowReview}/> : ""}
     </main>
   );
 }
