@@ -5,10 +5,10 @@ import { Navigate } from "react-router-dom";
 import { motion as m } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 
-import { globalStore } from "./Zustand";
-import { supabase } from "./ReactQueryApp";
-import { fetchUsers } from "./fetch-functions";
-import "./CSS/Login.css";
+import { globalStore } from "../../global/Zustand";
+import { supabase } from "../../ReactQueryApp";
+import { fetchUsers } from "../../React-Query/fetch-functions";
+import "./Login.css";
 
 export default function Login() {
   // const [hasAccount, setHasAccount] = useState(false)
@@ -45,7 +45,7 @@ export default function Login() {
     // which will set a profile, which will navigate us away from this component
   });
 
-  if (usersLoading == true) return <h2>hmm.....</h2>;
+  if (usersLoading == true) return <h2>loading...</h2>;
 
   if (session && profile) {
     return <Navigate to="/account" replace={true} />;

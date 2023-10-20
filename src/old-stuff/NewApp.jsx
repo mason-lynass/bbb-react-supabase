@@ -30,16 +30,16 @@ import AllBathrooms
  from "./AllBathrooms.jsx";
 import BathroomPage
 // { oneBathroomLoader } 
-from "./components/BathroomPage.jsx";
+from "../components/BathroomPage.jsx";
 import Layout from "./Layout.jsx";
 
-import { globalStore } from "./Zustand.jsx";
+import { globalStore } from "../Zustand.jsx";
 import {
   fetchBathrooms,
   fetchOneBathroom,
   fetchReviews,
   fetchUsers,
-} from "./fetch-functions.jsx";
+} from "../React-Query/fetch-functions.jsx";
 
 import "./CSS/App.css";
 

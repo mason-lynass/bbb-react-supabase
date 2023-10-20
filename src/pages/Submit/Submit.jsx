@@ -2,12 +2,12 @@ import { motion as m } from "framer-motion";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 
-import BathroomForm from "./components/BathroomForm";
-import "./CSS/Submit.css";
+import BathroomForm from "./BathroomForm";
+import "./Submit.css";
 
-import { supabase, GMKey } from "./ReactQueryApp";
-import { globalStore } from "./Zustand";
-import { fetchAllBathrooms } from "./fetch-functions";
+import { supabase, GMKey } from "../../ReactQueryApp";
+import { globalStore } from "../../global/Zustand";
+import { fetchAllBathrooms } from "../../React-Query/fetch-functions";
 import { useQuery } from "@tanstack/react-query";
 
 // // this might be how you submit things to the database, add an action to the route and import it in NewApp
@@ -21,8 +21,6 @@ export default function Submit({ setBathrooms }) {
     queryFn: fetchAllBathrooms
 })
   const profile = globalStore((state) => state.profile);
-
-  console.log(profile)
 
   // check to see if there's a logged in user, if not, make them log in
   if (!profile) {

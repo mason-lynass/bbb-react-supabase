@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 import { motion as m } from "framer-motion";
 import { Link } from "react-router-dom";
-
-import "./CSS/Best.css";
-import BestBathroom from "./components/BestBathroom";
-import { globalStore } from "./Zustand";
-import { fetchApprovedBathrooms } from "./fetch-functions";
 import { useQuery } from "@tanstack/react-query";
+
+import "./Best.css";
+import BestBathroom from "./BestBathroom";
+import { globalStore } from "../../global/Zustand";
+import { fetchApprovedBathrooms } from "../../React-Query/fetch-functions";
+
 
 export default function Best({}) {
   // we could write a new fetch function and queryKey to fetch only bathrooms with a review >= 8
   // instead of using bestBathrooms, the useEffect, etc.
   const {
-    status,
-    error,
+    status: bathroomsStatus,
+    error: bathroomsError,
     data: bathrooms,
   } = useQuery({
     queryKey: ["approved-bathrooms"],
@@ -51,7 +52,7 @@ export default function Best({}) {
     );
   }
 
-  if (status === "loading") return <p>loading...</p>;
+  if (bathroomsStatus === "loading") return <p>loading...</p>;
 
   return (
     <m.div

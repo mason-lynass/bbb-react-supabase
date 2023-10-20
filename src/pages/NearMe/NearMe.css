@@ -2,6 +2,16 @@
     min-height: calc(100vh - 65px);
 }
 
+#near-me-top-flex{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 90vw;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
 #where-are-you h3 {
     text-align: center;
     font-size: 36px;
@@ -30,6 +40,19 @@ form input {
 form button {
     background-color: var(--light-blue3);
     border: 2px solid var(--dark-blue3);
+}
+
+#filter-buttons {
+    width: fit-content;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#filter-buttons button {
+    margin: 0;
 }
 
 #all-bathrooms-map {

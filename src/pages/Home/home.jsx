@@ -1,6 +1,6 @@
 import { motion as m } from "framer-motion";
-import { fetchApprovedBathrooms, fetchReviews } from "./fetch-functions";
-import { globalStore } from "./Zustand";
+import { fetchApprovedBathrooms, fetchReviews } from "../../React-Query/fetch-functions";
+import { globalStore } from "../../global/Zustand";
 import { useQuery } from "@tanstack/react-query";
 
 export default function Home() {

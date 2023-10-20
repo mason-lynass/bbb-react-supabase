@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom"
-import { globalStore } from "../Zustand"
+import { globalStore } from "../global/Zustand"
 
 export default function NavBar({ sessionSwitch }) {
 

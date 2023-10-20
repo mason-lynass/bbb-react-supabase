@@ -1,10 +1,11 @@
 import { useMemo, useState } from "react";
-import "./CSS/AllBathrooms.css";
 import { motion as m } from "framer-motion";
 import { Link } from "react-router-dom";
-import { globalStore } from "./Zustand";
-import { fetchApprovedBathrooms } from "./fetch-functions";
 import { useQuery } from "@tanstack/react-query";
+import { globalStore } from "../../global/Zustand";
+import { fetchApprovedBathrooms } from "../../React-Query/fetch-functions";
+import { neighborhoods } from "../../global/constants";
+import "./AllBathrooms.css";
 
 export default function AllBathrooms() {
   const {
@@ -22,73 +23,6 @@ export default function AllBathrooms() {
   const [ADABool, setADABool] = useState(false);
   const [GNBool, setGNBool] = useState(false);
   const [neighborhood, setNeighborhood] = useState("none");
-
-  const neighborhoods = [
-    "Alki",
-    "Ballard",
-    "Bitter Lake",
-    "Broadview",
-    "Capitol Hill",
-    "Capitol Hill - Broadway",
-    "Cedar Park",
-    "Central District",
-    "Columbia City",
-    "Downtown Seattle",
-    "Dunlap",
-    "Fauntelroy",
-    "First Hill",
-    "Fremont",
-    "Genesee",
-    "Georgetown",
-    "Green Lake",
-    "Greenwood",
-    "Haller Lake",
-    "High Point",
-    "Highland Park",
-    "Holly Park",
-    "Industrial District",
-    "Interbay",
-    "International District",
-    "Judkins Park",
-    "Lake City",
-    "Laurelhurst",
-    "Licton Springs",
-    "Lower Queen Anne",
-    "Loyal Heights",
-    "Madison Park",
-    "Madrona",
-    "Magnolia",
-    "Maple Leaf",
-    "Matthews Beach",
-    "Meadowbrook",
-    "Mid-Beacon Hill",
-    "Montlake",
-    "Mount Baker",
-    "North Admiral",
-    "North Beacon Hill",
-    "North Delridge",
-    "Northgate",
-    "Olympic Hills",
-    "Phinney Ridge",
-    "Pinehurst",
-    "Pioneer Square",
-    "Queen Anne",
-    "Rainier Beach",
-    "Ravenna",
-    "Sand Point",
-    "Seward Park",
-    "SoDo",
-    "South Beacon Hill",
-    "South Lake Union",
-    "South Park",
-    "Sunset Hill",
-    "University District",
-    "University Heights",
-    "View Ridge",
-    "Wallingford",
-    "West Queen Anne",
-    "West Woodland",
-  ];
 
   const filteredBathrooms = useMemo(() => {
     if (bathrooms)

@@ -1,8 +1,11 @@
-import { supabase } from "./ReactQueryApp";
+import { supabase } from "../ReactQueryApp";
 
 // fetch functions, getting data from Supabase using react-query
 // sometimes we will need to get individual rows instead of all of the rows
 // like fetchOneBathroom for the case where a user lands on /bathrooms/:bathroom_id without first going to any other page where we get all of the bathrooms
+
+// things related to all users or one user
+
 export async function fetchUsers() {
   const { data, error } = await supabase.from("users").select();
   return data;
@@ -28,7 +31,7 @@ export async function fetchOneUserFavorites(params) {
   return data;
 }
 
-///
+/// things related to bathrooms
 
 export async function fetchAllBathrooms() {
   const { data, error } = await supabase.from("bathrooms").select().order('id', {ascending: false});
@@ -45,6 +48,9 @@ export async function fetchOneBathroom(params) {
     .from("bathrooms")
     .select()
     .eq("id", params.bathroomid);
+
+  if (!data.length) return 'undefined'
+
   return data[0];
 }
 
@@ -56,7 +62,7 @@ export async function fetchOneBathroomReviewsUsers (paramsArray) {
   return data
 }
 
-///
+/// things related to reviews
 
 export async function fetchReviews() {
   const { data, error } = await supabase.from("reviews").select();
@@ -68,7 +74,7 @@ export async function fetchOneBathroomReviews(params) {
   return data
 }
 
-///
+/// things related to favorites
 
 export async function fetchFavorites() {
   const { data, error } = await supabase.from("favorites").select();

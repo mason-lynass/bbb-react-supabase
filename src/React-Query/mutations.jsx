@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query"
-import { supabase } from "./ReactQueryApp"
+import { supabase } from "../ReactQueryApp"
 
 export function submitReview (review, id) {
     review.bathroom_id = id

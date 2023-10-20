@@ -1,21 +1,31 @@
 import { useState, useEffect } from "react";
 import { Link, redirect, useNavigate, Navigate } from "react-router-dom";
 import { motion as m } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
 
-import "./CSS/Account.css";
-import { globalStore } from "./Zustand";
-import { supabase } from "./ReactQueryApp";
+import "./Account.css";
+import { globalStore } from "../../global/Zustand";
+import { supabase } from "../../ReactQueryApp";
 import {
   fetchAllBathrooms,
   fetchFavorites,
   fetchReviews,
-} from "./fetch-functions";
-import { useQuery } from "@tanstack/react-query";
+} from "../../React-Query/fetch-functions";
+
 
 export default function Account({ setProfile }) {
+
+  const [username, setUsername] = useState("");
+  const [profileBathrooms, setProfileBathrooms] = useState([]);
+  const [profileReviews, setProfileReviews] = useState([]);
+  const [profileFavorites, setProfileFavorites] = useState([]);
+  const [open, setOpen] = useState(null);
+  const session = globalStore((state) => state.session);
+  const profile = globalStore((state) => state.profile);
+
   const {
-    status,
-    error,
+    status: bathroomStatus,
+    error: bathroomError,
     data: bathrooms,
   } = useQuery({
     queryKey: ["all-bathrooms"],
@@ -37,22 +47,8 @@ export default function Account({ setProfile }) {
     data: favorites,
   } = useQuery({
     queryKey: ["all-favorites"],
-    queryFn: async () => {
-      const { data: favs, error } = await supabase
-        .from("favorites")
-        .select("*");
-      return favs;
-    },
+    queryFn: fetchFavorites,
   });
-
-  const session = globalStore((state) => state.session);
-  const profile = globalStore((state) => state.profile);
-
-  const [username, setUsername] = useState("");
-  const [profileBathrooms, setProfileBathrooms] = useState([]);
-  const [profileReviews, setProfileReviews] = useState([]);
-  const [profileFavorites, setProfileFavorites] = useState([]);
-  const [open, setOpen] = useState(null);
 
   async function handleUsernameSubmit(e) {
     e.preventDefault();

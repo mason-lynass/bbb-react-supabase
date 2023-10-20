@@ -1,7 +1,7 @@
-import "./CSS/About.css";
-import ANewTab from "./components/ANewTab";
+import "./About.css";
+import ANewTab from "../../components/ANewTab";
 import { motion as m } from "framer-motion";
-import Footer from "./components/Footer";
+import Footer from "../../components/Footer";
 
 export default function About() {
   return (

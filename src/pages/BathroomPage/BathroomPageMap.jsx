@@ -12,9 +12,7 @@ export default function BathroomPageMap({ center, zoom, children }) {
 
     return (
     <>
-        <div id="bathroom-page-map" ref={ref}
-        //  style={{ height: "500px", width: "500px" }}
-         />
+        <div id="bathroom-page-map" ref={ref}/>
         {
         React.Children.map(children, (child) => {
             if (React.isValidElement(child)) {

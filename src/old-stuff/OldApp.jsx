@@ -14,9 +14,9 @@ import Submit from "./Submit.jsx";
 import Account from "./Account.jsx";
 import Login from "./Login.jsx";
 import AllBathrooms from "./AllBathrooms.jsx";
-import NavBar from "./components/NavBar.jsx";
-import Footer from "./components/Footer.jsx";
-import BathroomPage from "./components/BathroomPage.jsx";
+import NavBar from "../components/NavBar.jsx";
+import Footer from "../components/Footer.jsx";
+import BathroomPage from "../components/BathroomPage.jsx";
 
 import "./CSS/App.css";
 

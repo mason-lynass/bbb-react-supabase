@@ -1,0 +1,14 @@
+#no-bathroom-found p, #no-bathroom-found a {
+    text-align: center;
+    display: block;
+}
+
+#no-bathroom-found a {
+    background-color: var(--dark-blue2);
+    width: fit-content;
+    margin: auto;
+    color: var(--white);
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--light-blue2);
+}

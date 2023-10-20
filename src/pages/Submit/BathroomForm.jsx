@@ -1,15 +1,15 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import { Navigate, useNavigate } from "react-router-dom";
-import "../CSS/BathroomForm.css";
+import "./BathroomForm.css";
 
-import RatingButton from "./RatingButton";
+import RatingButton from "../../components/RatingButton";
 import SubmittedDialog from "./SubmittedDialog";
-import { globalStore } from "../Zustand";
+import { globalStore } from "../../global/Zustand";
 import { useMutation } from "@tanstack/react-query";
-import { supabase } from "../ReactQueryApp";
-import { GMKey } from "../ReactQueryApp";
-import { submitBathroom, submitReview } from "../mutations";
+import { supabase } from "../../ReactQueryApp";
+import { GMKey } from "../../ReactQueryApp";
+import { submitBathroom, submitReview } from "../../React-Query/mutations";
 
 // this works for now but once we start using the Google Maps APIs we'll need to make sure that the Geocoding is working correctly
 export default function BathroomForm({ bathrooms }) {

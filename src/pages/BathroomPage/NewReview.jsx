@@ -1,10 +1,10 @@
 import { QueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { queryClient } from "../main";
-import { globalStore } from "../Zustand";
+import { queryClient } from "../../main";
+import { globalStore } from "../../global/Zustand";
 import { useMutation } from "@tanstack/react-query";
-import RatingButton from "./RatingButton";
-import { supabase } from "../ReactQueryApp";
+import RatingButton from "../../components/RatingButton";
+import { supabase } from "../../ReactQueryApp";
 
 export default function NewReview({ bathroom, setShowReview }) {
   const profile = globalStore((state) => state.profile);
