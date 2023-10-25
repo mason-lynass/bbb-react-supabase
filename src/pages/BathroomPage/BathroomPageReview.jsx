@@ -1,7 +1,10 @@
-export default function BathroomPageReview(review, users) {
+export default function BathroomPageReview({ review, users }) {
+  console.log(review)
 
     let user = {username: ""}
+    console.log(user, users)
     if (users.length > 0) user = users.find((u) => u.id === review.user_id);
+    console.log(user, users)
     return (
         <div className="one-bathroom-one-review" key={review.id}>
           <div>

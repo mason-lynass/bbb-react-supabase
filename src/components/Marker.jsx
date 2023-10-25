@@ -33,7 +33,7 @@ const Marker = (options) => {
 
   React.useEffect(() => {
     if (!marker) {
-      setMarker(new window.google.maps.Marker({}));
+      setMarker(new window.google.maps.Marker({ class: 'something'}));
     }
 
     // remove marker from map on unmount

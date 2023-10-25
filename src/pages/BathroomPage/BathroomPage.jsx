@@ -182,12 +182,13 @@ export default function BathroomPage({ params }) {
 
   function singleBathroomReviews() {
     // console.log(bathroomReviews);
+    console.log(bathroomReviews)
     return (
       <>
         <h2 id="reviews-title">Reviews</h2>
         <div id="one-bathroom-reviews">
           {bathroomReviews.map((r) => (
-            <BathroomPageReview r={r} users={users} />
+            <BathroomPageReview review={r} users={users} />
           ))}
         </div>
       </>

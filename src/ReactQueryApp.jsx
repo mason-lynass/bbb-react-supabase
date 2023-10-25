@@ -3,7 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { Routes, Route, Link } from "react-router-dom";
 import { motion as m } from "framer-motion";
 
-import Home from "./pages/Home/home.jsx";
+import Home from "./pages/Home/Home.jsx";
 import About from "./pages/about/About.jsx";
 import Best from "./pages/BestBathrooms/Best.jsx";
 import NearMe from "./pages/NearMe/NearMe.jsx";
@@ -92,7 +92,7 @@ function RQApp() {
     >
       <NavBar session={session} sessionSwitch={sessionSwitch} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home session={session}/>} />
         <Route path="/bathrooms" element={<AllBathrooms />} />
         <Route path="/bathrooms/:bathroomid" element={<BathroomPage />} />
         <Route path="/about" element={<About />} />

@@ -1,9 +1,19 @@
 import { motion as m } from "framer-motion";
-import { fetchApprovedBathrooms, fetchReviews } from "../../React-Query/fetch-functions";
+import {
+  fetchApprovedBathrooms,
+  fetchReviews,
+} from "../../React-Query/fetch-functions";
 import { globalStore } from "../../global/Zustand";
 import { useQuery } from "@tanstack/react-query";
+import { Auth } from "@supabase/auth-ui-react";
+import { supabase } from "../../ReactQueryApp";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
+import "./Home.css";
+import HomeSlideshow from "./HomeSlideshow";
 
-export default function Home() {
+export default function Home({ session }) {
+  console.log(session);
+
   const {
     status,
     error,
@@ -31,10 +41,24 @@ export default function Home() {
   // one review - maybe the most recent, or something specific that we choose?
   // mayyyyybe a map with all of the bathrooms on it as pins? might be an expensive feature if we load a map and all the pins every homepage visit
 
-  
+  // homepage should have an Auth or Login / SignUp on it
+  // "Find your pipe dreams"
+  //
 
-  function mostRecentBathroom () {
-    const bathroom = bathrooms.sort((a, b) => b.id - a.id)[0]
+  function HomePageAuth() {
+    return (
+      <div id="home-page-auth">
+        <Auth
+          supabaseClient={supabase}
+          appearance={{ theme: ThemeSupa }}
+          providers={[]}
+        />
+      </div>
+    );
+  }
+
+  function mostRecentBathroom() {
+    const bathroom = bathrooms.sort((a, b) => b.id - a.id)[0];
     // console.log(theBathroom)
 
     const bathroomPublic = bathroom.public == "true" ? "public restroom" : "";
@@ -84,10 +108,9 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <h1>you're on the home page babes</h1>
-          <div>
-            {mostRecentBathroom()}
-          </div>
+          <HomeSlideshow />
+          {session ? '' : HomePageAuth()}
+          <div>{mostRecentBathroom()}</div>
         </m.div>
       </main>
     );

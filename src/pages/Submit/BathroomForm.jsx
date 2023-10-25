@@ -2,6 +2,7 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import { Navigate, useNavigate } from "react-router-dom";
 import "./BathroomForm.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 import RatingButton from "../../components/RatingButton";
 import SubmittedDialog from "./SubmittedDialog";
@@ -95,13 +96,17 @@ export default function BathroomForm({ bathrooms }) {
     },
   });
 
-
-
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading('submitting');
 
     try {
+
+      if (locationName === "") throw ['Please enter a name of business or place']
+      if (address === "") throw ['Please enter a street address']
+      if (bathroomDescription === "") throw ['Please enter a bit of information about the location in the description']
+      if (!cleanlinessRating || !bathroomFunctionRating || !styleRating) throw ['Please rate bathroom cleanliness, function, and style on a scale from 1-10']
+
 
       if (((cleanlinessRating + bathroomFunctionRating + styleRating) /
       3) === 10) throw ["Was this really the best bathroom of all time? Please don't abuse our database."]
@@ -112,7 +117,7 @@ export default function BathroomForm({ bathrooms }) {
       console.log(newGeocode)
 
       if (!googleResp.ok || newGeocode.results[0].geometry === undefined) {
-          throw ["You need to enter a valid address"]
+          throw ["Please enter a valid street address - 'Seattle, WA 98XXX' is not necessary"]
       }
 
       // these are the fields that we'll need to provide in order to successfully add a row to the bathrooms table in the DB
@@ -134,6 +139,7 @@ export default function BathroomForm({ bathrooms }) {
         neighborhood: newGeocode.results[0].address_components[2].long_name,
         description: bathroomDescription,
         public: publicBool,
+        submitted_by: profile.id
       })
       // .then(reviewMutation.mutate);
 
@@ -168,11 +174,11 @@ export default function BathroomForm({ bathrooms }) {
     } catch (error) {
       console.log(error);
       setErrors(error);
-      setLoading(error);
+      setLoading('submit');
     }
   }
 
-  console.log(publicBool, gnBool, ADABool)
+  console.log(profile)
 
   // if (bathroomid !== null) return <Navigate to={`/bathrooms/${bathroomid}`} />
 
@@ -201,7 +207,7 @@ export default function BathroomForm({ bathrooms }) {
               onChange={(e) => setAddress(e.target.value)}
             ></input>
           </div>
-          <div>
+          <div id='DatePicker'>
             <label htmlFor="date-picker">Date visited:</label>
             <DatePicker
               id="date-picker"
@@ -316,9 +322,11 @@ export default function BathroomForm({ bathrooms }) {
           
         </section>
         </div>
+        {errors.map((e) => <p className='form-error'>{e}</p>)}
         <button id="new-bathroom-submit" type="submit">
           {loading === 'submit' ? "Submit" : "Loading..."}
         </button>
+        
         <br />
         {bathroomid ? <SubmittedDialog locationName={locationName} /> : ''}
       </form>
