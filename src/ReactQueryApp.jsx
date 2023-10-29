@@ -13,6 +13,8 @@ import Login from "./pages/Login/Login.jsx";
 import AllBathrooms from "./pages/AllBathrooms/AllBathrooms.jsx";
 import BathroomPage from "./pages/BathroomPage/BathroomPage.jsx";
 import NavBar from "./components/NavBar.jsx";
+import ResetPw from "./pages/Login/ResetPw.jsx";
+import SignUp from "./pages/Login/SignUp.jsx";
 
 import "./global/CSS/App.css";
 
@@ -101,6 +103,8 @@ function RQApp() {
         <Route path="/near-me" element={<NearMe />} />
         <Route path="/login" element={<Login />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/reset-pw" element={<ResetPw />} />
+        <Route path="/sign-up" element={<SignUp />} />
       </Routes>
       {/* <Footer /> */}
     </m.div>
