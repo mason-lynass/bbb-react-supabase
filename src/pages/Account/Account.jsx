@@ -11,17 +11,18 @@ import {
   fetchFavorites,
   fetchReviews,
 } from "../../React-Query/fetch-functions";
-
+import ResetPw from "../Login/ResetPw";
 
 export default function Account({ setProfile }) {
-
   const [username, setUsername] = useState("");
   const [profileBathrooms, setProfileBathrooms] = useState([]);
   const [profileReviews, setProfileReviews] = useState([]);
   const [profileFavorites, setProfileFavorites] = useState([]);
   const [open, setOpen] = useState(null);
+  const [showResetPassword, setShowResetPassword] = useState(false)
   const session = globalStore((state) => state.session);
   const profile = globalStore((state) => state.profile);
+  const navigate = useNavigate();
 
   const {
     status: bathroomStatus,
@@ -63,7 +64,7 @@ export default function Account({ setProfile }) {
         id: profile.id,
         email: profile.email,
         username: await newName,
-      }
+      },
     });
   }
 
@@ -84,6 +85,11 @@ export default function Account({ setProfile }) {
   async function signOut() {
     const { error } = await supabase.auth.signOut();
     globalStore.setState({ profile: null });
+  }
+
+  function resetPassword() {
+    // navigate("/reset-pw");
+    setShowResetPassword(!showResetPassword)
   }
 
   function myBathrooms() {
@@ -218,8 +224,16 @@ export default function Account({ setProfile }) {
               </h3>
               <div id="account-favorites">{myFavorites()}</div>
             </section>
-            <div id="sign-out">
-              <button onClick={signOut}>Sign Out</button>
+            <div id='action-buttons'>
+              <div id="sign-out">
+                <button onClick={signOut}>Sign Out</button>
+              </div>
+              <div id="reset-password">
+                <button onClick={resetPassword}>{showResetPassword === true ? 'Nevermind' : 'Reset Password'}</button>
+              </div>
+            </div>
+            <div>
+              {showResetPassword === true ? <ResetPw /> : ''}
             </div>
           </m.div>
         </main>

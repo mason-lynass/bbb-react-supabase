@@ -62,11 +62,18 @@
     background-color: var(--dark-blue5);
 }
 
-#sign-out {
-    margin: 20px auto;
+#action-buttons {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
 }
 
-#sign-out button {
+#sign-out {
+    margin: 20px;
+}
+
+#sign-out button, #reset-password button, #reset-pw form button {
     background-color: var(--dark-blue1);
 }
 
@@ -91,7 +98,7 @@
     font-size: 24px;
 }
 
-#username  {
+#username {
     height: 50px;
     padding: 0 10px;
     font-size: 20px;
@@ -102,7 +109,25 @@
     height: 50px;
     padding: 0 20px;
     border-radius: 5px;
+}
 
+#reset-pw-form {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+#reset-pw form button {
+    margin: 0;
+}
+
+#reset-pw form #show-hide-pw {
+    font-size: 12px;
+    margin: 0 auto 10px auto;
+    display: block;
 }
 
 @media (prefers-color-scheme: light) {

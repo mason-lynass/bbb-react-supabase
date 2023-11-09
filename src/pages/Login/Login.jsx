@@ -98,6 +98,8 @@ export default function Login() {
     return <Navigate to="/account" replace={true} />;
   }
 
+
+
   // if there's no session, then you need to log in
   if (!session)
     return (
@@ -115,7 +117,7 @@ export default function Login() {
           appearance={{ theme: ThemeSupa }}
           providers={[]}
         /> */}
-        <form onSubmit={handleSubmit}>
+        <form id='login-form' onSubmit={handleSubmit}>
           <input
             type="email"
             placeholder="Email"
@@ -137,7 +139,7 @@ export default function Login() {
           </button>
         </form>
         {successMessage ? <p>nice! check your email</p> : null}
-        <p onClick={() => setForgotPw(!forgotPw)}>
+        <p id='forgot-password' onClick={() => setForgotPw(!forgotPw)}>
           {forgotPw
             ? 'nvm i remember my password now'
             : 'forgot your fuckin password?'
