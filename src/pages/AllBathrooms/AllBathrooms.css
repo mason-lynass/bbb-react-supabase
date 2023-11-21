@@ -49,8 +49,9 @@
   justify-content: center;
   align-items: center; */
   background-color: var(--dark-blue3);
-  width: 350px;
+  width: 330px;
   height: calc(100vh - 69px);
+  padding-top: 20px;
 }
 
 #all-bathrooms-search {
@@ -67,6 +68,7 @@
   width: 70vw;
   max-width: 300px;
   border: 0;
+  margin: auto;
 }
 
 #search::placeholder {
@@ -97,7 +99,7 @@
   margin: 20px auto;
 }
 
-#filter-buttons .button-active {
+.filter-buttons .button-active {
   background-color: var(--light-blue2);
   color: var(--main-darkest);
 }
@@ -247,12 +249,6 @@
   font-size: 18px;
 }
 
-.display-error {
-  color: red;
-  width: 250px;
-  margin: 10px auto;
-}
-
 @media (prefers-color-scheme: light) {
   #all-bathrooms a:nth-of-type(odd) {
     text-align: left;
@@ -281,5 +277,29 @@
 
   #one-bathroom-buttons button {
     color: var(--white);
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  #all-bathrooms-flex {
+    display: block;
+  }
+
+  #all-filters {
+    width: 100vw;
+    height: fit-content;
+    padding: 10px;
+  }
+
+  #all-filters, #filters-and-neighborhood, #filter-buttons {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  #all-bathrooms-search, #neighborhood, #filters-and-neighborhood, #filter-buttons button {
+    margin: 0;
   }
 }

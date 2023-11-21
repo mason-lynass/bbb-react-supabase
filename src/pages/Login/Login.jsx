@@ -15,12 +15,12 @@ export default function Login() {
   const session = globalStore((state) => state.session);
   const profile = globalStore((state) => state.profile);
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [forgotPw, setForgotPw] = useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [forgotPw, setForgotPw] = useState(false);
   // the below success message is for success in sending the password reset email
-  const [successMessage, setSuccessMessge] = useState(false)
+  const [successMessage, setSuccessMessge] = useState(false);
 
   const navigate = useNavigate();
 
@@ -38,38 +38,36 @@ export default function Login() {
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({
       email: email,
-      password: password
+      password: password,
     });
     if (error) {
       alert(error.error_description || error.message);
     }
     setLoading(false);
-  };
+  }
 
   async function sendForgotPwEmail(event) {
     event.preventDefault();
     const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: 'http://localhost:5173/reset-pw',
+      redirectTo: "http://localhost:5173/reset-pw",
     });
     if (error) alert(error.error_description || error.message);
     if (data) setSuccessMessge(true);
   }
 
   async function handleSubmit(event) {
-    forgotPw
-      ? sendForgotPwEmail(event)
-      : handleLogin(event);
-  };
+    forgotPw ? sendForgotPwEmail(event) : handleLogin(event);
+  }
 
   function renderButtonText() {
     if (loading) {
-      return <span>Loading</span>
+      return <span>Loading</span>;
     }
     if (forgotPw) {
-      return <span>Send pw reset link</span>
+      return <span>Send pw reset link</span>;
     }
-    return <span>Login</span>
-  };
+    return <span>Login</span>;
+  }
 
   useEffect(() => {
     // console.log("useEffect");
@@ -98,8 +96,6 @@ export default function Login() {
     return <Navigate to="/account" replace={true} />;
   }
 
-
-
   // if there's no session, then you need to log in
   if (!session)
     return (
@@ -117,7 +113,7 @@ export default function Login() {
           appearance={{ theme: ThemeSupa }}
           providers={[]}
         /> */}
-        <form id='login-form' onSubmit={handleSubmit}>
+        <form id="login-form" onSubmit={handleSubmit}>
           <input
             type="email"
             placeholder="Email"
@@ -125,30 +121,26 @@ export default function Login() {
             required={true}
             onChange={(e) => setEmail(e.target.value)}
           />
-          {forgotPw
-            ? null
-            : <input
+          {forgotPw ? null : (
+            <input
               type="password"
               placeholder="Password"
               value={password}
               required={true}
               onChange={(e) => setPassword(e.target.value)}
-            />}
-          <button disabled={loading}>
-            {renderButtonText()}
-          </button>
+            />
+          )}
+          <button disabled={loading}>{renderButtonText()}</button>
         </form>
         {successMessage ? <p>nice! check your email</p> : null}
-        <p id='forgot-password' onClick={() => setForgotPw(!forgotPw)}>
-          {forgotPw
-            ? 'nvm i remember my password now'
-            : 'forgot your fuckin password?'
-          }
-        </p>
-
-        <button onClick={() => navigate("/sign-up")}>
-          Sign Up
-        </button>
+        <div id='bottom-buttons'>
+          <button id="forgot-password" onClick={() => setForgotPw(!forgotPw)}>
+            {forgotPw ? "Back to Login" : "Forgot Password"}
+          </button>
+          <button id="sign-up" onClick={() => navigate("/sign-up")}>
+            Sign Up
+          </button>
+        </div>
       </m.div>
     );
   else return <p>uh oh!</p>;

@@ -36,6 +36,7 @@ export default function SignUp() {
         <input
           type="email"
           placeholder="Email"
+          autoComplete="email"
           value={email}
           required={true}
           onChange={(e) => setEmail(e.target.value)}
@@ -43,6 +44,7 @@ export default function SignUp() {
         <input
           type="password"
           placeholder="Password"
+          autoComplete="current-password"
           value={password}
           required={true}
           onChange={(e) => setPassword(e.target.value)}
@@ -50,13 +52,16 @@ export default function SignUp() {
         <input
           type="password"
           placeholder="Confirm Password"
+          autoComplete="confirm-password"
           value={confirmedPw}
           required={true}
           onChange={(e) => setConfirmedPw(e.target.value)}
         />
-        <button disabled={loading}>signup</button>
+        <button disabled={loading}>Sign Up</button>
       </form>
-      <button onClick={() => navigate("/login")}>Log In</button>
+      <div id='bottom-buttons'>
+        <button onClick={() => navigate("/login")}>Log In</button>
+      </div>
     </m.div>
   );
 }

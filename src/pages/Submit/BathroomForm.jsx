@@ -103,6 +103,10 @@ export default function BathroomForm({ bathrooms }) {
 
     try {
 
+      if (locationName.length < 3) throw ['Please enter a Name of business or place.']
+      if (address.length < 3) throw ['Please enter a Street Address.']
+      if (bathroomDescription.length < 5) throw ['Please enter a Location description.']
+
       if (((cleanlinessRating + bathroomFunctionRating + styleRating) /
       3) === 10) throw ["Was this really the best bathroom of all time? Please don't abuse our database."]
 
@@ -111,8 +115,9 @@ export default function BathroomForm({ bathrooms }) {
 
       console.log(newGeocode)
 
-      if (!googleResp.ok || newGeocode.results[0].geometry === undefined) {
-          throw ["You need to enter a valid address"]
+      if (!googleResp.ok || newGeocode.results[0].geometry === undefined || newGeocode.results[0].geometry.location.lat == 
+        47.6061389) {
+          throw ["Please enter a valid address"]
       }
 
       // these are the fields that we'll need to provide in order to successfully add a row to the bathrooms table in the DB
@@ -168,12 +173,15 @@ export default function BathroomForm({ bathrooms }) {
     } catch (error) {
       console.log(error);
       setErrors(error);
-      setLoading(error);
+      setLoading('submit');
     }
   }
 
-  console.log(publicBool, gnBool, ADABool)
-
+  function displayErrors() {
+    return errors.map((e) => {
+      return <p key={e} className="display-error">{e}</p>;
+    });
+  }
   // if (bathroomid !== null) return <Navigate to={`/bathrooms/${bathroomid}`} />
 
   return (
@@ -316,6 +324,7 @@ export default function BathroomForm({ bathrooms }) {
           
         </section>
         </div>
+        {displayErrors()}
         <button id="new-bathroom-submit" type="submit">
           {loading === 'submit' ? "Submit" : "Loading..."}
         </button>

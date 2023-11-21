@@ -42,7 +42,7 @@ form button {
     border: 2px solid var(--dark-blue3);
 }
 
-#filter-buttons {
+#map-filter-buttons {
     width: fit-content;
     display: flex;
     flex-flow: row nowrap;

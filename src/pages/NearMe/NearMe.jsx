@@ -193,7 +193,7 @@ export default function NearMe() {
                 Clear
               </button>
             </form>
-            <div id="filter-buttons">
+            <div id="map-filter-buttons" className="filter-buttons">
               <button
                 id="public-button"
                 onClick={(e) => handleFilterClick("public")}

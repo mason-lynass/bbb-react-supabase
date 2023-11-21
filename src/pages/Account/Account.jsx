@@ -19,10 +19,12 @@ export default function Account({ setProfile }) {
   const [profileReviews, setProfileReviews] = useState([]);
   const [profileFavorites, setProfileFavorites] = useState([]);
   const [open, setOpen] = useState(null);
-  const [showResetPassword, setShowResetPassword] = useState(false)
+  const [showResetPassword, setShowResetPassword] = useState(false);
   const session = globalStore((state) => state.session);
   const profile = globalStore((state) => state.profile);
   const navigate = useNavigate();
+
+  console.log(profile);
 
   const {
     status: bathroomStatus,
@@ -52,18 +54,19 @@ export default function Account({ setProfile }) {
   });
 
   async function handleUsernameSubmit(e) {
+    console.log(username, profile.id);
     e.preventDefault();
     // this updates the username in the users table where the id === logged in user id
     const { newName, error } = await supabase
       .from("users")
       .update({ username: username })
-      .eq("id", profile.id);
+      .eq("email", profile.email);
     // DB doesn't re-fetch (I think?), or there's a lag at least, so we update state
     globalStore.setState({
       profile: {
         id: profile.id,
         email: profile.email,
-        username: await newName,
+        username: username,
       },
     });
   }
@@ -89,7 +92,7 @@ export default function Account({ setProfile }) {
 
   function resetPassword() {
     // navigate("/reset-pw");
-    setShowResetPassword(!showResetPassword)
+    setShowResetPassword(!showResetPassword);
   }
 
   function myBathrooms() {
@@ -224,17 +227,17 @@ export default function Account({ setProfile }) {
               </h3>
               <div id="account-favorites">{myFavorites()}</div>
             </section>
-            <div id='action-buttons'>
+            <div id="action-buttons">
               <div id="sign-out">
                 <button onClick={signOut}>Sign Out</button>
               </div>
               <div id="reset-password">
-                <button onClick={resetPassword}>{showResetPassword === true ? 'Nevermind' : 'Reset Password'}</button>
+                <button onClick={resetPassword}>
+                  {showResetPassword === true ? "Nevermind" : "Reset Password"}
+                </button>
               </div>
             </div>
-            <div>
-              {showResetPassword === true ? <ResetPw /> : ''}
-            </div>
+            <div>{showResetPassword === true ? <ResetPw /> : ""}</div>
           </m.div>
         </main>
       );
