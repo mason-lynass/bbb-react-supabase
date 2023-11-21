@@ -1,0 +1,117 @@
+/* #home-page-auth {
+    position: absolute;
+    top: 70px;
+    left: calc(100vw - 520px);
+    width: 400px;
+    height: 350px;
+    border: 1px solid var(--white);
+    padding: 1px 20px;
+    margin: 20px 50px;
+    border-radius: 10px;
+    background-color: var(--dark-blue3);
+    z-index: 3;
+}
+
+#home-page-auth .supabase-auth-ui_ui-container .supabase-auth-ui_ui-input {
+    height: 40px;
+    font-size: 16px;
+} */
+
+#home-top-flex {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+}
+
+#logo {
+    height: 400px;
+    width: 400px;
+    background-color: var(--dark-blue5);
+    z-index: 5;
+}
+
+#where-are-you {
+    display: inline-block;
+    width: calc(100vw - 400px);
+    height: 400px;
+}
+
+#where-are-you h1 {
+    text-align: center;
+}
+
+#homepage-filters, #homepage-filters-and-neighborhood, #homepage-filters-and-neighborhood #filter-buttons {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px 40px;
+}
+
+#homepage-bathrooms-search input {
+    display: inline;
+    margin-right: 10px;
+}
+
+#homepage-bathrooms-search button {
+    background-color: var(--light-blue5);
+    height: 40px;
+    font-size: 20px;
+    line-height: 1;
+    padding: 3px 20px;
+}
+
+#homepage-bathrooms-search button:hover {
+    background-color: var(--light-blue4)
+}
+
+#homepage-filters-and-neighborhood #filter-buttons {
+    gap: 10px;
+}
+
+#homepage-filters-and-neighborhood #neighborhood {
+    margin:  0;
+}
+
+#home-slideshow {
+    width: 90vw;
+    max-width: calc(3024px / 5);
+    height: calc(3441px / 5);
+    object-fit: contain;
+    overflow: hidden;
+}
+
+#all-slides {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: left;
+    list-style: none;
+    align-items: center;
+    padding: 0;
+    /* overflow: hidden; */
+    transition: all 1s;
+}
+
+.slides {
+    height: fit-content;
+    width: 100%;
+    flex: 1 0 auto;
+}
+
+.slide-image {
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.slide-text {
+    position: relative;
+    top: -150px;
+    left: 50px;
+    font-size: 2rem;
+    width: fit-content;
+    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, var(--dark-blue1) 5%, var(--dark-blue1) 95%, rgba(0,0,0,0) 100%) ;
+    border-radius: 15px;
+    padding: 10px 50px;
+    opacity: 1;
+    transition: opacity 2s .5s;
+}

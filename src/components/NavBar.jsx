@@ -8,10 +8,10 @@ export default function NavBar({ sessionSwitch }) {
     function loginOrAccount () {
         // console.log(session, sessionSwitch)
         if (!session) { 
-            return <NavLink id='login' to='/login' ><p id='underline'>Log In</p><p>Sign Up</p></NavLink>
+            return <NavLink id='login' to='/login' ><p id='underline'>Log In</p></NavLink>
         }
         else if (session.length === 0) {
-            return <NavLink id='login' to='/login' ><p id='underline'>Log In</p><p>Sign Up</p></NavLink>
+            return <NavLink id='login' to='/login' ><p id='underline'>Log In</p></NavLink>
         }
         else return <NavLink to='/account' >Account</NavLink> 
     }

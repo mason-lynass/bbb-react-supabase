@@ -187,7 +187,7 @@ export default function BathroomPage({ params }) {
         <h2 id="reviews-title">Reviews</h2>
         <div id="one-bathroom-reviews">
           {bathroomReviews.map((r) => (
-            <BathroomPageReview r={r} users={users} />
+            <BathroomPageReview review={r} users={users} />
           ))}
         </div>
       </>

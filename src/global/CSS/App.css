@@ -36,11 +36,6 @@ nav div a {
     margin: .5em;
 }
 
-#underline {
-    text-decoration: underline;
-    text-underline-offset: 8px;
-}
-
 #layout-outlet {
     margin: 0px 0px 60px 0px;
 }

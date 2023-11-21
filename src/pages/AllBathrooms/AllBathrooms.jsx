@@ -1,13 +1,17 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion as m } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { globalStore } from "../../global/Zustand";
 import { fetchApprovedBathrooms } from "../../React-Query/fetch-functions";
 import { neighborhoods } from "../../global/constants";
 import "./AllBathrooms.css";
 
-export default function AllBathrooms() {
+export default function AllBathrooms({}) {
+  const location = useLocation();
+
+  console.log(location);
+
   const {
     status,
     error,
@@ -24,6 +28,22 @@ export default function AllBathrooms() {
   const [GNBool, setGNBool] = useState(false);
   const [neighborhood, setNeighborhood] = useState("none");
 
+  useEffect(() => {
+    if (!location.state) {
+    }
+    else if (location.state.GNBool) {
+      setPublicBool(true)
+    } else if (location.state.ADABool) {
+      setADABool(true)
+    } else if (location.state.publicBool) {
+      setPublicBool(true)
+    } else if (location.state.neighborhood) {
+      setNeighborhood(location.state.neighborhood)
+    } else if (location.state.query) {
+      setQuery(location.state.query)
+    }
+  }, [])
+
   const filteredBathrooms = useMemo(() => {
     if (bathrooms)
       return bathrooms.filter((b) =>
@@ -38,28 +58,28 @@ export default function AllBathrooms() {
 
     switch (button) {
       case "public":
-        setPublicBool(!publicBool);
-        if (publicButton.classList.contains("button-active")) {
+        if (publicBool === true) {
           publicButton.classList.remove("button-active");
         } else {
           publicButton.classList.add("button-active");
         }
+        setPublicBool(!publicBool);
         break;
       case "ADA":
-        setADABool(!ADABool);
-        if (ADAButton.classList.contains("button-active")) {
+        if (ADABool === true) {
           ADAButton.classList.remove("button-active");
         } else {
           ADAButton.classList.add("button-active");
         }
+        setADABool(!ADABool);
         break;
       case "GN":
-        setGNBool(!GNBool);
-        if (GNButton.classList.contains("button-active")) {
+        if (GNBool === true) {
           GNButton.classList.remove("button-active");
         } else {
           GNButton.classList.add("button-active");
         }
+        setGNBool(!GNBool);
         break;
       default:
         console.log("nothing");

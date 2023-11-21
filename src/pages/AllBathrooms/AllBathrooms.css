@@ -99,7 +99,7 @@
   margin: 20px auto;
 }
 
-.filter-buttons .button-active {
+#filter-buttons .button-active {
   background-color: var(--light-blue2);
   color: var(--main-darkest);
 }

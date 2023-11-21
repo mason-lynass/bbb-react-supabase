@@ -94,7 +94,7 @@ function RQApp() {
     >
       <NavBar session={session} sessionSwitch={sessionSwitch} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home session={session}/>} />
         <Route path="/bathrooms" element={<AllBathrooms />} />
         <Route path="/bathrooms/:bathroomid" element={<BathroomPage />} />
         <Route path="/about" element={<About />} />
