@@ -1,0 +1,83 @@
+#login-form, #signup-form {
+    width: 90vw;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--dark-blue3);
+    border-radius: 10px;
+    border: 1px solid var(--light-blue5);
+}
+
+#login section h2, #login section div {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#login section p, #login section button {
+    margin: 1vw;
+}
+
+#login-form input, #signup-form input {
+    color: white;
+    max-width: 460px;
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    margin: 10px auto;
+    background-color: var(--dark-blue2);
+    padding: 0px 15px;
+    border-radius: 5px;
+}
+
+#login-form input::placeholder, #signup-form input::placeholder {
+    color: rgba(255,255,255,.8);
+}
+
+#login-form button, #signup-form button {
+    background-color: var(--dark-blue1);
+    border: 1px solid var(--light-blue1);
+    padding: 0 40px;
+    height: 50px;
+    margin: auto;
+    display: block;
+}
+
+#login-form button:hover, #signup-form button:hover {
+    background-color: var(--light-blue5);
+}
+
+#login-form input:hover:not(:disabled), #signup-form input:hover:not(:disabled) {
+    border: 1px solid var(--light-blue4);
+    box-shadow: 0px 0px 2px 1px white;
+}
+
+.supabase-auth-ui_ui-container .supabase-auth-ui_ui-anchor {
+    color: var(--light-blue1);
+    text-decoration: none;
+}
+
+.supabase-auth-ui_ui-container .supabase-auth-ui_ui-anchor:hover {
+    color: var(--white);
+}
+
+#bottom-buttons {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#bottom-buttons button {
+    width: fit-content;
+    background-color: var(--dark-blue2);
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: 1px solid var(--light-blue1);
+}
+
+#bottom-buttons button:hover {
+    background-color: var(--light-blue5);
+}

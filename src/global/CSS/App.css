@@ -1,0 +1,52 @@
+#nav-bar {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: var(--dark-blue5);
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+#nav-title {
+    font-size: 28px;
+    padding: 0 20px;
+}
+
+nav,
+nav div {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+nav div a {
+    display: block;
+    width: 80px;
+    text-align: center;
+    margin: 1vw;
+    line-height: 1.2;
+}
+
+#login p {
+    margin: .5em;
+}
+
+#layout-outlet {
+    margin: 0px 0px 60px 0px;
+}
+
+.display-error {
+    color: red;
+    max-width: 400px;
+    width: 90vw;
+    margin: 10px auto;
+    text-align: center;
+  }
+
+
+

@@ -1,0 +1,73 @@
+#near-me {
+    min-height: calc(100vh - 65px);
+}
+
+#near-me-top-flex{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 90vw;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+#where-are-you h3 {
+    text-align: center;
+    font-size: 36px;
+    margin: 0;
+    padding: 20px;
+    text-shadow: 2px 2px 3px var(--main-darkest);
+}
+
+#where-are-you form {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+form input {
+    height: 30px;
+    font-size: 18px;
+    background-color: var(--light-blue1);
+    color: var(--main-darkest);
+    border: 1px solid var(--dark-blue3);
+    padding: 5px;
+}
+
+form button {
+    background-color: var(--light-blue3);
+    border: 2px solid var(--dark-blue3);
+}
+
+#map-filter-buttons {
+    width: fit-content;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#filter-buttons button {
+    margin: 0;
+}
+
+#all-bathrooms-map {
+    width: 90vw;
+    max-width: 1400px;
+    height: 70vh;
+    margin: 0 auto;
+    margin-top: 40px;
+    border: 20px solid  var(--dark-blue1);
+}
+
+.marker-content-string {
+    color: var(--dark-blue4);
+}
+
+.marker-content-string:hover {
+    color: var(--dark-blue2);
+}

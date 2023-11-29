@@ -3,21 +3,23 @@ import { createClient } from "@supabase/supabase-js";
 import { Routes, Route, Link } from "react-router-dom";
 import { motion as m } from "framer-motion";
 
-import Home from "./home.jsx";
-import About from "./About.jsx";
-import Best from "./Best.jsx";
-import NearMe from "./NearMe.jsx";
-import Submit from "./Submit.jsx";
-import Account from "./Account.jsx";
-import Login from "./Login.jsx";
-import AllBathrooms from "./AllBathrooms.jsx";
-import BathroomPage from "./components/BathroomPage.jsx";
+import Home from "./pages/Home/home.jsx";
+import About from "./pages/about/About.jsx";
+import Best from "./pages/BestBathrooms/Best.jsx";
+import NearMe from "./pages/NearMe/NearMe.jsx";
+import Submit from "./pages/Submit/Submit.jsx";
+import Account from "./pages/Account/Account.jsx";
+import Login from "./pages/Login/Login.jsx";
+import AllBathrooms from "./pages/AllBathrooms/AllBathrooms.jsx";
+import BathroomPage from "./pages/BathroomPage/BathroomPage.jsx";
 import NavBar from "./components/NavBar.jsx";
+import ResetPw from "./pages/Login/ResetPw.jsx";
+import SignUp from "./pages/Login/SignUp.jsx";
 
-import "./CSS/App.css";
+import "./global/CSS/App.css";
 
 import { useQuery } from "@tanstack/react-query";
-import { globalStore } from "./Zustand.jsx";
+import { globalStore } from "./global/Zustand.jsx";
 
 // keys to Supabase
 const url = import.meta.env.VITE_SUPABASE_URL;
@@ -25,7 +27,8 @@ const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export const supabase = createClient(url, key);
 
-export const GMKey = "";
+// export const GMKey = "";
+export const GMKey = import.meta.env.VITE_GOOGLE_MAPS_KEY;
 
 // this version uses BrowserRouter instead of createBrowserRouter
 // we're gonna use this version of the main App component
@@ -42,7 +45,7 @@ function RQApp() {
     queryKey: ["users"],
     queryFn: async () => {
       const { data, error } = await supabase.from("users").select(); // get the data from Supabase
-      globalStore.setState({ users: users });
+      globalStore.setState({ users: data });
       return data;
     },
   });
@@ -91,20 +94,17 @@ function RQApp() {
     >
       <NavBar session={session} sessionSwitch={sessionSwitch} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home session={session}/>} />
         <Route path="/bathrooms" element={<AllBathrooms />} />
         <Route path="/bathrooms/:bathroomid" element={<BathroomPage />} />
         <Route path="/about" element={<About />} />
-        <Route
-          path="/best"
-          // gQL request for bathrooms.average_score >= 8
-          // loader={}
-          element={<Best />}
-        />
+        <Route path="/best" element={<Best />} />
         <Route path="/submit" element={<Submit />} />
         <Route path="/near-me" element={<NearMe />} />
         <Route path="/login" element={<Login />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/reset-pw" element={<ResetPw />} />
+        <Route path="/sign-up" element={<SignUp />} />
       </Routes>
       {/* <Footer /> */}
     </m.div>

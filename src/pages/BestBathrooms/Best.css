@@ -1,0 +1,33 @@
+#best-bathrooms {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 1vw;
+    margin: 40px auto;
+}
+
+.one-bathroom-stock {
+    border: 1px solid var(--light-blue1);
+    width: 45vw;
+    max-width: 450px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    background-color: var(--dark-blue3);
+}
+
+.one-bathroom-stock:hover {
+    box-shadow: 0px 0px 10px 2px white;
+}
+
+.one-bathroom-stock h2, .one-bathroom-stock h3 {
+    text-align: center;
+}
+
+@media (prefers-color-scheme: light) { 
+    .one-bathroom-stock {
+        background-color: var(--light-blue2);
+        border: 2px solid goldenrod;
+        color: var(--main-darkest);
+    }
+}

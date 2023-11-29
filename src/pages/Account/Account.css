@@ -1,0 +1,137 @@
+#account {
+    width: 90vw;
+    max-width: 1000px;
+    margin: 50px auto;
+}
+
+#account :is(h2) {
+    text-align: center;
+    background-color: var(--dark-blue5);
+    padding: 10px;
+    margin: 0;
+    border-radius: 20px 20px 0px 0;
+}
+
+#account div button {
+    display: block;
+    margin: 0 auto;
+}
+
+.account-section h3 {
+    background-color: var(--dark-blue2);
+    padding: 20px;
+    margin: 0px;
+}
+
+#account div .account-section h3:hover {
+    background-color: var(--dark-blue1);
+}
+
+#account-reviews, #acccount-bathrooms, #account-favorites {
+    margin: 0px;
+    background-color: var(--light-blue4);
+}
+
+#account-bathrooms h3 {
+    background-color: var(--dark-blue4);
+}
+
+#account-reviews h3 {
+    background-color: var(--dark-blue3);
+}
+
+.one-bathroom, .one-review, .one-favorite {
+    display: grid;
+    grid-template-columns: 50% 35% 5% 5%;
+    border: 1px solid var(--light-blue1);
+    gap: 2.5%;
+    justify-content: left;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.one-bathroom:hover, .one-review:hover, .one-favorite:hover {
+    background-color: var(--dark-blue3);
+}
+
+.one-bathroom, .one-review, .one-favorite > p {
+    background-color: inherit;
+}
+
+.account-section div {
+    background-color: var(--dark-blue5);
+}
+
+#action-buttons {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#sign-out {
+    margin: 20px;
+}
+
+#sign-out button, #reset-password button, #reset-pw form button {
+    background-color: var(--dark-blue1);
+}
+
+#account #no-username {
+    background-color: var(--dark-blue2);
+    border-radius: 0 0 20px 20px;
+    width: fit-content;
+    padding: 10px 100px;
+    margin: auto;
+}
+
+#choose-username {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 40px auto;
+}
+
+#choose-username label {
+    font-size: 24px;
+}
+
+#username {
+    height: 50px;
+    padding: 0 10px;
+    font-size: 20px;
+}
+
+#username-submit  {
+    font-size: 24px;
+    height: 50px;
+    padding: 0 20px;
+    border-radius: 5px;
+}
+
+#reset-pw-form {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+#reset-pw form button {
+    margin: 0;
+}
+
+#reset-pw form #show-hide-pw {
+    font-size: 12px;
+    margin: 0 auto 10px auto;
+    display: block;
+}
+
+@media (prefers-color-scheme: light) {
+    #account * {
+        color: var(--white);
+    }
+}

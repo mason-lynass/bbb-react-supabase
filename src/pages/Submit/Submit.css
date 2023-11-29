@@ -1,0 +1,28 @@
+#submit {
+    width: 90vw;
+    margin: 20px auto;
+}
+
+#submit-bathroom-title {
+    text-align: center;
+    font-size: 30px;
+}
+
+label, input {
+    display: block;
+}
+
+form section {
+    border: 1px solid black;
+    margin: 10px auto;
+}
+
+@media (prefers-color-scheme: light) {
+    #submit {
+        color: var(--white);
+    }
+
+    #submit h1 {
+        color: var(--main-darkest)
+    }
+}
