@@ -31,3 +31,27 @@
         color: var(--main-darkest);
     }
 }
+
+@media screen and (max-width: 600px) {
+    #best-bathrooms {
+        margin: 10px auto;
+    }
+
+    .one-bathroom-stock {
+        width: 85vw;
+        padding: 10px;
+        margin: 10px auto;
+    }
+
+    .one-bathroom-stock h2 {
+        font-size: 20px;
+    }
+
+    .one-bathroom-stock h3 {
+        font-size: 16px;
+    }
+
+    .one-bathroom-stock p {
+        font-size: 12px;
+    }
+}

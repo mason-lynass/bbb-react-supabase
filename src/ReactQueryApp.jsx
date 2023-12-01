@@ -15,6 +15,7 @@ import BathroomPage from "./pages/BathroomPage/BathroomPage.jsx";
 import NavBar from "./components/NavBar.jsx";
 import ResetPw from "./pages/Login/ResetPw.jsx";
 import SignUp from "./pages/Login/SignUp.jsx";
+import NavBarMobile from "./components/NavBarMobile.jsx";
 
 import "./global/CSS/App.css";
 
@@ -86,15 +87,34 @@ function RQApp() {
     return () => subscription.unsubscribe(); // cleanup function
   }, [users, session]);
 
+
+  function navSwitch() {
+    if (
+      window.screen.width > 600
+      // navigator.userAgent.match(/Android/i) ||
+      // navigator.userAgent.match(/webOS/i) ||
+      // navigator.userAgent.match(/iPhone/i) ||
+      // navigator.userAgent.match(/iPad/i) ||
+      // navigator.userAgent.match(/iPod/i) ||
+      // navigator.userAgent.match(/BlackBerry/i) ||
+      // navigator.userAgent.match(/Windows Phone/i)
+    ) {
+      return <NavBar session={session} sessionSwitch={sessionSwitch} />;
+    } else {
+      return <NavBarMobile session={session} sessionSwitch={sessionSwitch} />;
+    }
+  }
+
   return (
     <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <NavBar session={session} sessionSwitch={sessionSwitch} />
+      {/* <NavBar session={session} sessionSwitch={sessionSwitch} /> */}
+      {navSwitch()}
       <Routes>
-        <Route path="/" element={<Home session={session}/>} />
+        <Route path="/" element={<Home session={session} />} />
         <Route path="/bathrooms" element={<AllBathrooms />} />
         <Route path="/bathrooms/:bathroomid" element={<BathroomPage />} />
         <Route path="/about" element={<About />} />

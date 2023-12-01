@@ -125,11 +125,11 @@ export default function BathroomPage({ params }) {
   }, [profile, oBFavorites]);
 
   function singleBathroom(bathroom) {
-    const bathroomPublic = bathroom.public == "true" ? "public restroom" : "";
+    const bathroomPublic = bathroom.public == true ? "public restroom" : "";
     const ADACompliant =
-      bathroom.ada_compliant == "true" ? "ADA compliant facilities" : "";
+      bathroom.ada_compliant == true ? "ADA compliant facilities" : "";
     const genderNeutral =
-      bathroom.gender_neutral == "true" ? "gender neutral facilities" : "";
+      bathroom.gender_neutral == true ? "gender neutral facilities" : "";
     let numberOfReviews = 0;
     if (bathroomReviews) numberOfReviews = bathroomReviews.length;
 
@@ -181,7 +181,7 @@ export default function BathroomPage({ params }) {
   }
 
   function singleBathroomReviews() {
-    // console.log(bathroomReviews);
+    console.log(bathroomReviews);
     return (
       <>
         <h2 id="reviews-title">Reviews</h2>

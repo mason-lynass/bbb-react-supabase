@@ -1,4 +1,4 @@
-#nav-bar {
+#nav-bar, #nav-bar-mobile {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
@@ -11,9 +11,40 @@
     z-index: 2;
 }
 
+#nav-bar-mobile {
+    height: 60px;
+}
+
 #nav-title {
     font-size: 28px;
     padding: 0 20px;
+}
+
+#nav-title-mobile {
+    font-size: 16px;
+    padding: 0 10px;
+}
+
+#mobile-menu-button {
+    margin: 0 10px;
+}
+
+#mobile-open-menu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background-color: var(--dark-blue5);
+    padding: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#mobile-open-menu a {
+    width: 50%;
+    text-align: center;
+    margin: 1em auto;
 }
 
 nav,

@@ -22,7 +22,49 @@ form section {
         color: var(--white);
     }
 
-    #submit h1 {
+    #submit h2 {
         color: var(--main-darkest)
+    }
+
+    #new-bathroom-flex {
+        gap: 10px;
+    }
+
+    #bathroom-fields, #review-fields, #new-bathroom-flex {
+        min-width: 0;
+    }
+    
+    #bathroom-fields, #review-fields {
+        width: 90vw;
+        margin: 0 auto;
+    }
+
+    #all-nb-checks {
+        display: block;
+    }
+
+    .nb-checks {
+        display: grid;
+        grid-template-columns: 1fr 30px;
+        height: fit-content;
+    }
+
+    #all-nb-checks .nb-checks label {
+        text-align: left;
+        line-height: 1;
+    }
+
+    #all-rating-buttons {
+        padding: 5px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    #new-bathroom-submit {
+        margin: 10px auto;
+    }
+
+    #submit input, #submit textarea {
+        font-size: 14px;
     }
 }
