@@ -37,7 +37,7 @@ form input {
 }
 
 form button {
-    background-color: var(--light-blue3);
+    background-color: var(--light-blue5);
     border: 2px solid var(--dark-blue3);
 }
 
@@ -50,8 +50,10 @@ form button {
     gap: 10px;
 }
 
-#filter-buttons button {
+#map-filter-buttons button {
     margin: 0;
+    background-color: var(--dark-blue2);
+    border: 1px solid var(--light-blue2);
 }
 
 #all-bathrooms-map {

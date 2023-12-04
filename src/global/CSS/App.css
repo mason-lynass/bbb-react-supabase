@@ -15,18 +15,33 @@
     height: 60px;
 }
 
-#nav-title {
+#nav-left {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    align-items: center;
+}
+  
+  #logo {
+    height: 70px;
+    width: 70px;
+  }
+
+#nav-title, #nav-title-mobile {
     font-size: 28px;
-    padding: 0 20px;
+    margin: 0;
+    margin-left: -10px;
 }
 
 #nav-title-mobile {
     font-size: 16px;
-    padding: 0 10px;
+    margin: auto auto auto -10px;
+    padding-bottom: 0;
 }
 
 #mobile-menu-button {
     margin: 0 10px;
+    background-color: var(--light-blue4);
+    color: black;
 }
 
 #mobile-open-menu {
@@ -77,6 +92,18 @@ nav div a {
     width: 90vw;
     margin: 10px auto;
     text-align: center;
+  }
+
+  @media screen and (max-width: 600px) {
+    #logo {
+        width: 60px;
+        height: 60px;
+    }
+
+    #logo-container {
+        width: 60px;
+        height: 60px;
+    }
   }
 
 

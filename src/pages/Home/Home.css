@@ -17,29 +17,11 @@
     font-size: 16px;
 } */
 
-#home-top-flex {
-  display: grid;
-  grid-template-columns: 400px 1fr;
-}
-
-#logo-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: var(--dark-blue5);
-  width: 500px;
-  z-index: 5;
-}
-
-#logo {
-  height: 60px;
-  width: 60px;
-}
 
 #where-are-you-home {
-  display: inline-block;
-  width: calc(100vw - 400px);
-  height: 400px;
+  width: 90vw;
+  max-width: 1100px;
+  margin: auto;
 }
 
 #where-are-you-home h1 {
@@ -83,10 +65,12 @@
 
 #home-slideshow {
   width: 90vw;
-  max-width: calc(3024px / 5);
-  height: calc(3441px / 5);
+  max-width: calc(3024px / 2);
+  height: 700px;
   object-fit: contain;
   overflow: hidden;
+  margin: 30px auto;
+  border: 10px ridge goldenrod;
 }
 
 #all-slides {
@@ -107,7 +91,7 @@
 }
 
 .slide-image {
-  height: 400px;
+  height: 700px;
   width: 100%;
   object-fit: cover;
 }
@@ -133,9 +117,34 @@
 
 #homepage-about {
     width: 90vw;
-    margin: -50px auto 0px auto;
+    max-width: 1000px;
+    margin: 5vw auto 5vw auto;
     background-color: var(--dark-blue2);
-    padding: 10px;
+    padding: 30px;
+}
+
+#homepage-about p {
+  max-width: 600px;
+  text-align: center;
+  margin: 10px auto;
+}
+
+#homepage-about #single-bathroom-container {
+  width: 75vw;
+  max-width: 800px;
+  background-color: var(--dark-blue3);
+  padding: 10px;
+  border: 1px solid black;
+  margin: 30px auto;
+}
+
+#homepage-about .one-bathroom-one-review {
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+#homepage-about .one-bathroom-one-review p {
+  text-align: left;
 }
 
 @media screen and (max-width: 600px) {
@@ -151,16 +160,6 @@
 
   #where-are-you-home h1 {
     font-size: 24px;
-  }
-
-  #logo-container {
-    height: 60px;
-    width: calc(100vw - 120px);
-  }
-
-  #logo {
-    height: 60px;
-    width: 60px;
   }
 
   #homepage-filters {
@@ -185,9 +184,15 @@
   }
 
   #home-slideshow {
-    width: 100vw;
+    width: 90vw;
     margin: 0 auto;
-    height: fit-content;
+    height: calc(90vw * .9);
+  }
+  
+  .slide-image {
+    height: calc(90vw * .9);
+    width: 100%;
+    object-fit: cover;
   }
 
   .slide-text {
@@ -197,7 +202,26 @@
     background: linear-gradient( 90deg, rgba(0, 0, 0, 0) 0%, var(--dark-blue1) 15%, var(--dark-blue1) 85%, rgba(0, 0, 0, 0) 100% );
   }
 
+  #homepage-about {
+    width: 80vw;
+    padding: 20px;
+  }
 
+  #homepage-about p {
+    font-size: 14px;
+  }
+
+  #homepage-about #single-bathroom-container {
+    width: 75vw;
+    padding: 10px;
+    margin: 30px auto;
+  }
+
+  #homepage-about .one-bathroom-one-review {
+    width: 65vw;
+    margin: 30px auto;
+    padding: 20px;
+  }
 }
 
 @media (prefers-color-scheme: light) {

@@ -164,7 +164,7 @@ export default function Home({ session }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <h1>loading...</h1>
+          <h5 style={{ textAlign: 'center'}}>loading...</h5>
         </m.div>
       </main>
     );
@@ -178,9 +178,9 @@ export default function Home({ session }) {
           transition={{ duration: 0.5 }}
         >
           <div id="home-top-flex">
-            <div id='logo-container'>
+            {/* <div id='logo-container'>
               <img src={Logo} id="logo" />
-            </div>
+            </div> */}
             <section id="where-are-you-home">
               <h1>Where are you?</h1>
               <div id="homepage-filters">
