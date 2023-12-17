@@ -3,8 +3,8 @@
     flex-flow: row wrap;
     justify-content: space-evenly;
     align-items: flex-start;
-    gap: 1vw;
-    margin: 40px auto;
+    gap: 40px 3vw;
+    margin: 40px;
 }
 
 .one-bathroom-stock {
@@ -22,6 +22,10 @@
 
 .one-bathroom-stock h2, .one-bathroom-stock h3 {
     text-align: center;
+}
+
+.one-bathroom-stock h2 {
+    font-family: Josefin Sans;
 }
 
 @media (prefers-color-scheme: light) { 

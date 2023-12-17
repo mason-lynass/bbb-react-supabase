@@ -1,8 +1,9 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css"
 import { Navigate, useNavigate } from "react-router-dom";
 import "./BathroomForm.css";
-
+import { Loader } from "@googlemaps/js-api-loader"
 import RatingButton from "../../components/RatingButton";
 import SubmittedDialog from "./SubmittedDialog";
 import { globalStore } from "../../global/Zustand";
@@ -15,7 +16,7 @@ import { submitBathroom, submitReview } from "../../React-Query/mutations";
 export default function BathroomForm({ bathrooms }) {
   
   const profile = globalStore((state) => state.profile);
-
+  let geocoder
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState('submit');
 
@@ -38,6 +39,41 @@ export default function BathroomForm({ bathrooms }) {
   const [styleRating, setStyleRating] = useState(null);
 
   const [bathroomid, setBathroomId] = useState(null)
+  
+  const loader = new Loader({
+    apiKey: GMKey,
+    version: 'weekly',
+    libraries: ["maps", 'geocoding', 'places']
+  })
+
+  // const resp = Geocoder.geocode({ 'address': `${address}, Seattle`})
+
+  // console.log(resp.results)
+  
+  
+
+  async function addressToGeocode() {
+
+    const { Geocoder } = await loader.importLibrary('geocoding')
+    geocoder = new Geocoder()
+
+    const both = []
+
+    console.log(address)
+
+    geocoder.geocode( { 'address': `${address}, Seattle` } ).then((result) => {
+      const { results } = result
+      console.log(results[0].geometry.location.toString())
+      const latLng = results[0].geometry.location.toString()
+      const lat = latLng.split(',')[0].substring(1)
+      const lng = latLng.split(',')[1].substring(1,11)
+      console.log(lat,lng)
+      both.push(lat)
+      both.push(lng)
+    })
+
+    if (both.length > 1) return both
+  }
 
   const bathroomSupabase = {
     address: address,
@@ -96,7 +132,6 @@ export default function BathroomForm({ bathrooms }) {
   });
 
 
-
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading('submitting');
@@ -110,15 +145,26 @@ export default function BathroomForm({ bathrooms }) {
       if (((cleanlinessRating + bathroomFunctionRating + styleRating) /
       3) === 10) throw ["Was this really the best bathroom of all time? Please don't abuse our database."]
 
-      const googleResp = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address},seattle&key=${GMKey}`)
-      const newGeocode = await googleResp.json()
 
-      console.log(newGeocode)
 
-      if (!googleResp.ok || newGeocode.results[0].geometry === undefined || newGeocode.results[0].geometry.location.lat == 
-        47.6061389) {
-          throw ["Please enter a valid address"]
-      }
+      // this doesn't work yet because we need to format the address correctly
+      // it works if you just put in "Seattle" but it doesn't get to the API key if you give it an address formatted incorrectly
+      // so check out the Maps JavaScript API Geocoder constructor:
+      // google.maps.Geocoder
+
+      // USE the NPM JS-API-LOADER dude
+
+      const googleResp = await addressToGeocode()
+      // const googleResp = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}%20Seattle&key=${GMKey}`)
+      // const newGeocode = await googleResp.json()
+
+      console.log(googleResp)
+      // console.log(newGeocode)
+
+      // if (!googleResp.ok || newGeocode.results[0].geometry === undefined || newGeocode.results[0].geometry.location.lat == 
+      //   47.6061389) {
+      //     throw ["Please enter a valid address"]
+      // }
 
       // these are the fields that we'll need to provide in order to successfully add a row to the bathrooms table in the DB
       // there are other columns that have default values that we do not need to provide here
@@ -131,15 +177,22 @@ export default function BathroomForm({ bathrooms }) {
       // console.log(await bathroomResult)
       // const createdBathroom = await bathroomResult.data[0];
 
-      bathroomMutation.mutate({
-        address: address,
-        location_name: locationName,
-        latitude: newGeocode.results[0].geometry.location.lat,
-        longitude: newGeocode.results[0].geometry.location.lng,
-        neighborhood: newGeocode.results[0].address_components[2].long_name,
-        description: bathroomDescription,
-        public: publicBool,
-      })
+      // bathroomMutation.mutate({
+      //   address: address,
+      //   location_name: locationName,
+      //   latitude: 47.62656,
+      //   longitude: -122.306983,
+      //   neighborhood: "Stevens",
+      //   // latitude: newGeocode.results[0].geometry.location.lat,
+      //   // longitude: newGeocode.results[0].geometry.location.lng,
+      //   // neighborhood: newGeocode.results[0].address_components[2].long_name,
+      //   description: bathroomDescription,
+      //   public: publicBool,
+      //   gender_neutral: gnBool,
+      //   ada_compliant: ADABool,
+      //   average_score: ((cleanlinessRating + styleRating + bathroomFunctionRating) / 3), 
+      //   submitted_by: profile.id
+      // })
       // .then(reviewMutation.mutate);
 
       // const createdBathroom = postBathroom
@@ -178,9 +231,7 @@ export default function BathroomForm({ bathrooms }) {
   }
 
   function displayErrors() {
-    return errors.map((e) => {
-      return <p key={e} className="display-error">{e}</p>;
-    });
+      return <p key={errors} className="display-error">{errors}</p>
   }
   // if (bathroomid !== null) return <Navigate to={`/bathrooms/${bathroomid}`} />
 

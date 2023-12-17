@@ -182,7 +182,7 @@ export default function Home({ session }) {
               <img src={Logo} id="logo" />
             </div> */}
             <section id="where-are-you-home">
-              <h1>Where are you?</h1>
+              <h1>Where in Seattle are you?</h1>
               <div id="homepage-filters">
                 <div id="homepage-bathrooms-search">
                   <input

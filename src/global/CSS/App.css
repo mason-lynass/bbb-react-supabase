@@ -11,6 +11,10 @@
     z-index: 2;
 }
 
+#nav-title, nav div a {
+    font-family: Josefin Sans;
+  }
+
 #nav-bar-mobile {
     height: 60px;
 }
@@ -22,14 +26,17 @@
 }
   
   #logo {
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 60px;
+    padding: 10px 20px;
   }
 
 #nav-title, #nav-title-mobile {
     font-size: 28px;
+    font-weight: 800;
     margin: 0;
-    margin-left: -10px;
+    margin-top: 25px;
+    margin-left: 20px;
 }
 
 #nav-title-mobile {

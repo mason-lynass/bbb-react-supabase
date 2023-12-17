@@ -17,7 +17,6 @@
     font-size: 16px;
 } */
 
-
 #where-are-you-home {
   width: 90vw;
   max-width: 1100px;
@@ -26,6 +25,7 @@
 
 #where-are-you-home h1 {
   text-align: center;
+  font-family: Josefin Sans;
 }
 
 #homepage-filters,
@@ -35,7 +35,7 @@
   flex-flow: row wrap;
   justify-content: space-evenly;
   align-items: center;
-  gap: 10px 40px;
+  gap: 20px 40px;
 }
 
 #homepage-bathrooms-search input {
@@ -51,7 +51,7 @@
   padding: 3px 20px;
 }
 
-#homepage-bathrooms-search button:hover {
+#homepage-bathrooms-search button:hover, #homepage-filters-and-neighborhood button:hover {
   background-color: var(--light-blue4);
 }
 
@@ -61,6 +61,10 @@
 
 #homepage-filters-and-neighborhood #neighborhood {
   margin: 0;
+}
+
+#homepage-filters-and-neighborhood #neighborhood option {
+  background-color: green;
 }
 
 #home-slideshow {
@@ -116,15 +120,15 @@
 }
 
 #homepage-about {
-    width: 90vw;
-    max-width: 1000px;
-    margin: 5vw auto 5vw auto;
-    background-color: var(--dark-blue2);
-    padding: 30px;
+  width: 90vw;
+  max-width: 1000px;
+  margin: 5vw auto 5vw auto;
+  background-color: var(--dark-blue2);
+  padding: 30px;
 }
 
 #homepage-about p {
-  max-width: 600px;
+  max-width: 650px;
   text-align: center;
   margin: 10px auto;
 }
@@ -186,11 +190,11 @@
   #home-slideshow {
     width: 90vw;
     margin: 0 auto;
-    height: calc(90vw * .9);
+    height: calc(90vw * 0.9);
   }
-  
+
   .slide-image {
-    height: calc(90vw * .9);
+    height: calc(90vw * 0.9);
     width: 100%;
     object-fit: cover;
   }
@@ -199,7 +203,13 @@
     left: 0;
     top: -70px;
     font-size: 16px;
-    background: linear-gradient( 90deg, rgba(0, 0, 0, 0) 0%, var(--dark-blue1) 15%, var(--dark-blue1) 85%, rgba(0, 0, 0, 0) 100% );
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0) 0%,
+      var(--dark-blue1) 15%,
+      var(--dark-blue1) 85%,
+      rgba(0, 0, 0, 0) 100%
+    );
   }
 
   #homepage-about {
@@ -225,7 +235,7 @@
 }
 
 @media (prefers-color-scheme: light) {
-    .slide-text {
-        color: var(--white);
-    }
+  .slide-text {
+    color: var(--white);
+  }
 }

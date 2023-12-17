@@ -1,6 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { globalStore } from "../global/Zustand";
 import Logo from "../assets/bbb-logo-1.png";
+import Logo2 from "../assets/bbb-molly-logo-1.png";
+import Logo3 from "../assets/bbb-molly-logo-3.png";
+import Logo4 from "../assets/bbb-molly-logo-small-1.png";
+import Logo5 from "../assets/bbb-molly-logo-small-2.png";
 
 export default function NavBar({ sessionSwitch }) {
   const session = globalStore((state) => state.session);
@@ -26,7 +30,7 @@ export default function NavBar({ sessionSwitch }) {
     <div id="nav-bar">
       <NavLink to="/" id='nav-left'>
         <div id="logo-container">
-          <img src={Logo} id="logo" />
+          <img src={Logo3} id="logo" />
         </div>
         <h1 id="nav-title">Better Bathroom Bureau</h1>
       </NavLink>

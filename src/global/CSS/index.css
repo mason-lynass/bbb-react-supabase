@@ -1,5 +1,9 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
+  font-family: Montserrat;
+  /* font-family: Comfortaa; */
+  /* font-family: Josefin Sans; */
+  /* font-family: Roboto; */
   line-height: 1.5;
   font-weight: 600;
 
@@ -41,6 +45,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+input, select {
+  font-family: Montserrat;
 }
 
 a {

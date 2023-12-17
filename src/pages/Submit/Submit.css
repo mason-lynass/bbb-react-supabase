@@ -6,6 +6,7 @@
 #submit-bathroom-title {
     text-align: center;
     font-size: 30px;
+    font-family: Josefin Sans;
 }
 
 label, input {
@@ -26,7 +27,7 @@ form section {
         color: var(--main-darkest)
     }
 
-    #new-bathroom-flex {
+    /* #new-bathroom-flex {
         gap: 10px;
     }
 
@@ -66,5 +67,5 @@ form section {
 
     #submit input, #submit textarea {
         font-size: 14px;
-    }
+    } */
 }
