@@ -81,3 +81,27 @@
 #bottom-buttons button:hover {
     background-color: var(--light-blue5);
 }
+
+@media screen and (max-width: 600px) {
+
+    #login-form, #signup-form {
+        width: 80vw;
+        padding: 20px;
+    }
+
+    #login-form input, #signup-form input {
+        width: 70vw;
+        font-size: 16px;
+    }
+
+    #login-form button {
+        font-size: 16px;
+        padding: 10px 30px;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    #Auth * {
+        color: var(--white)
+    }
+}

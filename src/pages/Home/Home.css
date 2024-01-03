@@ -17,101 +17,225 @@
     font-size: 16px;
 } */
 
-#home-top-flex {
-    display: grid;
-    grid-template-columns: 400px 1fr;
+#where-are-you-home {
+  width: 90vw;
+  max-width: 1100px;
+  margin: auto;
 }
 
-#logo {
-    height: 400px;
-    width: 400px;
-    background-color: var(--dark-blue5);
-    z-index: 5;
+#where-are-you-home h1 {
+  text-align: center;
+  font-family: Josefin Sans;
 }
 
-#where-are-you {
-    display: inline-block;
-    width: calc(100vw - 400px);
-    height: 400px;
-}
-
-#where-are-you h1 {
-    text-align: center;
-}
-
-#homepage-filters, #homepage-filters-and-neighborhood, #homepage-filters-and-neighborhood #filter-buttons {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 10px 40px;
+#homepage-filters,
+#homepage-filters-and-neighborhood,
+#homepage-filters-and-neighborhood #filter-buttons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 20px 40px;
 }
 
 #homepage-bathrooms-search input {
-    display: inline;
-    margin-right: 10px;
+  display: inline;
+  margin-right: 10px;
 }
 
 #homepage-bathrooms-search button {
-    background-color: var(--light-blue5);
-    height: 40px;
-    font-size: 20px;
-    line-height: 1;
-    padding: 3px 20px;
+  background-color: var(--light-blue5);
+  height: 40px;
+  font-size: 20px;
+  line-height: 1;
+  padding: 3px 20px;
 }
 
-#homepage-bathrooms-search button:hover {
-    background-color: var(--light-blue4)
+#homepage-bathrooms-search button:hover, #homepage-filters-and-neighborhood button:hover {
+  background-color: var(--light-blue4);
 }
 
 #homepage-filters-and-neighborhood #filter-buttons {
-    gap: 10px;
+  gap: 10px;
 }
 
 #homepage-filters-and-neighborhood #neighborhood {
-    margin:  0;
+  margin: 0;
+}
+
+#homepage-filters-and-neighborhood #neighborhood option {
+  background-color: green;
 }
 
 #home-slideshow {
-    width: 90vw;
-    max-width: calc(3024px / 5);
-    height: calc(3441px / 5);
-    object-fit: contain;
-    overflow: hidden;
+  width: 90vw;
+  max-width: calc(3024px / 2);
+  height: 700px;
+  object-fit: contain;
+  overflow: hidden;
+  margin: 30px auto;
+  border: 10px ridge goldenrod;
 }
 
 #all-slides {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: left;
-    list-style: none;
-    align-items: center;
-    padding: 0;
-    /* overflow: hidden; */
-    transition: all 1s;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: left;
+  list-style: none;
+  align-items: center;
+  padding: 0;
+  /* overflow: hidden; */
+  transition: all 1s;
 }
 
 .slides {
-    height: fit-content;
-    width: 100%;
-    flex: 1 0 auto;
+  height: fit-content;
+  width: 100%;
+  flex: 1 0 auto;
 }
 
 .slide-image {
-    height: 400px;
-    width: 100%;
-    object-fit: cover;
+  height: 700px;
+  width: 100%;
+  object-fit: cover;
 }
 
 .slide-text {
-    position: relative;
-    top: -150px;
-    left: 50px;
-    font-size: 2rem;
-    width: fit-content;
-    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, var(--dark-blue1) 5%, var(--dark-blue1) 95%, rgba(0,0,0,0) 100%) ;
-    border-radius: 15px;
-    padding: 10px 50px;
-    opacity: 1;
-    transition: opacity 2s .5s;
+  position: relative;
+  top: -150px;
+  left: 50px;
+  font-size: 2rem;
+  width: fit-content;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    var(--dark-blue1) 5%,
+    var(--dark-blue1) 95%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  border-radius: 15px;
+  padding: 10px 50px;
+  opacity: 1;
+  transition: opacity 2s 0.5s;
+}
+
+#homepage-about {
+  width: 90vw;
+  max-width: 1000px;
+  margin: 5vw auto 5vw auto;
+  background-color: var(--dark-blue2);
+  padding: 30px;
+}
+
+#homepage-about p {
+  max-width: 650px;
+  text-align: center;
+  margin: 10px auto;
+}
+
+#homepage-about #single-bathroom-container {
+  width: 75vw;
+  max-width: 800px;
+  background-color: var(--dark-blue3);
+  padding: 10px;
+  border: 1px solid black;
+  margin: 30px auto;
+}
+
+#homepage-about .one-bathroom-one-review {
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+#homepage-about .one-bathroom-one-review p {
+  text-align: left;
+}
+
+@media screen and (max-width: 600px) {
+  #home-top-flex {
+    display: block;
+  }
+
+  #where-are-you-home {
+    width: 100vw;
+    height: fit-content;
+    margin-bottom: 10px;
+  }
+
+  #where-are-you-home h1 {
+    font-size: 24px;
+  }
+
+  #homepage-filters {
+    background-color: var(--dark-blue5);
+    padding: 20px 0px;
+    border-radius: 10px;
+  }
+
+  #homepage-bathrooms-search {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #homepage-bathrooms-search input {
+    width: 250px;
+  }
+
+  #homepage-filters-and-neighborhood #neighborhood {
+    margin-top: 20px;
+  }
+
+  #home-slideshow {
+    width: 90vw;
+    margin: 0 auto;
+    height: calc(90vw * 0.9);
+  }
+
+  .slide-image {
+    height: calc(90vw * 0.9);
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .slide-text {
+    left: 0;
+    top: -70px;
+    font-size: 16px;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0) 0%,
+      var(--dark-blue1) 15%,
+      var(--dark-blue1) 85%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  #homepage-about {
+    width: 80vw;
+    padding: 20px;
+  }
+
+  #homepage-about p {
+    font-size: 14px;
+  }
+
+  #homepage-about #single-bathroom-container {
+    width: 75vw;
+    padding: 10px;
+    margin: 30px auto;
+  }
+
+  #homepage-about .one-bathroom-one-review {
+    width: 65vw;
+    margin: 30px auto;
+    padding: 20px;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .slide-text {
+    color: var(--white);
+  }
 }

@@ -54,9 +54,6 @@ export default function Home({ session }) {
   // homepage should have an Auth or Login / SignUp on it
   // "Find your pipe dreams"
 
-
-
-
   // okay so this doesn't work yet because
   // i took all of the state variables from AllBathrooms and moved them to home
   // so that I could allow users to search / filter from the home page and end up on /bathrooms
@@ -69,15 +66,15 @@ export default function Home({ session }) {
     const ADAButton = document.getElementById("ADA-button");
     const GNButton = document.getElementById("GN-button");
 
-    if ((button === "public")) {
+    if (button === "public") {
       console.log("this one");
-      navigate('/bathrooms', { state: {publicBool: true}})
+      navigate("/bathrooms", { state: { publicBool: true } });
     }
-    if ((button === "ADA")) {
-      navigate('/bathrooms', { state: {ADABool: true}})
+    if (button === "ADA") {
+      navigate("/bathrooms", { state: { ADABool: true } });
     }
-    if ((button === "GN")) {
-      navigate('/bathrooms', { state: {GNBool: true}})
+    if (button === "GN") {
+      navigate("/bathrooms", { state: { GNBool: true } });
     }
   }
   //
@@ -123,6 +120,39 @@ export default function Home({ session }) {
     );
   }
 
+  function mostRecentReview () {
+    const bathroomIDs = bathrooms.map((b) => b.id)
+
+    const approvedReviews = reviews.filter((review) => bathroomIDs.includes(review.bathroom_id))
+
+    const review = approvedReviews.sort((a,b) => b.id - a.id)[0]
+    const targetBathroom = bathrooms.find((b) => b.id = review.bathroom_id)
+
+    console.log(review)
+
+    return(
+      <div className="one-bathroom-one-review" key={review.id}>
+          <div id='review-top'>
+            <p>{targetBathroom.location_name}</p>
+            <p>{review.average_rating}</p>
+          </div>
+          <p>{review.description}</p>
+          <div id='review-cleanliness'>
+            <p>cleanliness: {review.cleanliness_rating}</p>
+            <p>{review.cleanliness}</p>
+          </div>
+          <div id="review-function">
+            <p>function: {review.function_rating}</p>
+            <p>{review.function}</p>
+          </div>
+          <div id='review-style'>
+            <p>style: {review.style_rating}</p>
+            <p>{review.style}</p>
+          </div>
+        </div>
+    )
+  }
+
   console.log(query);
 
   if (status === "loading" || rstatus === "loading")
@@ -134,7 +164,7 @@ export default function Home({ session }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <h1>loading...</h1>
+          <h5 style={{ textAlign: 'center'}}>loading...</h5>
         </m.div>
       </main>
     );
@@ -148,9 +178,11 @@ export default function Home({ session }) {
           transition={{ duration: 0.5 }}
         >
           <div id="home-top-flex">
-            <img src={Logo} id="logo" />
-            <section id="where-are-you">
-              <h1>Where are you?</h1>
+            {/* <div id='logo-container'>
+              <img src={Logo} id="logo" />
+            </div> */}
+            <section id="where-are-you-home">
+              <h1>Where in Seattle are you?</h1>
               <div id="homepage-filters">
                 <div id="homepage-bathrooms-search">
                   <input
@@ -160,13 +192,23 @@ export default function Home({ session }) {
                     type="search"
                     placeholder="Search by bathroom name"
                   ></input>
-                  <button onClick={(e) => navigate('/bathrooms', { state: {query: query}})}>Go</button>
+                  <button
+                    onClick={(e) =>
+                      navigate("/bathrooms", { state: { query: query } })
+                    }
+                  >
+                    Go
+                  </button>
                 </div>
                 <div id="homepage-filters-and-neighborhood">
                   <div id="neighborhood">
                     <select
                       value={neighborhood}
-                      onChange={(e) => navigate('/bathrooms', { state: {neighborhood: e.target.value}})}
+                      onChange={(e) =>
+                        navigate("/bathrooms", {
+                          state: { neighborhood: e.target.value },
+                        })
+                      }
                       id="neighborhood-dropdown"
                     >
                       <option value="none" key="null">
@@ -207,7 +249,14 @@ export default function Home({ session }) {
           </div>
           <HomeSlideshow />
           {/* {session ? '' : HomePageAuth()} */}
-          <div>{mostRecentBathroom()}</div>
+          <div id='homepage-about'>
+            <p>The Better Bathroom Bureau is a resource and community dedicated to help people in Seattle find, submit, and review bathroom facilities around the city.</p>
+            <p>Check out our most recently submitted bathroom:</p>
+            <div>{mostRecentBathroom()}</div>
+            <p>and our most recent review:</p>
+            <div>{mostRecentReview()}</div>
+          </div>
+          
         </m.div>
       </main>
     );

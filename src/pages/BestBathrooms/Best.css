@@ -3,8 +3,8 @@
     flex-flow: row wrap;
     justify-content: space-evenly;
     align-items: flex-start;
-    gap: 1vw;
-    margin: 40px auto;
+    gap: 40px 3vw;
+    margin: 40px;
 }
 
 .one-bathroom-stock {
@@ -24,10 +24,38 @@
     text-align: center;
 }
 
+.one-bathroom-stock h2 {
+    font-family: Josefin Sans;
+}
+
 @media (prefers-color-scheme: light) { 
     .one-bathroom-stock {
         background-color: var(--light-blue2);
         border: 2px solid goldenrod;
         color: var(--main-darkest);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #best-bathrooms {
+        margin: 10px auto;
+    }
+
+    .one-bathroom-stock {
+        width: 80vw;
+        padding: 20px;
+        margin: 10px auto;
+    }
+
+    .one-bathroom-stock h2 {
+        font-size: 20px;
+    }
+
+    .one-bathroom-stock h3 {
+        font-size: 16px;
+    }
+
+    .one-bathroom-stock p {
+        font-size: 12px;
     }
 }

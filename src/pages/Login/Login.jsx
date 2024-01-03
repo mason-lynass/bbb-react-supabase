@@ -64,7 +64,7 @@ export default function Login() {
       return <span>Loading</span>;
     }
     if (forgotPw) {
-      return <span>Send pw reset link</span>;
+      return <span>Send password reset link</span>;
     }
     return <span>Login</span>;
   }

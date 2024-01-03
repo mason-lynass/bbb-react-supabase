@@ -1,52 +1,123 @@
-#nav-bar {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    background-color: var(--dark-blue5);
-    position: sticky;
-    top: 0;
-    left: 0;
-    z-index: 2;
+#nav-bar,
+#nav-bar-mobile {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: var(--dark-blue5);
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 2;
 }
 
-#nav-title {
-    font-size: 28px;
-    padding: 0 20px;
+#nav-title,
+nav div a {
+  font-family: Josefin Sans;
+}
+
+#nav-bar-mobile {
+  height: 60px;
+}
+
+#nav-left {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  align-items: center;
+}
+
+#logo {
+  height: 60px;
+  width: 60px;
+  padding: 10px 20px;
+}
+
+#logo-mobile {
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+}
+
+#nav-title,
+#nav-title-mobile {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0;
+  margin-top: 25px;
+  margin-left: 20px;
+}
+
+#nav-title-mobile {
+  font-size: 16px;
+  margin: auto auto auto -10px;
+  padding-bottom: 0;
+}
+
+#mobile-menu-button {
+  margin: 0 10px;
+  background-color: var(--light-blue4);
+  color: black;
+}
+
+#mobile-open-menu {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  background-color: var(--dark-blue5);
+  padding: 10px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#mobile-open-menu a {
+  width: 50%;
+  text-align: center;
+  margin: 1em auto;
 }
 
 nav,
 nav div {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
 nav div a {
-    display: block;
-    width: 80px;
-    text-align: center;
-    margin: 1vw;
-    line-height: 1.2;
+  display: block;
+  width: 80px;
+  text-align: center;
+  margin: 1vw;
+  line-height: 1.2;
 }
 
 #login p {
-    margin: .5em;
+  margin: 0.5em;
 }
 
 #layout-outlet {
-    margin: 0px 0px 60px 0px;
+  margin: 0px 0px 60px 0px;
 }
 
 .display-error {
-    color: red;
-    max-width: 400px;
-    width: 90vw;
-    margin: 10px auto;
-    text-align: center;
+  color: red;
+  max-width: 400px;
+  width: 90vw;
+  margin: 10px auto;
+  text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  #logo {
+    width: 60px;
+    height: 60px;
   }
 
-
-
+  #logo-container {
+    width: 60px;
+    height: 60px;
+  }
+}

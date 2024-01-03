@@ -17,7 +17,7 @@
     font-size: 36px;
     margin: 0;
     padding: 20px;
-    text-shadow: 2px 2px 3px var(--main-darkest);
+    font-family: Josefin Sans;
 }
 
 #where-are-you form {
@@ -38,7 +38,7 @@ form input {
 }
 
 form button {
-    background-color: var(--light-blue3);
+    background-color: var(--light-blue5);
     border: 2px solid var(--dark-blue3);
 }
 
@@ -51,8 +51,10 @@ form button {
     gap: 10px;
 }
 
-#filter-buttons button {
+#map-filter-buttons button {
     margin: 0;
+    background-color: var(--dark-blue2);
+    border: 1px solid var(--light-blue2);
 }
 
 #all-bathrooms-map {
@@ -70,4 +72,37 @@ form button {
 
 .marker-content-string:hover {
     color: var(--dark-blue2);
+}
+
+@media screen and (max-width: 600px) {
+    #where-are-you h3 {
+        font-size: 24px;
+        padding: 10px;
+    }
+
+    #where-are-you form {
+        flex-flow: row wrap;
+    }
+
+    #address {
+        width: 80vw;
+    }
+
+    #near-me-top-flex form label {
+        display: none;
+    }
+
+    #map-filter-buttons {
+        margin: 20px auto;
+    }
+
+    #map-filter-buttons button {
+        font-size: 12px;
+        padding: 10px 5px;
+    }
+
+    #all-bathrooms-map {
+        border: 10px solid var(--dark-blue1);
+        margin: 20px auto;
+    }
 }

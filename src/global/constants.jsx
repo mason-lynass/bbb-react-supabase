@@ -58,6 +58,7 @@ export const neighborhoods = [
     "South Beacon Hill",
     "South Lake Union",
     "South Park",
+    "Stevens",
     "Sunset Hill",
     "University District",
     "University Heights",

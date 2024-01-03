@@ -9,6 +9,7 @@ import { supabase, GMKey } from "../../ReactQueryApp";
 import { globalStore } from "../../global/Zustand";
 import { fetchAllBathrooms } from "../../React-Query/fetch-functions";
 import { useQuery } from "@tanstack/react-query";
+import Login from "../Login/Login";
 
 // // this might be how you submit things to the database, add an action to the route and import it in NewApp
 // export function submitAction() {
@@ -26,7 +27,7 @@ export default function Submit({ setBathrooms }) {
   if (!profile) {
     return (
       <m.div
-        id="Auth"
+        id="please-login"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -34,11 +35,12 @@ export default function Submit({ setBathrooms }) {
         <h2 style={{ textAlign: "center" }}>
           Please log in to submit a bathroom.
         </h2>
-        <Auth
+        {/* <Auth
           supabaseClient={supabase}
           appearance={{ theme: ThemeSupa }}
           providers={[]}
-        />
+        /> */}
+        <Login />
       </m.div>
     );
   } else

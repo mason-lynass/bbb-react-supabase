@@ -1,14 +1,301 @@
-#no-bathroom-found p, #no-bathroom-found a {
-    text-align: center;
-    display: block;
+/* for one bathroom */
+
+#loading {
+  text-align: center;
+  padding: 50px;
+}
+
+#bathroom-name {
+  text-align: center;
+  margin-top: 30px;
+  font-family: Josefin Sans;
+}
+
+#bathroom-top-split {
+  display: grid;
+  grid-template-columns: 1fr 500px;
+  background-color: var(--dark-blue3);
+  padding: 0 calc(20px + 5vw);
+}
+
+
+
+#bathroom-top-split section {
+  padding: 20px;
+  max-width: 800px;
+  width: calc(100% - 20px);
+  margin: auto;
+}
+
+#bathroom-top-split section #single-bathroom-container {
+  background-color: var(--dark-blue4);
+  border-radius: 10px;
+  border: 1px solid var(--light-blue1);
+}
+
+#one-bathroom-location,
+#one-bathroom-stats {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1vw;
+}
+
+#one-bathroom-description,
+#reviews-title {
+  text-align: center;
+}
+
+#one-bathroom-description {
+  padding: 0 10px;
+}
+
+#one-bathroom-buttons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 30px auto;
+}
+
+#one-bathroom-buttons button {
+  background-color: var(--dark-blue1);
+  border: black;
+}
+
+#bathroom-page-map {
+  margin: 15px;
+  border: 5px solid var(--dark-blue3);
+  max-height: 500px;
+}
+
+#one-bathroom-reviews {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+  background-color: var(--dark-blue3);
+  min-height: 600px;
+}
+
+#reviews-title {
+  margin: 10px auto;
+  font-family: Josefin Sans;
+}
+
+.one-bathroom-one-review {
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 20px;
+  width: 45vw;
+  max-width: 500px;
+  padding: 20px;
+  background-color: var(--dark-blue1);
+}
+
+.one-bathroom-one-review div:first-child {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.one-bathroom-one-review p {
+  margin: 0;
+}
+
+.one-bathroom-one-review div {
+  margin: 20px auto;
+}
+
+#new-review-dialog {
+  z-index: 5;
+  width: 95vw;
+  max-width: 1000px;
+  position: absolute;
+  top: 100px;
+  right: 0;
+  padding: 0 1em;
+}
+
+#new-review-title {
+  text-align: center;
+}
+
+.nr-flex {
+  margin: 20px auto;
+}
+
+#review-fields .nr-flex label {
+  margin-top: 5px;
+}
+
+#new-review-submit {
+  display: block;
+  background-color: var(--green-light);
+  margin: 30px auto 0 auto;
+  color: var(--dark-blue1);
+}
+
+#new-review-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background-color: red;
+  color: white;
+  border: 1px solid black;
+  border-radius: 2px;
+  font-size: 18px;
+}
+
+#no-bathroom-found p,
+#no-bathroom-found a {
+  text-align: center;
+  display: block;
 }
 
 #no-bathroom-found a {
-    background-color: var(--dark-blue2);
-    width: fit-content;
-    margin: auto;
+  background-color: var(--dark-blue2);
+  width: fit-content;
+  margin: auto;
+  color: var(--white);
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--light-blue2);
+}
+
+@media (prefers-color-scheme: light) {
+  #bathroom-top-split,
+  #one-bathroom-reviews {
+    background-color: var(--light-blue1);
+  }
+
+  .one-bathroom-one-review {
+    background-color: var(--light-blue3);
+  }
+
+  #one-bathroom-buttons button {
     color: var(--white);
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: 1px solid var(--light-blue2);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  #bathroom-top-split {
+    grid-template-columns: 1fr 350px;
+    padding: 0 1vw;
+  }
+
+  
+}
+
+@media screen and (max-width: 600px) {
+    #bathroom-top-split {
+        display: block;
+        padding: 5px;
+        padding-bottom: 20px;
+    }
+
+    #bathroom-top-split section {
+        padding: 10px 0 0 0;
+        width: 90vw;
+        margin: auto;
+    }
+
+    #bathroom-top-split section #single-bathroom-container {
+      padding: 0 10px;
+    }
+
+    #bathroom-name {
+        font-size: 24px;
+        margin: 10px auto;
+        padding-top: 20px;
+    }
+
+    #one-bathroom-location h3 {
+        font-size: 16px;
+        margin: 10px auto;
+    }
+
+    #one-bathroom-description {
+        font-size: 14px;
+    }
+
+    #one-bathroom-stats p {
+        text-align: center;
+        font-size: 14px;
+        margin: 5px auto;
+    }
+
+    #one-bathroom-filters p {
+        font-size: 12px;
+        text-align: center;
+        margin: 10px auto;
+        background-color: var(--dark-blue2);
+        width: 200px;
+        border-radius: 5px;
+    }    
+
+    #bathroom-page-map {
+        width: 90vw;
+        height: calc(90vw * 1.2);
+        margin: 20px auto;
+    }
+
+    #one-bathroom-reviews {
+        margin: 10px auto;
+        display: block;
+        padding: 5px 5px 20px 5px;
+        min-height: 0;
+
+    }
+
+    .one-bathroom-one-review {
+        margin: 5px auto;
+        width: 80vw;
+    }
+
+    .one-bathroom-one-review div {
+        margin: 15px auto;
+    }
+
+    .one-bathroom-one-review p {
+        font-size: 14px;
+    }
+
+    #review-top p, #new-review-title {
+        font-size: 18px;
+    }
+
+    #review-top {
+        margin: 10px 10px 30px 10px;
+    }
+
+    #new-review-dialog {
+      width: 90vw;
+      margin: auto;
+      padding: 0 2vw;
+    }
+
+    #new-review-close {
+      top: 15px;
+      width: 25px;
+      height: 25px;
+      font-size: 10px;
+    }
+
+    #review-fields {
+      width: 95%;
+      min-width: 0px;
+    }
+
+    #all-rating-buttons {
+      width: 250px;
+      flex-flow: row wrap;
+    }
 }
