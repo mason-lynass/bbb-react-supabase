@@ -206,7 +206,7 @@ export default function BathroomPage({ params }) {
     }
   }
 
-  if (oBStatus === "loading") return <p>loading...</p>;
+  if (oBStatus === "loading") return <p id='loading'>loading...</p>;
 
   if (bathroom === 'undefined') return <NoBathroomFound bathroomID={id.bathroomid}/>
 

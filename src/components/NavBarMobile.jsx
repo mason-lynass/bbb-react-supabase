@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { globalStore } from "../global/Zustand";
 import { useState } from "react";
 import Logo from '../assets/bbb-logo-1.png'
+import Logo3 from "../assets/bbb-molly-logo-3.png";
 
 export default function NavBarMobile({ sessionSwitch }) {
   const session = globalStore((state) => state.session);
@@ -62,7 +63,7 @@ export default function NavBarMobile({ sessionSwitch }) {
     <div id="nav-bar-mobile">
       <NavLink to="/" id='nav-left'>
         <div id="logo-container">
-          <img src={Logo} id="logo" />
+          <img src={Logo3} id="logo-mobile" />
         </div>
         <h1 id="nav-title-mobile">Better Bathroom Bureau</h1>
       </NavLink>

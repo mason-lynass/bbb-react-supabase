@@ -1,5 +1,10 @@
 /* for one bathroom */
 
+#loading {
+  text-align: center;
+  padding: 50px;
+}
+
 #bathroom-name {
   text-align: center;
   margin-top: 30px;
@@ -263,7 +268,7 @@
         font-size: 14px;
     }
 
-    #review-top p {
+    #review-top p, #new-review-title {
         font-size: 18px;
     }
 
@@ -271,4 +276,26 @@
         margin: 10px 10px 30px 10px;
     }
 
+    #new-review-dialog {
+      width: 90vw;
+      margin: auto;
+      padding: 0 2vw;
+    }
+
+    #new-review-close {
+      top: 15px;
+      width: 25px;
+      height: 25px;
+      font-size: 10px;
+    }
+
+    #review-fields {
+      width: 95%;
+      min-width: 0px;
+    }
+
+    #all-rating-buttons {
+      width: 250px;
+      flex-flow: row wrap;
+    }
 }
