@@ -166,3 +166,34 @@ dialog button {
   display: block;
   margin: 0 auto;
 }
+
+@media screen and (max-width: 600px) {
+
+  #submit h2 {
+    margin: 10px auto;
+  }
+
+  #new-bathroom-flex, #bathroom-fields, #review-fields {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .react-datepicker-wrapper {
+    padding-left: 10px;
+  }
+
+  #all-nb-checks .nb-checks label {
+    width: fit-content;
+    font-size: 14px;
+  }
+
+  .nb-checks {
+    padding: 0 20px;
+  }
+
+  #all-nb-checks .nb-checks input {
+    margin-bottom: 5px;
+  }
+
+}

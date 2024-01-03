@@ -32,7 +32,7 @@ export default function HomeSlideshow() {
     { url: BBBEx1, text: "Know before you go" },
     { url: BBBEx2, text: "Find your pipe dreams" },
     { url: BBBEx3, text: "Explore, rate, share" },
-    { url: BBBEx4, text: "* one more tagline lol *" },
+    { url: BBBEx4, text: "Relief is a click away" },
   ];
 
   useEffect(() => {
