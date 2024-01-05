@@ -3,14 +3,17 @@ import { motion as m } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { globalStore } from "../../global/Zustand";
-import { fetchApprovedBathrooms } from "../../React-Query/fetch-functions";
+import {
+  fetchApprovedBathrooms,
+  fetchReviewIDs,
+} from "../../React-Query/fetch-functions";
 import { neighborhoods } from "../../global/constants";
 import "./AllBathrooms.css";
 
 export default function AllBathrooms({}) {
   const location = useLocation();
 
-  console.log(location);
+  // console.log(location);
 
   const {
     status,
@@ -21,28 +24,40 @@ export default function AllBathrooms({}) {
     queryFn: fetchApprovedBathrooms,
   });
 
+  const {
+    reviewsStatus,
+    reviewsError,
+    data: reviewIDs,
+  } = useQuery({
+    queryKey: ["review-ids"],
+    queryFn: fetchReviewIDs,
+  });
+
+  let reviewIDsArray
+  // let reviewedBathrooms;
+
   // this is for the search filter
   const [query, setQuery] = useState("");
   const [publicBool, setPublicBool] = useState(false);
   const [ADABool, setADABool] = useState(false);
   const [GNBool, setGNBool] = useState(false);
+  const [reviewed, setReviewed] = useState(false);
   const [neighborhood, setNeighborhood] = useState("none");
 
   useEffect(() => {
     if (!location.state) {
-    }
-    else if (location.state.GNBool) {
-      setPublicBool(true)
+    } else if (location.state.GNBool) {
+      setPublicBool(true);
     } else if (location.state.ADABool) {
-      setADABool(true)
+      setADABool(true);
     } else if (location.state.publicBool) {
-      setPublicBool(true)
+      setPublicBool(true);
     } else if (location.state.neighborhood) {
-      setNeighborhood(location.state.neighborhood)
+      setNeighborhood(location.state.neighborhood);
     } else if (location.state.query) {
-      setQuery(location.state.query)
+      setQuery(location.state.query);
     }
-  }, [])
+  }, []);
 
   const filteredBathrooms = useMemo(() => {
     if (bathrooms)
@@ -51,10 +66,34 @@ export default function AllBathrooms({}) {
       );
   }, [bathrooms, query]);
 
+  // if (filteredBathrooms && reviewIDs) {
+  //   console.log(filteredBathrooms, reviewIDs)
+  //   reviewIDsArray = [...new Set(reviewIDs.map((r) => r.bathroom_id).sort((a, b) => a - b)) ]
+  //   reviewedBathrooms = filteredBathrooms.filter((b) => reviewIDsArray.includes(b.id))
+  //   console.log(reviewIDsArray, reviewedBathrooms)
+  // }
+
+  
+
+  const reviewedBathrooms = useMemo(() => {
+    console.log(filteredBathrooms)
+    if (reviewIDs && bathrooms) {
+      reviewIDsArray = [
+        ...new Set(reviewIDs.map((r) => r.bathroom_id).sort((a, b) => a - b)),
+      ];
+      return filteredBathrooms.filter((b) =>
+        reviewIDsArray.includes(b.id)
+      );
+    }
+  }, [reviewIDs])
+
+  console.log(reviewIDsArray, reviewedBathrooms)
+
   function handleFilterClick(button, e) {
     const publicButton = document.getElementById("public-button");
     const ADAButton = document.getElementById("ADA-button");
     const GNButton = document.getElementById("GN-button");
+    const reviewedButton = document.getElementById("reviewed-button");
 
     switch (button) {
       case "public":
@@ -81,17 +120,27 @@ export default function AllBathrooms({}) {
         }
         setGNBool(!GNBool);
         break;
+      case "reviewed":
+        if (reviewed === true) {
+          reviewedButton.classList.remove("button-active");
+        } else {
+          reviewedButton.classList.add("button-active");
+        }
+        setReviewed(!reviewed);
+        break;
       default:
         console.log("nothing");
         break;
     }
   }
 
+  
+
   function allTheBathrooms() {
     if (status === "loading") return <p>loading....</p>;
 
     let allTheBathrooms = filteredBathrooms;
-
+    
     const publicBathrooms = filteredBathrooms.filter((b) => b.public === true);
     const ADABathrooms = filteredBathrooms.filter(
       (b) => b.ada_compliant === true
@@ -101,10 +150,30 @@ export default function AllBathrooms({}) {
     );
 
     switch (true) {
+      case publicBool && ADABool && GNBool && reviewed:
+        allTheBathrooms = reviewedBathrooms
+          .filter((b) => b.ada_compliant === true)
+          .filter((b) => b.gender_neutral === true)
+          .filter((b) => b.public === true);
       case publicBool && ADABool && GNBool:
         allTheBathrooms = publicBathrooms
           .filter((b) => b.ada_compliant === true)
           .filter((b) => b.gender_neutral === true);
+        break;
+      case reviewed && ADABool && GNBool:
+        allTheBathrooms = reviewedBathrooms
+          .filter((b) => b.ada_compliant === true)
+          .filter((b) => b.gender_neutral === true);
+        break;
+      case publicBool && reviewed && GNBool:
+        allTheBathrooms = reviewedBathrooms
+          .filter((b) => b.public === true)
+          .filter((b) => b.gender_neutral === true);
+        break;
+      case publicBool && ADABool && reviewed:
+        allTheBathrooms = reviewedBathrooms
+          .filter((b) => b.ada_compliant === true)
+          .filter((b) => b.public === true);
         break;
       case publicBool && ADABool:
         allTheBathrooms = publicBathrooms.filter(
@@ -116,8 +185,21 @@ export default function AllBathrooms({}) {
           (b) => b.gender_neutral === true
         );
         break;
+      case publicBool && reviewed:
+        allTheBathrooms = reviewedBathrooms.filter((b) => b.public === true);
+        break;
       case ADABool && GNBool:
         allTheBathrooms = ADABathrooms.filter((b) => b.gender_neutral === true);
+        break;
+      case ADABool && reviewed:
+        allTheBathrooms = reviewedBathrooms.filter(
+          (b) => b.ada_compliant === true
+        );
+        break;
+      case GNBool && reviewed:
+        allTheBathrooms = reviewedBathrooms.filter(
+          (b) => b.gender_neutral === true
+        );
         break;
       case publicBool:
         allTheBathrooms = publicBathrooms;
@@ -128,6 +210,8 @@ export default function AllBathrooms({}) {
       case GNBool:
         allTheBathrooms = GNBathrooms;
         break;
+      case reviewed:
+        allTheBathrooms = reviewedBathrooms;
       default:
         break;
     }
@@ -199,13 +283,19 @@ export default function AllBathrooms({}) {
               id="public-button"
               onClick={(e) => handleFilterClick("public", e)}
             >
-              Public restroom
+              Public bathrooms
             </button>
             <button id="ADA-button" onClick={(e) => handleFilterClick("ADA")}>
               ADA compliant
             </button>
             <button id="GN-button" onClick={(e) => handleFilterClick("GN")}>
               Gender neutral
+            </button>
+            <button
+              id="reviewed-button"
+              onClick={(e) => handleFilterClick("reviewed")}
+            >
+              Reviewed bathrooms
             </button>
           </div>
         </div>

@@ -149,83 +149,88 @@ export default function BathroomForm({ bathrooms }) {
     <div id="new-bathroom-container">
       <form id="new-bathroom-form" onSubmit={handleSubmit}>
         <div id="new-bathroom-flex">
-          <section id="bathroom-fields">
-            <div>
-              <label htmlFor="nb-location-name">
-                Name of business or place:
-              </label>
-              <input
-                id="nb-location-name"
-                name="location-name"
-                type="text"
-                value={locationName}
-                onChange={(e) => setLocationName(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="nb-address">Street Address:</label>
-              <input
-                id="nb-address"
-                name="address"
-                type="text"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="date-picker">Date visited:</label>
-              <DatePicker
-                id="date-picker"
-                name="date"
-                selected={date}
-                onChange={(date) => setDate(date)}
-              />
-            </div>
-            <div>
-              <label htmlFor="nb-location-description">
-                Location description:
-              </label>
-              <textarea
-                id="nb-location-description"
-                name="location-description"
-                type="text"
-                value={bathroomDescription}
-                onChange={(e) => setBathroomDescription(e.target.value)}
-              ></textarea>
-            </div>
-            <div id="all-nb-checks">
-              <div className="nb-checks" id="nb-public">
-                <label htmlFor="nb-public-check">Public?</label>
+          <div id="left-side">
+            <h2 id="submit-bathroom-title">Add a new bathroom</h2>
+            <section id="bathroom-fields">
+              <div>
+                <label htmlFor="nb-location-name">
+                  Name of business or place:
+                </label>
                 <input
-                  className="nb-public-check"
-                  name="public-check-true"
-                  type="checkbox"
-                  value={true}
-                  onChange={(e) => setPublicBool(!publicBool)}
+                  id="nb-location-name"
+                  name="location-name"
+                  type="text"
+                  value={locationName}
+                  onChange={(e) => setLocationName(e.target.value)}
                 ></input>
               </div>
-              <div className="nb-checks" id="nb-gn">
-                <label htmlFor="nb-gn-check">Gender neutral?</label>
+              <div>
+                <label htmlFor="nb-address">Street Address:</label>
                 <input
-                  className="nb-gn-check"
-                  name="gn-check-true"
-                  type="checkbox"
-                  value={true}
-                  onChange={(e) => setGNBool(!gnBool)}
+                  id="nb-address"
+                  name="address"
+                  type="text"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
                 ></input>
               </div>
-              <div className="nb-checks" id="nb-ada">
-                <label htmlFor="nb-ada-check">ADA compliant facilities?</label>
-                <input
-                  className="nb-ada-check"
-                  name="ada-check-true"
-                  type="checkbox"
-                  value={true}
-                  onChange={(e) => setADABool(!ADABool)}
-                ></input>
+              <div>
+                <label htmlFor="date-picker">Date visited:</label>
+                <DatePicker
+                  id="date-picker"
+                  name="date"
+                  selected={date}
+                  onChange={(date) => setDate(date)}
+                />
               </div>
-            </div>
-          </section>
+              <div>
+                <label htmlFor="nb-location-description">
+                  Location description:
+                </label>
+                <textarea
+                  id="nb-location-description"
+                  name="location-description"
+                  type="text"
+                  value={bathroomDescription}
+                  onChange={(e) => setBathroomDescription(e.target.value)}
+                ></textarea>
+              </div>
+              <div id="all-nb-checks">
+                <div className="nb-checks" id="nb-public">
+                  <label htmlFor="nb-public-check">Public?</label>
+                  <input
+                    className="nb-public-check"
+                    name="public-check-true"
+                    type="checkbox"
+                    value={true}
+                    onChange={(e) => setPublicBool(!publicBool)}
+                  ></input>
+                </div>
+                <div className="nb-checks" id="nb-gn">
+                  <label htmlFor="nb-gn-check">Gender neutral?</label>
+                  <input
+                    className="nb-gn-check"
+                    name="gn-check-true"
+                    type="checkbox"
+                    value={true}
+                    onChange={(e) => setGNBool(!gnBool)}
+                  ></input>
+                </div>
+                <div className="nb-checks" id="nb-ada">
+                  <label htmlFor="nb-ada-check">
+                    ADA compliant facilities?
+                  </label>
+                  <input
+                    className="nb-ada-check"
+                    name="ada-check-true"
+                    type="checkbox"
+                    value={true}
+                    onChange={(e) => setADABool(!ADABool)}
+                  ></input>
+                </div>
+              </div>
+            </section>
+          </div>
           <section id="review-fields">
             <div>
               <label htmlFor="nr-bathroom-description">

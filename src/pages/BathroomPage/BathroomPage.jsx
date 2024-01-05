@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Wrapper } from "@googlemaps/react-wrapper";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
 import "./BathroomPage.css"
 import NewReview from "./NewReview";
@@ -22,10 +22,12 @@ import NoBathroomFound from "./NoBathroomFound";
 
 export default function BathroomPage({ params }) {
   const id = useParams();
+  const queryClient = useQueryClient()
   const [showReview, setShowReview] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [location, setLocation] = useState(null);
   const [userBathroomFavorite, setUserBathroomFavorite] = useState(null);
+  const [realtimeFavorite, setRealtimeFavorite] = useState(false);
   const profile = globalStore((state) => state.profile);
 
   // RQ queries
@@ -123,6 +125,10 @@ export default function BathroomPage({ params }) {
       if (thisFav !== undefined) setUserBathroomFavorite(thisFav);
     }
   }, [profile, oBFavorites]);
+
+  function favoriteNumber () {
+    if (userBathroomFavorite === null) return bathroom.number_of_favorites
+  }
 
   function singleBathroom(bathroom) {
     const bathroomPublic = bathroom.public == true ? "public restroom" : "";

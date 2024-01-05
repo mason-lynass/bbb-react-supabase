@@ -1,3 +1,13 @@
+#submit-bathroom-title {
+  text-align: center;
+  font-size: 30px;
+  font-family: Josefin Sans;
+  width: fit-content;
+  margin: auto;
+  width: 25%;
+  min-width: 500px;
+}
+
 #new-bathroom-flex {
   display: flex;
   flex-flow: row wrap;
@@ -5,15 +15,22 @@
   align-items: center;
   width: 100%;
   min-width: 500px;
+  max-width: 1200px;
+  margin: auto;
   gap: 40px;
 }
 
 #bathroom-fields,
 #review-fields {
   background-color: var(--dark-blue3);
-  margin: 20px auto;
+  margin: 20px 0;
   border-radius: 20px;
   border: 1px solid var(--light-blue1);
+  width: 45%;
+  min-width: 500px;
+}
+
+#left-side {
   width: 45%;
   min-width: 500px;
 }
@@ -60,6 +77,10 @@
 #bathroom-fields textarea,
 #review-fields textarea {
   height: 60px;
+}
+
+.react-datepicker-wrapper {
+  padding-left: 15px;
 }
 
 #all-nb-checks {
@@ -171,16 +192,14 @@ dialog button {
 
   #submit h2 {
     margin: 10px auto;
+    width: fit-content;
+    min-width: 0px;
   }
 
-  #new-bathroom-flex, #bathroom-fields, #review-fields {
+  #new-bathroom-flex, #left-side, #bathroom-fields, #review-fields {
     width: 100%;
     min-width: 0;
     margin: 0;
-  }
-
-  .react-datepicker-wrapper {
-    padding-left: 10px;
   }
 
   #all-nb-checks .nb-checks label {

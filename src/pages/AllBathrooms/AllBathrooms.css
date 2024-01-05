@@ -29,7 +29,8 @@
   box-shadow: 0px 0px 10px 2px white;
 }
 
-.one-bathroom-all h3, .one-bathroom-all h4 {
+.one-bathroom-all h3,
+.one-bathroom-all h4 {
   height: fit-content;
   margin: auto 0px;
 }
@@ -73,19 +74,22 @@
   max-width: 305px;
   border: 0;
   margin: auto;
+  background-color: var(--light-blue1);
+    color: var(--main-darkest);
+    border: 1px solid var(--dark-blue3);
 }
 
-#search::placeholder {
-  color: var(--white);
-}
-
-#search, #neighborhood select {
+#search,
+#neighborhood select {
   font-size: 20px;
   height: 40px;
   padding: 0 10px;
+  border-radius: 5px;
+}
+
+#neighborhood select {
   background-color: var(--dark-blue1);
   color: var(--white);
-  border-radius: 5px;
 }
 
 #filters-and-neighborhood {
@@ -128,8 +132,10 @@
     background-color: var(--light-blue2);
   }
 
-  #all-bathrooms p, #all-bathrooms h3, #all-bathrooms h2 {
-    color: var(--main-darkest)
+  #all-bathrooms p,
+  #all-bathrooms h3,
+  #all-bathrooms h2 {
+    color: var(--main-darkest);
   }
 
   .one-bathroom-all {
@@ -141,7 +147,7 @@
   }
 
   #all-bathrooms * {
-    color: var(--main-darkest)
+    color: var(--main-darkest);
   }
 }
 
@@ -156,7 +162,9 @@
     padding: 10px;
   }
 
-  #all-filters, #filters-and-neighborhood, #filter-buttons {
+  #all-filters,
+  #filters-and-neighborhood,
+  #filter-buttons {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -168,13 +176,19 @@
     width: 90vw;
   }
 
-  #all-bathrooms-search, #neighborhood, #filters-and-neighborhood, #filter-buttons button {
+  #filter-buttons {
+    justify-content: space-evenly;
+  }
+
+  #all-bathrooms-search,
+  #neighborhood,
+  #filters-and-neighborhood,
+  #filter-buttons button {
     margin: 0;
   }
 }
 
 @media screen and (max-width: 600px) {
-
   #all-filters {
     display: block;
     padding: 10px 0;
@@ -188,7 +202,8 @@
     width: 90vw;
   }
 
-  #search, #neighborhood select {
+  #search,
+  #neighborhood select {
     font-size: 16px;
   }
 
@@ -211,7 +226,6 @@
     font-size: 10px;
     padding: 15px 10px;
   }
-
 
   #all-bathrooms {
     width: 100vw;

@@ -56,6 +56,8 @@ export default function NavBarMobile({ sessionSwitch }) {
     }
   }
 
+  console.log(navOpen)
+
   return (
     <div id="nav-bar-mobile">
       <NavLink to="/" id='nav-left'>
