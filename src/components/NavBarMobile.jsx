@@ -53,11 +53,10 @@ export default function NavBarMobile({ sessionSwitch }) {
           {loginOrAccount()}
         </div>
       );
-      console.log("true");
-    } else if (navOpen === false) {
-      console.log("false");
     }
   }
+
+  console.log(navOpen)
 
   return (
     <div id="nav-bar-mobile">

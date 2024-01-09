@@ -30,7 +30,7 @@ export default function NavBar({ sessionSwitch }) {
     <div id="nav-bar">
       <NavLink to="/" id='nav-left'>
         <div id="logo-container">
-          <img src={Logo3} id="logo" />
+          <img src={Logo3} id="logo" alt='the BBB logo - a roll of toilet paper with some paper floating up to the left, which sort of looks like a lowercase b'/>
         </div>
         <h1 id="nav-title">Better Bathroom Bureau</h1>
       </NavLink>

@@ -1,3 +1,13 @@
+#submit-bathroom-title {
+  text-align: center;
+  font-size: 30px;
+  font-family: Josefin Sans;
+  width: fit-content;
+  margin: auto;
+  width: 25%;
+  min-width: 500px;
+}
+
 #new-bathroom-flex {
   display: flex;
   flex-flow: row wrap;
@@ -5,15 +15,22 @@
   align-items: center;
   width: 100%;
   min-width: 500px;
+  max-width: 1200px;
+  margin: auto;
   gap: 40px;
 }
 
 #bathroom-fields,
 #review-fields {
   background-color: var(--dark-blue3);
-  margin: 20px auto;
+  margin: 20px 0;
   border-radius: 20px;
   border: 1px solid var(--light-blue1);
+  width: 45%;
+  min-width: 500px;
+}
+
+#left-side {
   width: 45%;
   min-width: 500px;
 }
@@ -35,7 +52,7 @@
 
 #bathroom-fields label,
 #review-fields label {
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 5px;
   font-size: 18px;
 }
@@ -44,7 +61,7 @@
 #review-fields input,
 #bathroom-fields textarea,
 #review-fields textarea {
-  font-size: 18px;
+  font-size: 16px;
   padding: 5px;
   background-color: var(--light-blue1);
   color: black;
@@ -59,7 +76,11 @@
 
 #bathroom-fields textarea,
 #review-fields textarea {
-  height: 60px;
+  height: 50px;
+}
+
+.react-datepicker-wrapper {
+  padding-left: 15px;
 }
 
 #all-nb-checks {
@@ -87,7 +108,7 @@
 
 #all-nb-checks .nb-checks input {
   height: 30px;
-  margin: 10px auto 30px auto;
+  margin: 10px auto;
 }
 
 #all-rating-buttons {
@@ -165,4 +186,33 @@ dialog p {
 dialog button {
   display: block;
   margin: 0 auto;
+}
+
+@media screen and (max-width: 600px) {
+
+  #submit h2 {
+    margin: 10px auto;
+    width: fit-content;
+    min-width: 0px;
+  }
+
+  #new-bathroom-flex, #left-side, #bathroom-fields, #review-fields {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+  }
+
+  #all-nb-checks .nb-checks label {
+    width: fit-content;
+    font-size: 14px;
+  }
+
+  .nb-checks {
+    padding: 0 20px;
+  }
+
+  #all-nb-checks .nb-checks input {
+    margin-bottom: 5px;
+  }
+
 }

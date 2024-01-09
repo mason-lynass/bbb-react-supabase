@@ -12,34 +12,53 @@ export async function fetchUsers() {
 }
 
 export async function fetchOneUser(params) {
-  const { data, error } = await supabase.from("users").select().eq('id', params.id); 
+  const { data, error } = await supabase
+    .from("users")
+    .select()
+    .eq("id", params.id);
   return data;
 }
 
 export async function fetchOneUserBathrooms(params) {
-  const { data, error } = await supabase.from("bathrooms").select().eq('submitted_by', params.id); 
+  const { data, error } = await supabase
+    .from("bathrooms")
+    .select()
+    .eq("submitted_by", params.id);
   return data;
 }
 
 export async function fetchOneUserReviews(params) {
-  const { data, error } = await supabase.from("reviews").select().eq('user_id', params.id);
+  const { data, error } = await supabase
+    .from("reviews")
+    .select()
+    .eq("user_id", params.id);
   return data;
 }
 
 export async function fetchOneUserFavorites(params) {
-  const { data, error } = await supabase.from("favorites").select().eq('user_id', params.id); 
+  const { data, error } = await supabase
+    .from("favorites")
+    .select()
+    .eq("user_id", params.id);
   return data;
 }
 
 /// things related to bathrooms
 
 export async function fetchAllBathrooms() {
-  const { data, error } = await supabase.from("bathrooms").select().order('id', {ascending: false});
+  const { data, error } = await supabase
+    .from("bathrooms")
+    .select()
+    .order("id", { ascending: false });
   return data;
 }
 
 export async function fetchApprovedBathrooms() {
-  const { data, error } = await supabase.from("bathrooms").select().eq('approved', true).order('id', {ascending: false});
+  const { data, error } = await supabase
+    .from("bathrooms")
+    .select()
+    .eq("approved", true)
+    .order("id", { ascending: false });
   return data;
 }
 
@@ -49,17 +68,20 @@ export async function fetchOneBathroom(params) {
     .select()
     .eq("id", params.bathroomid);
 
-  if (!data.length) return 'undefined'
+  if (!data.length) return "undefined";
 
   return data[0];
 }
 
-export async function fetchOneBathroomReviewsUsers (paramsArray) {
+export async function fetchOneBathroomReviewsUsers(paramsArray) {
   // console.log(paramsArray)
-  let searchArray = []
-  paramsArray.forEach((p) => searchArray.push(p.id))
-  const {data, error } = await supabase.from('users').select().eq('id', searchArray)
-  return data
+  let searchArray = [];
+  paramsArray.forEach((p) => searchArray.push(p.id));
+  const { data, error } = await supabase
+    .from("users")
+    .select()
+    .eq("id", searchArray);
+  return data;
 }
 
 /// things related to reviews
@@ -70,8 +92,16 @@ export async function fetchReviews() {
 }
 
 export async function fetchOneBathroomReviews(params) {
-  const { data, error } = await supabase.from('reviews').select().eq('bathroom_id', params.bathroomid) 
-  return data
+  const { data, error } = await supabase
+    .from("reviews")
+    .select()
+    .eq("bathroom_id", params.bathroomid);
+  return data;
+}
+
+export async function fetchReviewIDs() {
+  const { data, error } = await supabase.from("reviews").select("bathroom_id");
+  return data;
 }
 
 /// things related to favorites
@@ -82,6 +112,9 @@ export async function fetchFavorites() {
 }
 
 export async function fetchOneBathroomFavorites(params) {
-  const { data, error } = await supabase.from('favorites').select().eq('bathroom_id', params.bathroomid) 
-  return data
+  const { data, error } = await supabase
+    .from("favorites")
+    .select()
+    .eq("bathroom_id", params.bathroomid);
+  return data;
 }

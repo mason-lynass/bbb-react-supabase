@@ -111,7 +111,6 @@ function RQApp() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      {/* <NavBar session={session} sessionSwitch={sessionSwitch} /> */}
       {navSwitch()}
       <Routes>
         <Route path="/" element={<Home session={session} />} />
@@ -126,7 +125,6 @@ function RQApp() {
         <Route path="/reset-pw" element={<ResetPw />} />
         <Route path="/sign-up" element={<SignUp />} />
       </Routes>
-      {/* <Footer /> */}
     </m.div>
   );
 }

@@ -51,7 +51,6 @@ export default function Submit({ setBathrooms }) {
         transition={{ duration: 0.5 }}
       >
         <main id="submit">
-          <h2 id="submit-bathroom-title">Add a new bathroom</h2>
           <BathroomForm
             bathrooms={bathrooms}
             setBathrooms={setBathrooms}

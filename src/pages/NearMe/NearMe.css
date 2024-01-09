@@ -5,7 +5,8 @@
 #near-me-top-flex{
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 20px 50px;
     align-items: center;
     width: 90vw;
     max-width: 1400px;
@@ -104,5 +105,11 @@ form button {
     #all-bathrooms-map {
         border: 10px solid var(--dark-blue1);
         margin: 20px auto;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    #near-me button {
+        color: white;
     }
 }

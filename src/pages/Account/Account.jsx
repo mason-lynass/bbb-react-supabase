@@ -20,11 +20,11 @@ export default function Account({ setProfile }) {
   const [profileFavorites, setProfileFavorites] = useState([]);
   const [open, setOpen] = useState(null);
   const [showResetPassword, setShowResetPassword] = useState(false);
+  const [errors, setErrors] = useState(null);
+
   const session = globalStore((state) => state.session);
   const profile = globalStore((state) => state.profile);
   const navigate = useNavigate();
-
-  console.log(profile);
 
   const {
     status: bathroomStatus,
@@ -57,18 +57,29 @@ export default function Account({ setProfile }) {
     console.log(username, profile.id);
     e.preventDefault();
     // this updates the username in the users table where the id === logged in user id
-    const { newName, error } = await supabase
-      .from("users")
-      .update({ username: username })
-      .eq("email", profile.email);
-    // DB doesn't re-fetch (I think?), or there's a lag at least, so we update state
-    globalStore.setState({
-      profile: {
-        id: profile.id,
-        email: profile.email,
-        username: username,
-      },
-    });
+    try {
+      const { error, data: newName } = await supabase
+        .from("users")
+        .update({ username: username })
+        .eq("email", profile.email)
+        .select();
+
+      //
+      if (error) throw ["Sorry, that username is not available."];
+      // DB doesn't re-fetch (I think?), or there's a lag at least, so we update state)
+      if (newName) {
+        console.log(newName)
+        globalStore.setState({
+          profile: {
+            id: profile.id,
+            email: profile.email,
+            username: username,
+          },
+        });
+      }
+    } catch (error) {
+      setErrors(error);
+    }
   }
 
   useEffect(() => {
@@ -100,7 +111,7 @@ export default function Account({ setProfile }) {
       return profileBathrooms.map((bathroom) => {
         let linkto = `/bathrooms/${bathroom.id}`;
         return (
-          <Link to={linkto}>
+          <Link to={linkto} key={bathroom.id}>
             <div className="one-bathroom" key={bathroom.id}>
               <p>{bathroom.location_name}</p>
               <p>{bathroom.address}</p>
@@ -137,7 +148,6 @@ export default function Account({ setProfile }) {
   }
 
   function myFavorites() {
-    console.log(profileFavorites);
     if (open === "favorites") {
       return profileFavorites.map((fav) => {
         let thisBathroom = bathrooms.filter(
@@ -145,7 +155,7 @@ export default function Account({ setProfile }) {
         )[0];
         let linkto = `/bathrooms/${thisBathroom.id}`;
         return (
-          <Link to={linkto}>
+          <Link to={linkto} key={thisBathroom.id}>
             <div className="one-favorite" key={fav.bathroom_id}>
               <p>{thisBathroom.location_name}</p>
               <p>{thisBathroom.neighborhood}</p>
@@ -154,6 +164,14 @@ export default function Account({ setProfile }) {
         );
       });
     }
+  }
+
+  function displayErrors() {
+    return (
+      <p key={errors} className="display-error">
+        {errors}
+      </p>
+    );
   }
 
   if (profile) {
@@ -180,6 +198,7 @@ export default function Account({ setProfile }) {
               ></input>
               <input id="username-submit" type="submit" value="Submit"></input>
             </form>
+            {displayErrors()}
             <div id="sign-out">
               <button onClick={signOut}>Sign Out</button>
             </div>

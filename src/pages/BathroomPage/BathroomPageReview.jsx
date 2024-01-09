@@ -1,7 +1,5 @@
 export default function BathroomPageReview({review, users}) {
 
-  console.log(review)
-
     let user = {username: ""}
     if (users.length > 0) user = users.find((u) => u.id === review.user_id);
     return (

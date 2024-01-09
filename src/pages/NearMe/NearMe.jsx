@@ -16,7 +16,7 @@ import { seattle } from "../../global/constants";
 // https://github.com/alexbriannaughton/bbb-app/blob/main/client/src/components/MapViewHomepage.js
 
 export default function NearMe() {
-  const [userLocation, setUserLocation] = useState(null);
+  const [userLocation, setUserLocation] = useState('');
   const [userGeocode, setUserGeocode] = useState(null);
 
   const [publicBool, setPublicBool] = useState(false);
@@ -105,8 +105,6 @@ export default function NearMe() {
   //   }
   // };
 
-  if (userGeocode) console.log(userGeocode);
-
   function renderMap() {
     return (
       <Wrapper classname="Wrapper" apiKey={GMKey}>
@@ -119,7 +117,7 @@ export default function NearMe() {
 
   async function handleAddressSubmit(e) {
     e.preventDefault();
-    if (userLocation) {
+    if (userLocation !== '') {
       const googleResp = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${userLocation},seattle&key=${GMKey}`
       );
@@ -159,7 +157,6 @@ export default function NearMe() {
         }
         break;
       default:
-        console.log("nothing");
         break;
     }
   }
