@@ -52,7 +52,7 @@
 
 #bathroom-fields label,
 #review-fields label {
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 5px;
   font-size: 18px;
 }
@@ -61,7 +61,7 @@
 #review-fields input,
 #bathroom-fields textarea,
 #review-fields textarea {
-  font-size: 18px;
+  font-size: 16px;
   padding: 5px;
   background-color: var(--light-blue1);
   color: black;
@@ -76,7 +76,7 @@
 
 #bathroom-fields textarea,
 #review-fields textarea {
-  height: 60px;
+  height: 50px;
 }
 
 .react-datepicker-wrapper {
@@ -108,7 +108,7 @@
 
 #all-nb-checks .nb-checks input {
   height: 30px;
-  margin: 10px auto 30px auto;
+  margin: 10px auto;
 }
 
 #all-rating-buttons {

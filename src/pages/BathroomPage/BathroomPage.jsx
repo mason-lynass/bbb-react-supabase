@@ -77,9 +77,7 @@ export default function BathroomPage({ params }) {
         .select();
     },
     onSuccess: (data) => {
-      console.log("first success!");
       setUserBathroomFavorite(data);
-      console.log(data);
     },
   });
 
@@ -91,9 +89,7 @@ export default function BathroomPage({ params }) {
         .eq("id", userBathroomFavorite.id);
     },
     onSuccess: (data) => {
-      console.log("DELETED");
       setUserBathroomFavorite(null);
-      console.log(data);
     },
   });
 
@@ -187,13 +183,12 @@ export default function BathroomPage({ params }) {
   }
 
   function singleBathroomReviews() {
-    console.log(bathroomReviews);
     return (
       <>
         <h2 id="reviews-title">Reviews</h2>
         <div id="one-bathroom-reviews">
           {bathroomReviews.map((r) => (
-            <BathroomPageReview review={r} users={users} />
+            <BathroomPageReview review={r} users={users} key={r.id}/>
           ))}
         </div>
       </>
@@ -231,7 +226,7 @@ export default function BathroomPage({ params }) {
         ""
       )}
       {showReview === true ? (
-        <NewReview bathroom={bathroom} setShowReview={setShowReview} />
+        <NewReview bathroom={bathroom} setShowReview={setShowReview} bathroomReviews={bathroomReviews} />
       ) : (
         ""
       )}

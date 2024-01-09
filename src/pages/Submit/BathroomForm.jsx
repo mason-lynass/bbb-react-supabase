@@ -7,6 +7,7 @@ import RatingButton from "../../components/RatingButton";
 import SubmittedDialog from "./SubmittedDialog";
 import { globalStore } from "../../global/Zustand";
 import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "../../main";
 import { supabase } from "../../ReactQueryApp";
 import { GMKey } from "../../ReactQueryApp";
 import { submitBathroom, submitReview } from "../../React-Query/mutations";
@@ -58,18 +59,18 @@ export default function BathroomForm({ bathrooms }) {
     },
     onSuccess: (data) => {
       reviewSupabase.bathroom_id = data.data[0].id;
+      queryClient.invalidateQueries({ queryKey: ['bathrooms'] })
       reviewMutation.mutate(reviewSupabase);
     },
   });
 
   const reviewMutation = useMutation({
     mutationFn: (reviewData) => {
-      console.log(reviewData);
       return supabase.from("reviews").insert(reviewData).select();
     },
     onSuccess: (data) => {
-      console.log(data);
       setBathroomId(data.data[0].bathroom_id);
+      queryClient.invalidateQueries({ queryKey: ['reviews'] })
       setLoading("finished");
     },
   });
@@ -94,9 +95,6 @@ export default function BathroomForm({ bathrooms }) {
         `https://maps.googleapis.com/maps/api/geocode/json?address=${address}%20Seattle&key=${GMKey}`
       );
       const newGeocode = await googleResp.json();
-
-      console.log(googleResp);
-      console.log(newGeocode);
 
       if (
         !googleResp.ok ||
@@ -126,11 +124,7 @@ export default function BathroomForm({ bathrooms }) {
         submitted_by: profile.id,
       });
 
-      // maybe this needs to be inside another array?
-      // globalStore.setState({ bathrooms: [...bathrooms], createdBathroom });
-      // setBathrooms([...bathrooms], createdBathroom);
     } catch (error) {
-      console.log(error);
       setErrors(error);
       setLoading("submit");
     }

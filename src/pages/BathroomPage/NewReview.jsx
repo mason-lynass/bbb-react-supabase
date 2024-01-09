@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import RatingButton from "../../components/RatingButton";
 import { supabase } from "../../ReactQueryApp";
 
-export default function NewReview({ bathroom, setShowReview }) {
+export default function NewReview({ bathroom, setShowReview, bathroomReviews }) {
   const profile = globalStore((state) => state.profile);
 
   const [errors, setErrors] = useState([]);
@@ -19,6 +19,12 @@ export default function NewReview({ bathroom, setShowReview }) {
   const [bathroomFunctionRating, setBathroomFunctionRating] = useState(null);
   const [style, setStyle] = useState("");
   const [styleRating, setStyleRating] = useState(null);
+
+  // to see if the user recently submitted a review already
+  const today = Date.now()
+  const userBathroomReviews = bathroomReviews.filter((r) => r.user_id === profile.id)
+  const recentReview = userBathroomReviews.sort((a,b) => b.date - a.date)[0]
+  const recentReviewDate = new Date(recentReview.created_at)
 
   const reviewSupabase = {
     user_id: profile.id,
@@ -62,6 +68,11 @@ export default function NewReview({ bathroom, setShowReview }) {
         throw [
           "Please rate cleanliness, function, and style on a scale from 1-10.",
         ];
+      if (userBathroomReviews.length > 0) {
+        if (today - recentReviewDate.valueOf() < 2629746000) {
+          throw ["Please wait at least one month to leave another review for this bathroom"]
+        }
+      }
       reviewMutation.mutate();
     } catch (error) {
       console.log(error);
@@ -83,7 +94,7 @@ export default function NewReview({ bathroom, setShowReview }) {
           Add your review for {bathroom.location_name}
         </h2>
         <form id="new-review-form" onSubmit={handleSubmit}>
-          <section id="review-fields">
+          <section id="nr-review-fields">
             <div>
               <label htmlFor="nr-bathroom-description">
                 Bathroom description:

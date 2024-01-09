@@ -13,8 +13,6 @@ import "./AllBathrooms.css";
 export default function AllBathrooms({}) {
   const location = useLocation();
 
-  // console.log(location);
-
   const {
     status,
     error,
@@ -33,8 +31,7 @@ export default function AllBathrooms({}) {
     queryFn: fetchReviewIDs,
   });
 
-  let reviewIDsArray
-  // let reviewedBathrooms;
+  let reviewIDsArray;
 
   // this is for the search filter
   const [query, setQuery] = useState("");
@@ -66,28 +63,14 @@ export default function AllBathrooms({}) {
       );
   }, [bathrooms, query]);
 
-  // if (filteredBathrooms && reviewIDs) {
-  //   console.log(filteredBathrooms, reviewIDs)
-  //   reviewIDsArray = [...new Set(reviewIDs.map((r) => r.bathroom_id).sort((a, b) => a - b)) ]
-  //   reviewedBathrooms = filteredBathrooms.filter((b) => reviewIDsArray.includes(b.id))
-  //   console.log(reviewIDsArray, reviewedBathrooms)
-  // }
-
-  
-
   const reviewedBathrooms = useMemo(() => {
-    console.log(filteredBathrooms)
     if (reviewIDs && bathrooms) {
       reviewIDsArray = [
         ...new Set(reviewIDs.map((r) => r.bathroom_id).sort((a, b) => a - b)),
       ];
-      return filteredBathrooms.filter((b) =>
-        reviewIDsArray.includes(b.id)
-      );
+      return filteredBathrooms.filter((b) => reviewIDsArray.includes(b.id));
     }
-  }, [reviewIDs])
-
-  console.log(reviewIDsArray, reviewedBathrooms)
+  }, [reviewIDs]);
 
   function handleFilterClick(button, e) {
     const publicButton = document.getElementById("public-button");
@@ -134,13 +117,11 @@ export default function AllBathrooms({}) {
     }
   }
 
-  
-
   function allTheBathrooms() {
     if (status === "loading") return <p>loading....</p>;
 
     let allTheBathrooms = filteredBathrooms;
-    
+
     const publicBathrooms = filteredBathrooms.filter((b) => b.public === true);
     const ADABathrooms = filteredBathrooms.filter(
       (b) => b.ada_compliant === true
@@ -217,11 +198,9 @@ export default function AllBathrooms({}) {
     }
 
     if (neighborhood !== "none") {
-      // console.log(neighborhood)
       allTheBathrooms = allTheBathrooms.filter(
         (b) => b.neighborhood === neighborhood
       );
-      // console.log(allTheBathrooms)
     }
 
     return (
@@ -262,6 +241,7 @@ export default function AllBathrooms({}) {
         <div id="filters-and-neighborhood">
           <div id="neighborhood">
             <select
+              aria-label="Neighborhood"
               value={neighborhood}
               onChange={(e) => setNeighborhood(e.target.value)}
               id="neighborhood-dropdown"

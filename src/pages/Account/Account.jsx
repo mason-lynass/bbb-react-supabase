@@ -111,7 +111,7 @@ export default function Account({ setProfile }) {
       return profileBathrooms.map((bathroom) => {
         let linkto = `/bathrooms/${bathroom.id}`;
         return (
-          <Link to={linkto}>
+          <Link to={linkto} key={bathroom.id}>
             <div className="one-bathroom" key={bathroom.id}>
               <p>{bathroom.location_name}</p>
               <p>{bathroom.address}</p>
@@ -155,7 +155,7 @@ export default function Account({ setProfile }) {
         )[0];
         let linkto = `/bathrooms/${thisBathroom.id}`;
         return (
-          <Link to={linkto}>
+          <Link to={linkto} key={thisBathroom.id}>
             <div className="one-favorite" key={fav.bathroom_id}>
               <p>{thisBathroom.location_name}</p>
               <p>{thisBathroom.neighborhood}</p>

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import BBBEx1 from "../../assets/bbb-ex-1.webp";
-import BBBEx2 from "../../assets/bbb-ex-2.webp";
-import BBBEx3 from "../../assets/bbb-ex-3.webp";
-import BBBEx4 from "../../assets/bbb-ex-4.webp";
+import BBBEx1 from "../../assets/bbb-home-1.webp";
+import BBBEx2 from "../../assets/bbb-home-2.webp";
+import BBBEx3 from "../../assets/bbb-home-3.webp";
+import BBBEx4 from "../../assets/bbb-home-4.webp";
 import "./Home.css";
 import { motion as m } from "framer-motion";
 
@@ -53,7 +53,7 @@ export default function HomeSlideshow() {
         {slides.map((slide, imageNumber) => {
           return (
             <div className="slides" key={imageNumber}>
-              <img src={slide.url} className="slide-image" />
+              <img src={slide.url} className="slide-image" alt='interior of a bathroom in Seattle'/>
 
             <m.div animate={{opacity: 1}} transition={{ ease: "easeOut", duration: 2 }}><p className="slide-text">{slide.text}</p></m.div>
             </div>
