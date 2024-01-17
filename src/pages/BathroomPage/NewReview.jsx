@@ -6,7 +6,12 @@ import { useMutation } from "@tanstack/react-query";
 import RatingButton from "../../components/RatingButton";
 import { supabase } from "../../ReactQueryApp";
 
-export default function NewReview({ bathroom, setShowReview, bathroomReviews }) {
+export default function NewReview({
+  bathroom,
+  setShowReview,
+  bathroomReviews,
+  setShowSubmitted,
+}) {
   const profile = globalStore((state) => state.profile);
 
   const [errors, setErrors] = useState([]);
@@ -21,10 +26,14 @@ export default function NewReview({ bathroom, setShowReview, bathroomReviews }) 
   const [styleRating, setStyleRating] = useState(null);
 
   // to see if the user recently submitted a review already
-  const today = Date.now()
-  const userBathroomReviews = bathroomReviews.filter((r) => r.user_id === profile.id)
-  const recentReview = userBathroomReviews.sort((a,b) => b.date - a.date)[0]
-  const recentReviewDate = new Date(recentReview.created_at)
+  const today = Date.now();
+  const userBathroomReviews = bathroomReviews.filter(
+    (r) => r.user_id === profile.id
+  );
+  const recentReview = userBathroomReviews.sort((a, b) => b.date - a.date)[0];
+  let recentReviewDate;
+  if (!recentReview) recentReviewDate = 0;
+  else recentReviewDate = new Date(recentReview.created_at);
 
   const reviewSupabase = {
     user_id: profile.id,
@@ -43,16 +52,31 @@ export default function NewReview({ bathroom, setShowReview, bathroomReviews }) 
     ).toFixed(2),
   };
 
+  async function updateBathroomAverageScoreRPC(bathroom_id) {
+    const newbathroomid = bathroom_id;
+    const { data, error } = await supabase.rpc(
+      "update_bathroom_average_score",
+      { newbathroomid }
+    );
+  }
+
+  async function updateUsersAverageReviewScoreRPC(id) {
+    const userid = id;
+    const { data, error } = await supabase.rpc(
+      "update_user_average_review_score",
+      { userid }
+    );
+  }
+
   const reviewMutation = useMutation({
     mutationFn: () => {
-      console.log(reviewSupabase);
       return supabase.from("reviews").insert(reviewSupabase).select();
     },
     onSuccess: (data) => {
-      console.log(data);
-      // setTimeout(() => queryClient.invalidateQueries({
-      //   queryKey: ["reviews", { bathroom: bathroom.id }],
-      // }), 20000);
+      updateBathroomAverageScoreRPC(bathroom.id);
+      updateUsersAverageReviewScoreRPC(profile.id);
+      setShowReview(false);
+      setShowSubmitted(true);
     },
   });
 
@@ -70,12 +94,14 @@ export default function NewReview({ bathroom, setShowReview, bathroomReviews }) 
         ];
       if (userBathroomReviews.length > 0) {
         if (today - recentReviewDate.valueOf() < 2629746000) {
-          throw ["Please wait at least one month to leave another review for this bathroom"]
+          throw [
+            "Please wait at least one month to leave another review for this bathroom",
+          ];
         }
       }
       reviewMutation.mutate();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setErrors(error);
     }
   }
@@ -89,7 +115,9 @@ export default function NewReview({ bathroom, setShowReview, bathroomReviews }) 
   return (
     <div>
       <dialog id="new-review-dialog" open>
-      <button id="new-review-close" onClick={() => setShowReview(false)}>x</button>
+        <button id="new-review-close" onClick={() => setShowReview(false)}>
+          x
+        </button>
         <h2 id="new-review-title">
           Add your review for {bathroom.location_name}
         </h2>

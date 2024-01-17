@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Wrapper } from "@googlemaps/react-wrapper";
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 
-import "./BathroomPage.css"
+import "./BathroomPage.css";
 import NewReview from "./NewReview";
 import BathroomPageMap from "./BathroomPageMap";
 import BathroomPageReview from "./BathroomPageReview";
@@ -19,16 +19,18 @@ import { globalStore } from "../../global/Zustand";
 import { GMKey } from "../../ReactQueryApp";
 import { supabase } from "../../ReactQueryApp";
 import NoBathroomFound from "./NoBathroomFound";
+import ReviewSubmitted from "./ReviewSubmitted";
+import { queryClient } from "../../main";
 
 export default function BathroomPage({ params }) {
   const id = useParams();
-  const queryClient = useQueryClient()
   const [showReview, setShowReview] = useState(false);
+  const [showSubmitted, setShowSubmitted] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [location, setLocation] = useState(null);
   const [userBathroomFavorite, setUserBathroomFavorite] = useState(null);
-  const [realtimeFavorite, setRealtimeFavorite] = useState(false);
   const profile = globalStore((state) => state.profile);
+  const [thisFavorites, setThisFavorites] = useState(0);
 
   // RQ queries
   const {
@@ -64,10 +66,37 @@ export default function BathroomPage({ params }) {
     queryFn: async () => fetchOneBathroomFavorites(id),
   });
 
+  // useEffects 
+  useEffect(() => {
+    if (users && bathroomReviews && oBFavorites) setLoaded(true);
+  }, [users, bathroomReviews, oBFavorites]);
+
+  useEffect(() => {
+    if (bathroom)
+      setLocation({
+        lat: bathroom.latitude,
+        lng: bathroom.longitude,
+      });
+  }, [bathroom]);
+
+  useEffect(() => {
+    if (oBFavorites) {
+      setThisFavorites(oBFavorites.length);
+    }
+  }, [oBFavorites]);
+
+  useEffect(() => {
+    if (profile && oBFavorites) {
+      let thisFav = oBFavorites.filter(
+        (favs) => favs.user_id === profile.id
+      )[0];
+      if (thisFav !== undefined) setUserBathroomFavorite(thisFav);
+    }
+  }, [profile, oBFavorites]);
+
   // RQ mutations
   const favoriteMutation = useMutation({
     mutationFn: () => {
-      // console.log(bathroomSupabase)
       return supabase
         .from("favorites")
         .insert({
@@ -78,6 +107,10 @@ export default function BathroomPage({ params }) {
     },
     onSuccess: (data) => {
       setUserBathroomFavorite(data);
+      updateBathroomNumberOfFavoritesRPC(parseInt(id.bathroomid));
+      queryClient.invalidateQueries({
+        queryKey: ["favorites", { favorite: parseInt(id.bathroomid) }],
+      });
     },
   });
 
@@ -90,40 +123,29 @@ export default function BathroomPage({ params }) {
     },
     onSuccess: (data) => {
       setUserBathroomFavorite(null);
+      updateBathroomNumberOfFavoritesRPC(parseInt(id.bathroomid));
+      queryClient.invalidateQueries({
+        queryKey: ["favorites", { favorite: parseInt(id.bathroomid) }],
+      });
     },
   });
 
+  async function updateBathroomNumberOfFavoritesRPC(bathroom_id) {
+    const bathroomid = bathroom_id;
+    const { data, error } = await supabase.rpc(
+      "update_bathroom_number_of_favorites",
+      { bathroomid }
+    );
+  }
+
   function addFavorite() {
     favoriteMutation.mutate({});
+    setThisFavorites(thisFavorites + 1);
   }
 
   function removeFavorite() {
     removeFavoriteMutation.mutate({});
-  }
-
-  useEffect(() => {
-    if (users && bathroomReviews) setLoaded(true);
-  }, [users, bathroomReviews]);
-
-  useEffect(() => {
-    if (bathroom)
-      setLocation({
-        lat: bathroom.latitude,
-        lng: bathroom.longitude,
-      });
-  }, [bathroom]);
-
-  useEffect(() => {
-    if (profile && oBFavorites) {
-      let thisFav = oBFavorites.filter(
-        (favs) => favs.user_id === profile.id
-      )[0];
-      if (thisFav !== undefined) setUserBathroomFavorite(thisFav);
-    }
-  }, [profile, oBFavorites]);
-
-  function favoriteNumber () {
-    if (userBathroomFavorite === null) return bathroom.number_of_favorites
+    setThisFavorites(thisFavorites - 1);
   }
 
   function singleBathroom(bathroom) {
@@ -149,7 +171,7 @@ export default function BathroomPage({ params }) {
               Average review score: {bathroom.average_score} ({numberOfReviews}{" "}
               reviews)
             </p>
-            <p>Number of favorites: {bathroom.number_of_favorites}</p>
+            <p>Number of favorites: {thisFavorites}</p>
           </div>
           <div id="one-bathroom-filters">
             <p>{bathroomPublic}</p>
@@ -188,7 +210,7 @@ export default function BathroomPage({ params }) {
         <h2 id="reviews-title">Reviews</h2>
         <div id="one-bathroom-reviews">
           {bathroomReviews.map((r) => (
-            <BathroomPageReview review={r} users={users} key={r.id}/>
+            <BathroomPageReview review={r} users={users} key={r.id} />
           ))}
         </div>
       </>
@@ -207,9 +229,10 @@ export default function BathroomPage({ params }) {
     }
   }
 
-  if (oBStatus === "loading") return <p id='loading'>loading...</p>;
+  if (oBStatus === "loading") return <p id="loading">loading...</p>;
 
-  if (bathroom === 'undefined') return <NoBathroomFound bathroomID={id.bathroomid}/>
+  if (bathroom === "undefined")
+    return <NoBathroomFound bathroomID={id.bathroomid} />;
 
   return (
     <main>
@@ -226,7 +249,20 @@ export default function BathroomPage({ params }) {
         ""
       )}
       {showReview === true ? (
-        <NewReview bathroom={bathroom} setShowReview={setShowReview} bathroomReviews={bathroomReviews} />
+        <NewReview
+          bathroom={bathroom}
+          setShowReview={setShowReview}
+          bathroomReviews={bathroomReviews}
+          setShowSubmitted={setShowSubmitted}
+        />
+      ) : (
+        ""
+      )}
+      {showSubmitted === true ? (
+        <ReviewSubmitted
+          locationName={bathroom.location_name}
+          setShowSubmitted={setShowSubmitted}
+        />
       ) : (
         ""
       )}
