@@ -53,12 +53,18 @@ export default function BathroomForm({ bathrooms }) {
     ).toFixed(2),
   };
 
+  async function updateUsersAverageReviewScoreRPC(id) {
+    const userid = id
+    const { data, error } = await supabase.rpc('update_user_average_review_score', { userid })
+  }
+
   const bathroomMutation = useMutation({
     mutationFn: (bathroomData) => {
       return supabase.from("bathrooms").insert(bathroomData).select();
     },
     onSuccess: (data) => {
       reviewSupabase.bathroom_id = data.data[0].id;
+      // don't need to call update_bathroom_average_score here because it only has one review, and we sent average_rating inside bathroomData
       queryClient.invalidateQueries({ queryKey: ['bathrooms'] })
       reviewMutation.mutate(reviewSupabase);
     },
@@ -70,6 +76,7 @@ export default function BathroomForm({ bathrooms }) {
     },
     onSuccess: (data) => {
       setBathroomId(data.data[0].bathroom_id);
+      updateUsersAverageReviewScoreRPC(profile.id)
       queryClient.invalidateQueries({ queryKey: ['reviews'] })
       setLoading("finished");
     },

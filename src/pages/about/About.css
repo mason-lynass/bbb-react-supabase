@@ -52,7 +52,7 @@ hr {
 
 @media (prefers-color-scheme: light) { 
     #about-flex div, #about-data, #references-contact { 
-        background-color: var(--light-blue2);
+        background-color: var(--light-blue1);
         border: 2px solid var(--dark-blue4);
     }
 

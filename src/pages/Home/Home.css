@@ -106,6 +106,7 @@
   margin: 5vw auto 5vw auto;
   background-color: var(--dark-blue2);
   padding: 30px;
+  border-radius: 10px;
 }
 
 #homepage-about p {
@@ -221,11 +222,16 @@
 }
 
 @media (prefers-color-scheme: light) {
-  .slide-text, #homepage-about {
+  .slide-text, .one-bathroom-one-review {
     color: var(--white);
   }
 
   #homepage-about .one-bathroom-one-review {
-    color: var(--dark-blue5);
+    background-color: var(--dark-blue4);
+  }
+
+  #homepage-about {
+    background-color: var(--light-blue1);
+    border: 1px solid var(--dark-blue5);
   }
 }
