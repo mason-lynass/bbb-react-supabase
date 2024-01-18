@@ -49,7 +49,7 @@ export default function Login() {
   async function sendForgotPwEmail(event) {
     event.preventDefault();
     const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "http://localhost:5173/reset-pw",
+      redirectTo: "http://better-bathroom-bureau.vercel.app/reset-pw",
     });
     if (error) alert(error.error_description || error.message);
     if (data) setSuccessMessge(true);
