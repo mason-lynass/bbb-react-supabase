@@ -132,7 +132,7 @@ export default function Login() {
           )}
           <button disabled={loading}>{renderButtonText()}</button>
         </form>
-        {successMessage ? <p>nice! check your email</p> : null}
+        {successMessage ? <p id='check-your-email'>nice! check your email</p> : null}
         <div id='bottom-buttons'>
           <button id="forgot-password" onClick={() => setForgotPw(!forgotPw)}>
             {forgotPw ? "Back to Login" : "Forgot Password"}

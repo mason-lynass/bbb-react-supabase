@@ -104,4 +104,8 @@
     #Auth * {
         color: var(--white)
     }
+
+    #check-your-email {
+        color: var(--light-blue5)
+    }
 }
