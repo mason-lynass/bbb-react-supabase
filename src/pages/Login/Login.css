@@ -82,6 +82,10 @@
     background-color: var(--light-blue5);
 }
 
+#check-your-email {
+    text-align: center;
+}
+
 @media screen and (max-width: 600px) {
 
     #login-form, #signup-form {
