@@ -136,4 +136,12 @@
     #account * {
         color: var(--white);
     }
+
+    #choose-username label {
+        color: var(--dark-blue5);
+    }
+
+    #username-submit {
+        background-color: var(--dark-blue1);
+    }
 }
