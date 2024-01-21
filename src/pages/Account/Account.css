@@ -132,6 +132,21 @@
     display: block;
 }
 
+@media screen and (max-width: 600px) {
+    #account :is(h2) {
+        font-size: 20px;
+    }
+
+    #account #no-username {
+        padding: 10px 20px;
+    }
+
+    #choose-username {
+        flex-flow: column nowrap;
+        margin-bottom: 200px;
+    }
+}
+
 @media (prefers-color-scheme: light) {
     #account * {
         color: var(--white);

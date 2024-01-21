@@ -15,6 +15,14 @@ import HomeSlideshow from "./HomeSlideshow";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Home({ session }) {
+  const navigate = useNavigate();
+
+  const [query, setQuery] = useState("");
+  const [publicBool, setPublicBool] = useState(false);
+  const [ADABool, setADABool] = useState(false);
+  const [GNBool, setGNBool] = useState(false);
+  const [neighborhood, setNeighborhood] = useState("none");
+
   const {
     status,
     error,
@@ -33,16 +41,8 @@ export default function Home({ session }) {
     queryFn: fetchReviews,
   });
 
-  const [query, setQuery] = useState("");
-  const [publicBool, setPublicBool] = useState(false);
-  const [ADABool, setADABool] = useState(false);
-  const [GNBool, setGNBool] = useState(false);
-  const [neighborhood, setNeighborhood] = useState("none");
-
-  const navigate = useNavigate();
-
+  // clicking a filter button takes you to AllBathrooms with bathrooms filtered according to button press
   function handleFilterClick(button) {
-
     if (button === "public") {
       navigate("/bathrooms", { state: { publicBool: true } });
     }
@@ -53,18 +53,6 @@ export default function Home({ session }) {
       navigate("/bathrooms", { state: { GNBool: true } });
     }
   }
-
-  // function HomePageAuth() {
-  //   return (
-  //     <div id="home-page-auth">
-  //       <Auth
-  //         supabaseClient={supabase}
-  //         appearance={{ theme: ThemeSupa }}
-  //         providers={[]}
-  //       />
-  //     </div>
-  //   );
-  // }
 
   function mostRecentBathroom() {
     const bathroom = bathrooms.sort((a, b) => b.id - a.id)[0];
@@ -148,9 +136,6 @@ export default function Home({ session }) {
           transition={{ duration: 0.5 }}
         >
           <div id="home-top-flex">
-            {/* <div id='logo-container'>
-              <img src={Logo} id="logo" />
-            </div> */}
             <section id="where-are-you-home">
               <h1>Find a bathroom in Seattle</h1>
               <div id="homepage-filters">
@@ -219,7 +204,6 @@ export default function Home({ session }) {
             </section>
           </div>
           <HomeSlideshow />
-          {/* {session ? '' : HomePageAuth()} */}
           <div id='homepage-about'>
             <p>The Better Bathroom Bureau is a resource and community dedicated to help people in Seattle find, submit, and review bathroom facilities around the city.</p>
             <p>Check out our most recently submitted bathroom:</p>

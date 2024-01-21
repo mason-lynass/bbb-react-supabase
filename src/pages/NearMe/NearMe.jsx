@@ -6,19 +6,15 @@ import { GMKey } from "../../ReactQueryApp";
 import NearMeMap from "./NearMeMap";
 import Marker from "../../components/Marker";
 import { fetchApprovedBathrooms } from "../../React-Query/fetch-functions";
-
 import "./NearMe.css";
-
 import { seattle } from "../../global/constants";
 
-// this page will be a big map from Google Maps JavaScript API
 // lex and I figured a lot of this out here:
 // https://github.com/alexbriannaughton/bbb-app/blob/main/client/src/components/MapViewHomepage.js
 
 export default function NearMe() {
   const [userLocation, setUserLocation] = useState('');
   const [userGeocode, setUserGeocode] = useState(null);
-
   const [publicBool, setPublicBool] = useState(false);
   const [ADABool, setADABool] = useState(false);
   const [GNBool, setGNBool] = useState(false);
@@ -89,21 +85,6 @@ export default function NearMe() {
       );
     });
   }
-
-  // const render = (status) => {
-  //   switch (status) {
-  //     case Status.LOADING:
-  //       return <h2>loading...</h2>;
-  //     case Status.FAILURE:
-  //       return <h2>uh oh!</h2>;
-  //     case Status.SUCCESS:
-  //       return (
-  //         <NearMeMap center={userGeocode ? userGeocode : seattle} zoom={11.5}>
-  //           {allBathrooms}
-  //         </NearMeMap>
-  //       );
-  //   }
-  // };
 
   function renderMap() {
     return (

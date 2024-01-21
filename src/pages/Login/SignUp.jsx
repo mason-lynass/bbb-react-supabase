@@ -8,22 +8,36 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmedPw, setConfirmedPw] = useState("");
   const [loading, setLoading] = useState("");
+  const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
 
   async function handleSignUp(event) {
     event.preventDefault();
-    if (password !== confirmedPw) {
-      alert(
-        "Please ensure that both password fields are identical and try again."
-      );
+
+    try {
+      if (password !== confirmedPw)
+        throw [
+          "Please ensure that both password fields are identical and try again.",
+        ];
+      const { data, error: signUpError } = await supabase.auth.signUp({ email, password });
+      
+      if (signUpError) throw [signUpError.error_description || signUpError.message]
+
+      else navigate("/account")
+
+    } catch (error) {
+      setErrors(error);
       setLoading(false);
-      return;
     }
-    const { data, error } = await supabase.auth.signUp({ email, password });
-    if (error) {
-      return alert(error.error_description || error.message);
-    } else navigate("/account");
+  }
+
+  function displayErrors() {
+    return (
+      <p key={errors} className="display-error">
+        {errors}
+      </p>
+    );
   }
 
   return (
@@ -58,8 +72,9 @@ export default function SignUp() {
           onChange={(e) => setConfirmedPw(e.target.value)}
         />
         <button disabled={loading}>Sign Up</button>
+        {displayErrors()}
       </form>
-      <div id='bottom-buttons'>
+      <div id="bottom-buttons">
         <button onClick={() => navigate("/login")}>Log In</button>
       </div>
     </m.div>

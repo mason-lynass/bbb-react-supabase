@@ -7,24 +7,6 @@ import "./Home.css";
 import { motion as m } from "framer-motion";
 
 export default function HomeSlideshow() {
-  // window.onload = function () {
-  //       const container = document.getElementById('all-slides')
-  //       const slides = document.getElementsByClassName('slides')
-
-  //       let i = 1
-
-  //       setInterval(() => {
-  //         const slideWidth = (slides[0].clientWidth);
-  //         if (i === slides.length) {
-  //           container.scrollLeft -= (slideWidth * (slides.length - 1))
-  //           i = 1
-  //         }
-  //         else {
-  //           container.scrollLeft += slideWidth;
-  //           i++
-  //         }
-  //       }, 10000)
-  //     }
 
   const [imageNumber, setImageNumber] = useState(0);
 
@@ -59,19 +41,6 @@ export default function HomeSlideshow() {
             </div>
           );
         })}
-
-        {/* <div className="slides">
-                    <img src={BBBEx1} className='slide-image'/>
-                    <p className='slide-text'>Find your pipe dreams</p>
-                </div>
-                <div className="slides">
-                    <img src={BBBEx3} className='slide-image'/>
-                    <p className='slide-text'>Find your pipe dreams</p>
-                </div>
-                <div className="slides">
-                    <img src={BBBEx4} className='slide-image'/>
-                    <p className='slide-text'>Find your pipe dreams</p>
-                </div> */}
       </div>
     </div>
   );

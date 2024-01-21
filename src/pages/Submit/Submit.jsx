@@ -1,20 +1,10 @@
 import { motion as m } from "framer-motion";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
-
 import BathroomForm from "./BathroomForm";
-import "./Submit.css";
-
-import { supabase, GMKey } from "../../ReactQueryApp";
 import { globalStore } from "../../global/Zustand";
 import { fetchAllBathrooms } from "../../React-Query/fetch-functions";
 import { useQuery } from "@tanstack/react-query";
 import Login from "../Login/Login";
-
-// // this might be how you submit things to the database, add an action to the route and import it in NewApp
-// export function submitAction() {
-//   console.log("submit");
-// }
+import "./Submit.css";
 
 export default function Submit({ setBathrooms }) {
   const { status, error, data: bathrooms} = useQuery({
@@ -35,11 +25,6 @@ export default function Submit({ setBathrooms }) {
         <h2 style={{ textAlign: "center" }}>
           Please log in to submit a bathroom.
         </h2>
-        {/* <Auth
-          supabaseClient={supabase}
-          appearance={{ theme: ThemeSupa }}
-          providers={[]}
-        /> */}
         <Login />
       </m.div>
     );

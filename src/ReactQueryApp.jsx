@@ -25,17 +25,13 @@ import { globalStore } from "./global/Zustand.jsx";
 // keys to Supabase
 const url = import.meta.env.VITE_SUPABASE_URL;
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
 export const supabase = createClient(url, key);
 
-// export const GMKey = "";
 export const GMKey = import.meta.env.VITE_GOOGLE_MAPS_KEY;
 
 // this version uses BrowserRouter instead of createBrowserRouter
 // we're gonna use this version of the main App component
 function RQApp() {
-  // const session = globalStore((state) => state.bathrooms);
-  // const users = globalStore((state) => state.users);
   const profile = globalStore((state) => state.profile);
 
   const {
@@ -91,13 +87,6 @@ function RQApp() {
   function navSwitch() {
     if (
       window.screen.width > 600
-      // navigator.userAgent.match(/Android/i) ||
-      // navigator.userAgent.match(/webOS/i) ||
-      // navigator.userAgent.match(/iPhone/i) ||
-      // navigator.userAgent.match(/iPad/i) ||
-      // navigator.userAgent.match(/iPod/i) ||
-      // navigator.userAgent.match(/BlackBerry/i) ||
-      // navigator.userAgent.match(/Windows Phone/i)
     ) {
       return <NavBar session={session} sessionSwitch={sessionSwitch} />;
     } else {

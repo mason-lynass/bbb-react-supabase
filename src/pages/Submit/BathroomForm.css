@@ -203,13 +203,22 @@ dialog button {
     margin: 0;
   }
 
-  #all-nb-checks .nb-checks label {
-    width: fit-content;
-    font-size: 14px;
+  #all-nb-checks {
+    display: block;
   }
 
   .nb-checks {
     padding: 0 20px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #all-nb-checks .nb-checks label {
+    width: fit-content;
+    max-width: 120px;
+    font-size: 14px;
   }
 
   #all-nb-checks .nb-checks input {

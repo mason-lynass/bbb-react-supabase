@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import RQApp from "./ReactQueryApp.jsx";
-// import NewApp from "./NewApp.jsx";
-// import OldApp from "./OldApp.jsx";
 import "./global/CSS/index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
