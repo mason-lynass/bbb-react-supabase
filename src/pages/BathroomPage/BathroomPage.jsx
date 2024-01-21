@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import { useQuery, useMutation } from "@tanstack/react-query";
-
 import "./BathroomPage.css";
 import NewReview from "./NewReview";
 import BathroomPageMap from "./BathroomPageMap";
@@ -24,12 +23,12 @@ import { queryClient } from "../../main";
 
 export default function BathroomPage({ params }) {
   const id = useParams();
+  const profile = globalStore((state) => state.profile);
   const [showReview, setShowReview] = useState(false);
   const [showSubmitted, setShowSubmitted] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [location, setLocation] = useState(null);
   const [userBathroomFavorite, setUserBathroomFavorite] = useState(null);
-  const profile = globalStore((state) => state.profile);
   const [thisFavorites, setThisFavorites] = useState(0);
 
   // RQ queries
@@ -40,7 +39,6 @@ export default function BathroomPage({ params }) {
   } = useQuery({
     queryKey: ["bathrooms", parseInt(id.bathroomid)],
     queryFn: async () => fetchOneBathroom(id),
-    onError: (error) => console.log(error),
   });
 
   const {

@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { Navigate, useNavigate } from "react-router-dom";
 import { motion as m } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
-
 import { globalStore } from "../../global/Zustand";
 import { supabase } from "../../ReactQueryApp";
 import { fetchUsers } from "../../React-Query/fetch-functions";
 import "./Login.css";
 
 export default function Login() {
-  // const [hasAccount, setHasAccount] = useState(false)
+  const navigate = useNavigate();
   const session = globalStore((state) => state.session);
   const profile = globalStore((state) => state.profile);
 
@@ -20,9 +17,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [forgotPw, setForgotPw] = useState(false);
   // the below success message is for success in sending the password reset email
-  const [successMessage, setSuccessMessge] = useState(false);
-
-  const navigate = useNavigate();
+  const [successMessage, setSuccessMessage] = useState(false);
 
   const {
     data: users,
@@ -49,10 +44,11 @@ export default function Login() {
   async function sendForgotPwEmail(event) {
     event.preventDefault();
     const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+      // CHANGE THIS ONCE YOU GET A REAL DOMAIN
       redirectTo: "http://better-bathroom-bureau.vercel.app/account",
     });
     if (error) alert(error.error_description || error.message);
-    if (data) setSuccessMessge(true);
+    if (data) setSuccessMessage(true);
   }
 
   async function handleSubmit(event) {
@@ -70,7 +66,6 @@ export default function Login() {
   }
 
   useEffect(() => {
-    // console.log("useEffect");
     if (session && !profile && usersLoading === false) {
       // first option is what happens if you log in, because there's already a user created;
       // second option is what happens if you sign up, because we don't re-fetch the users, so this time
@@ -105,14 +100,6 @@ export default function Login() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        {/* this component comes straight from Supabase Auth UI React */}
-        {/* // it would be nice if I could add some functionality to this component but I don't think that I can */}
-        {/* // like it would be nice to do everything else in the if statements here */}
-        {/* <Auth
-          supabaseClient={supabase}
-          appearance={{ theme: ThemeSupa }}
-          providers={[]}
-        /> */}
         <form id="login-form" onSubmit={handleSubmit}>
           <input
             type="email"

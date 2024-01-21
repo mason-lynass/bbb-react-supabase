@@ -6,17 +6,11 @@ import { useMutation } from "@tanstack/react-query";
 import RatingButton from "../../components/RatingButton";
 import { supabase } from "../../ReactQueryApp";
 
-export default function NewReview({
-  bathroom,
-  setShowReview,
-  bathroomReviews,
-  setShowSubmitted,
-}) {
+export default function NewReview({ bathroom, setShowReview, bathroomReviews, setShowSubmitted}) {
   const profile = globalStore((state) => state.profile);
-
   const [errors, setErrors] = useState([]);
-
   const [date, setDate] = useState(new Date());
+
   const [reviewDescription, setReviewDescription] = useState("");
   const [cleanliness, setCleanliness] = useState("");
   const [cleanlinessRating, setCleanlinessRating] = useState(null);
@@ -25,11 +19,9 @@ export default function NewReview({
   const [style, setStyle] = useState("");
   const [styleRating, setStyleRating] = useState(null);
 
-  // to see if the user recently submitted a review already
+  // to see if the user recently submitted a review recently (one month)
   const today = Date.now();
-  const userBathroomReviews = bathroomReviews.filter(
-    (r) => r.user_id === profile.id
-  );
+  const userBathroomReviews = bathroomReviews.filter((r) => r.user_id === profile.id);
   const recentReview = userBathroomReviews.sort((a, b) => b.date - a.date)[0];
   let recentReviewDate;
   if (!recentReview) recentReviewDate = 0;
@@ -101,7 +93,6 @@ export default function NewReview({
       }
       reviewMutation.mutate();
     } catch (error) {
-      // console.log(error);
       setErrors(error);
     }
   }

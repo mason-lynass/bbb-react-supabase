@@ -10,8 +10,13 @@ import { fetchApprovedBathrooms } from "../../React-Query/fetch-functions";
 
 
 export default function Best({}) {
+  const [loaded, setLoaded] = useState(false);
+  const [best, setBest] = useState([]);
+
   // we could write a new fetch function and queryKey to fetch only bathrooms with a review >= 8
   // instead of using bestBathrooms, the useEffect, etc.
+  // but users are most likely coming to this page after first visiting the homepage,
+  // where they will already fetch approvedBathrooms, so might as well just use that instead of making a separate DB request
   const {
     status: bathroomsStatus,
     error: bathroomsError,
@@ -20,11 +25,6 @@ export default function Best({}) {
     queryKey: ["approved-bathrooms"],
     queryFn: fetchApprovedBathrooms,
   });
-
-  const [loaded, setLoaded] = useState(false);
-  const [best, setBest] = useState([]);
-
-  // console.log(bathrooms);
 
   // the dependency in the dependency array should only change from undefined -> all of the bathrooms
   useEffect(() => {

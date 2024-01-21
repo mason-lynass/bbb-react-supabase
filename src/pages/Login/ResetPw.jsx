@@ -3,13 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../../ReactQueryApp";
 
 export default function ResetPw() {
+  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPw] = useState("");
-
   const [loading, setLoading] = useState(false);
   const [showHide, setShowHide] = useState(false);
-
-  const navigate = useNavigate();
 
   async function updatePW(e) {
     e.preventDefault();
@@ -58,7 +56,6 @@ export default function ResetPw() {
           />
         </div>
         <div>
-          {/* <button onClick={updatePw} disabled={loading}>Reset Password</button> */}
           <button type="submit" disabled={loading}>
             Reset Password
           </button>

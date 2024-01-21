@@ -111,14 +111,17 @@ export default function BathroomForm({ bathrooms }) {
         throw ["Please enter a valid address"];
       }
 
+      if (
+        newGeocode.results[0].address_components[2].short_name !== "Seattle"
+      ) {
+        throw ["Please limit submissions to locations inside the city of Seattle."]
+      }
+
       // starting this mutation will start the reviewMutation if it's successful
       // see line 60, "onSuccess" of the bathroomMutation
       bathroomMutation.mutate({
         address: address,
         location_name: locationName,
-        // latitude: 47.62656,
-        // longitude: -122.306983,
-        // neighborhood: "Stevens",
         latitude: newGeocode.results[0].geometry.location.lat,
         longitude: newGeocode.results[0].geometry.location.lng,
         neighborhood: newGeocode.results[0].address_components[2].long_name,
@@ -144,7 +147,6 @@ export default function BathroomForm({ bathrooms }) {
       </p>
     );
   }
-  // if (bathroomid !== null) return <Navigate to={`/bathrooms/${bathroomid}`} />
 
   return (
     <div id="new-bathroom-container">

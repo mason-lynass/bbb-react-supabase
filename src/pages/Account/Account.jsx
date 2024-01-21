@@ -54,7 +54,6 @@ export default function Account({ setProfile }) {
   });
 
   async function handleUsernameSubmit(e) {
-    console.log(username, profile.id);
     e.preventDefault();
     // this updates the username in the users table where the id === logged in user id
     try {
@@ -68,7 +67,6 @@ export default function Account({ setProfile }) {
       if (error) throw ["Sorry, that username is not available."];
       // DB doesn't re-fetch (I think?), or there's a lag at least, so we update state)
       if (newName) {
-        console.log(newName)
         globalStore.setState({
           profile: {
             id: profile.id,
@@ -102,7 +100,6 @@ export default function Account({ setProfile }) {
   }
 
   function resetPassword() {
-    // navigate("/reset-pw");
     setShowResetPassword(!showResetPassword);
   }
 
@@ -236,7 +233,6 @@ export default function Account({ setProfile }) {
               <div id="my-reviews">{myReviews()}</div>
             </section>
             <section className="account-section" id="account-favorites">
-              {/* this will change once we tie users to favorites */}
               <h3
                 onClick={(e) =>
                   open === "favorites" ? setOpen(null) : setOpen("favorites")

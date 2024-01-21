@@ -1,4 +1,4 @@
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function SubmittedDialog({ locationName }) {
   const body = document.querySelector("body");

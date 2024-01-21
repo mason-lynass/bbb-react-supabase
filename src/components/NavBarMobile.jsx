@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { globalStore } from "../global/Zustand";
 import { useState } from "react";
-import Logo from '../assets/bbb-logo-1.png'
 import Logo3 from "../assets/bbb-molly-logo-3.png";
 
 export default function NavBarMobile({ sessionSwitch }) {
@@ -10,7 +9,6 @@ export default function NavBarMobile({ sessionSwitch }) {
   const [navOpen, setNavOpen] = useState(false);
 
   function loginOrAccount() {
-    // console.log(session, sessionSwitch)
     if (!session) {
       return (
         <NavLink id="login" to="/login" onClick={() => setNavOpen(false)}>
@@ -55,8 +53,6 @@ export default function NavBarMobile({ sessionSwitch }) {
       );
     }
   }
-
-  console.log(navOpen)
 
   return (
     <div id="nav-bar-mobile">

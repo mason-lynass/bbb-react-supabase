@@ -41,6 +41,8 @@ export default function AllBathrooms({}) {
   const [reviewed, setReviewed] = useState(false);
   const [neighborhood, setNeighborhood] = useState("none");
 
+  // this handles whatever user interaction happened on the homepage that took us to AllBathrooms
+  // if user navigates to AllBathrooms and doesn't interact with the homepage, nothing happens
   useEffect(() => {
     if (!location.state) {
     } else if (location.state.GNBool) {
@@ -117,10 +119,17 @@ export default function AllBathrooms({}) {
     }
   }
 
+  // handles displaying the bathrooms on the page, based on the filter booleans
   function allTheBathrooms() {
     if (status === "loading") return <p>loading....</p>;
 
     let allTheBathrooms = filteredBathrooms;
+
+    if (neighborhood !== "none") {
+      allTheBathrooms = allTheBathrooms.filter(
+        (b) => b.neighborhood === neighborhood
+      );
+    }
 
     const publicBathrooms = filteredBathrooms.filter((b) => b.public === true);
     const ADABathrooms = filteredBathrooms.filter(
@@ -195,12 +204,6 @@ export default function AllBathrooms({}) {
         allTheBathrooms = reviewedBathrooms;
       default:
         break;
-    }
-
-    if (neighborhood !== "none") {
-      allTheBathrooms = allTheBathrooms.filter(
-        (b) => b.neighborhood === neighborhood
-      );
     }
 
     return (
