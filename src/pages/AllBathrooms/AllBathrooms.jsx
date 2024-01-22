@@ -33,6 +33,11 @@ export default function AllBathrooms({}) {
 
   let reviewIDsArray;
 
+  const publicButton = document.getElementById("public-button");
+  const ADAButton = document.getElementById("ADA-button");
+  const GNButton = document.getElementById("GN-button");
+  const reviewedButton = document.getElementById("reviewed-button");
+
   // this is for the search filter
   const [query, setQuery] = useState("");
   const [publicBool, setPublicBool] = useState(false);
@@ -46,11 +51,15 @@ export default function AllBathrooms({}) {
   useEffect(() => {
     if (!location.state) {
     } else if (location.state.GNBool) {
-      setPublicBool(true);
+      console.log('GN')
+      setGNBool(true);
+      GNButton.classList.add("button-active");
     } else if (location.state.ADABool) {
       setADABool(true);
+      ADAButton.classList.add("button-active");
     } else if (location.state.publicBool) {
       setPublicBool(true);
+      publicButton.classList.add("button-active");
     } else if (location.state.neighborhood) {
       setNeighborhood(location.state.neighborhood);
     } else if (location.state.query) {
@@ -75,11 +84,6 @@ export default function AllBathrooms({}) {
   }, [reviewIDs]);
 
   function handleFilterClick(button, e) {
-    const publicButton = document.getElementById("public-button");
-    const ADAButton = document.getElementById("ADA-button");
-    const GNButton = document.getElementById("GN-button");
-    const reviewedButton = document.getElementById("reviewed-button");
-
     switch (button) {
       case "public":
         if (publicBool === true) {

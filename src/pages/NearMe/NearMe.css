@@ -19,6 +19,7 @@
     margin: 0;
     padding: 20px;
     font-family: Josefin Sans;
+    color: var(--light-blue1);
 }
 
 #where-are-you form {
@@ -40,7 +41,7 @@ form input {
 
 form button {
     background-color: var(--light-blue5);
-    border: 2px solid var(--dark-blue3);
+    /* border: 2px solid var(--dark-blue3); */
 }
 
 #map-filter-buttons {
@@ -55,7 +56,7 @@ form button {
 #map-filter-buttons button {
     margin: 0;
     background-color: var(--dark-blue2);
-    border: 1px solid var(--light-blue2);
+    /* border: 1px solid var(--light-blue2); */
 }
 
 #all-bathrooms-map {
@@ -64,7 +65,7 @@ form button {
     height: 70vh;
     margin: 0 auto;
     margin-top: 40px;
-    border: 20px solid  var(--dark-blue1);
+    border: 5px solid  var(--dark-blue3);
 }
 
 .marker-content-string {

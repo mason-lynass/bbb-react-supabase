@@ -240,7 +240,7 @@ export default function Account({ setProfile }) {
               >
                 Here are your favorite bathrooms:
               </h3>
-              <div id="account-favorites">{myFavorites()}</div>
+              <div id="my-favorites">{myFavorites()}</div>
             </section>
             <div id="action-buttons">
               <div id="sign-out">

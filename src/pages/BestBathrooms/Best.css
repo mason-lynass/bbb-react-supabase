@@ -7,11 +7,17 @@
     margin: 40px;
 }
 
+#best-bathrooms-title {
+    text-align: center;
+    margin-bottom: 80px;
+    color: var(--light-blue1);
+    font-family: Josefin Sans;
+}
+
 .one-bathroom-stock {
-    border: 1px solid var(--light-blue1);
+    /* border: 5px solid gold; */
     width: 45vw;
     max-width: 450px;
-    border-radius: 10px;
     padding: 10px 20px;
     background-color: var(--dark-blue3);
 }
@@ -27,6 +33,10 @@
 .one-bathroom-stock h2 {
     font-family: Josefin Sans;
 }
+
+.one-bathroom-stock p {
+    text-align: center;
+} 
 
 @media (prefers-color-scheme: light) { 
     .one-bathroom-stock {

@@ -60,6 +60,7 @@ export default function Best({}) {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
+      <h1 id='best-bathrooms-title'>🏆 Best Bathrooms 🏆</h1>
       {loaded === true ? bestBathrooms() : <h2>loading...</h2>}
     </m.div>
   );
