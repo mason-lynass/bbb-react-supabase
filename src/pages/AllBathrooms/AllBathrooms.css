@@ -1,13 +1,14 @@
-#all-bathrooms-flex {
+/* #all-bathrooms-flex {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: top;
-}
+} */
 
 #all-bathrooms {
   margin: auto;
-  width: calc(100vw - 350px - 4vw);
+  /* width: calc(100vw - 350px - 4vw); */
+  width: 90vw;
   min-width: 800px;
   height: calc(100vh - 69px);
   overflow: scroll;
@@ -15,7 +16,7 @@
 
 .one-bathroom-all {
   border-radius: 10px;
-  border: 2px solid var(--light-blue1);
+  /* border: 2px solid var(--light-blue1); */
   color: var(--white);
   background-color: inherit;
   margin: 15px;
@@ -26,7 +27,7 @@
 }
 
 .one-bathroom-all:hover {
-  box-shadow: 0px 0px 10px 2px white;
+  box-shadow: 0px 0px 2px 2px white;
 }
 
 .one-bathroom-all h3,
@@ -45,7 +46,7 @@
 }
 
 #all-bathrooms a:nth-of-type(even) {
-  background-color: var(--dark-blue4);
+  background-color: var(--dark-blue3);
 }
 
 #all-filters {
@@ -53,10 +54,13 @@
   flex-flow: row wrap;
   justify-content: center;
   align-items: center; */
-  background-color: var(--dark-blue3);
-  width: 330px;
-  height: calc(100vh - 69px);
+  background-color: var(--main-darkest);
+  /* width: 330px;
+  height: calc(100vh - 69px); */
   padding-top: 20px;
+  position: sticky;
+  top: 70px;
+  left: 0;
 }
 
 #all-bathrooms-search {
@@ -73,7 +77,6 @@
   width: 70vw;
   max-width: 305px;
   border: 0;
-  margin: auto;
   background-color: var(--light-blue1);
     color: var(--main-darkest);
     border: 1px solid var(--dark-blue3);
@@ -90,21 +93,29 @@
 #neighborhood select {
   background-color: var(--dark-blue1);
   color: var(--white);
+  border: 0px;
 }
 
 #filters-and-neighborhood {
-  /* display: flex;
+  display: flex;
   flex-flow: row nowrap;
   justify-content: center;
-  align-items: center; */
+  align-items: center;
   margin: 10px;
+  gap: 50px;
+}
+
+#filter-buttons {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
 }
 
 #filter-buttons button {
   display: block;
-  background-color: var(--dark-blue2);
-  border: 1px solid var(--light-blue2);
+  background-color: var(--dark-blue1);
   margin: 20px auto;
 }
 
@@ -114,7 +125,6 @@
 }
 
 #neighborhood {
-  margin: 40px auto;
   width: 250px;
 }
 
@@ -123,6 +133,10 @@
 }
 
 @media (prefers-color-scheme: light) {
+  #all-filters {
+    background-color: var(--white);
+  }
+
   #all-bathrooms a:nth-of-type(odd) {
     text-align: left;
     background-color: var(--light-blue1);

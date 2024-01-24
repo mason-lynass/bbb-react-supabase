@@ -11,7 +11,7 @@ export default function About() {
       transition={{ duration: 0.5 }}
     >
       <main id="about">
-        <h1>BBB Mission & Vision</h1>
+        {/* <h1>BBB Mission & Vision</h1> */}
         <div id="about-flex">
           <div>
             <h3>Mission</h3>

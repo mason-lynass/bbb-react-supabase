@@ -3,9 +3,9 @@
     max-width: 500px;
     margin: 50px auto;
     padding: 20px;
-    background-color: var(--dark-blue3);
+    /* background-color: var(--dark-blue3); */
     border-radius: 10px;
-    border: 1px solid var(--light-blue5);
+    /* border: 1px solid var(--light-blue5); */
 }
 
 #login section h2, #login section div {
@@ -36,8 +36,9 @@
 }
 
 #login-form button, #signup-form button {
-    background-color: var(--dark-blue1);
-    border: 1px solid var(--light-blue1);
+    background-color: var(--green-light);
+    color: var(--main-darkest);
+    /* border: 1px solid var(--light-blue1); */
     padding: 0 40px;
     height: 50px;
     margin: auto;
@@ -75,7 +76,7 @@
     background-color: var(--dark-blue2);
     padding: 10px 20px;
     border-radius: 15px;
-    border: 1px solid var(--light-blue1);
+    /* border: 1px solid var(--light-blue1); */
 }
 
 #bottom-buttons button:hover {
@@ -111,5 +112,14 @@
 
     #check-your-email {
         color: var(--light-blue5)
+    }
+
+    #login-form button, #signup-form button {
+        background-color: var(--light-blue5);
+        color: white;
+    }
+
+    #login-form button:hover, #signup-form button:hover {
+        background-color: var(--light-blue3);
     }
 }

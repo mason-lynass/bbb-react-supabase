@@ -14,7 +14,7 @@
 #bathroom-top-split {
   display: grid;
   grid-template-columns: 1fr 500px;
-  background-color: var(--dark-blue3);
+  /* background-color: var(--dark-blue3); */
   padding: 0 calc(20px + 5vw);
 }
 
@@ -23,12 +23,6 @@
   max-width: 800px;
   width: calc(100% - 20px);
   margin: auto;
-}
-
-#bathroom-top-split section #single-bathroom-container {
-  background-color: var(--dark-blue4);
-  border-radius: 10px;
-  border: 1px solid var(--light-blue1);
 }
 
 #one-bathroom-location,
@@ -83,13 +77,16 @@
   justify-content: center;
   align-items: center;
   margin: 0px;
-  background-color: var(--dark-blue3);
-  min-height: 600px;
+  /* background-color: var(--dark-blue3); */
+  /* min-height: 600px; */
 }
 
 #reviews-title {
-  margin: 10px auto;
+  margin: 80px auto 30px auto;
   font-family: Josefin Sans;
+  padding: 10px 0;
+  font-size: 24px;
+  /* background-color: var(--dark-blue5); */
 }
 
 .one-bathroom-one-review {
@@ -107,6 +104,7 @@
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
+  font-size: 24px;
 }
 
 .one-bathroom-one-review p {
@@ -125,6 +123,7 @@
   top: 100px;
   right: 0;
   padding: 0 1em;
+  background-color: var(--main-darkest);
 }
 
 #new-review-title {
@@ -133,10 +132,11 @@
 
 #nr-review-fields {
   padding: 20px;
-  background-color: var(--dark-blue3);
+  /* background-color: var(--dark-blue3); */
   margin: 20px auto;
   border-radius: 20px;
-  border: 1px solid var(--light-blue1);
+  /* border: 1px solid var(--light-blue1); */
+  border: 0px;
   width: 500px;
 }
 
@@ -195,18 +195,19 @@
 }
 
 @media (prefers-color-scheme: light) {
-  #bathroom-top-split,
+  /* #bathroom-top-split,
   #one-bathroom-reviews, #review-submitted button {
     background-color: var(--light-blue1);
+  } */
+
+  #single-bathroom-container #bathroom-name {
+    color: var(--main-darkest);
   }
 
   .one-bathroom-one-review {
     background-color: var(--dark-blue1);
   }
 
-  #one-bathroom-buttons button, #single-bathroom-container, #one-bathroom-reviews, #new-review-form label {
-    color: var(--white);
-  }
 }
 
 @media screen and (max-width: 1200px) {

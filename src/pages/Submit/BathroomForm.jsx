@@ -54,8 +54,11 @@ export default function BathroomForm({ bathrooms }) {
   };
 
   async function updateUsersAverageReviewScoreRPC(id) {
-    const userid = id
-    const { data, error } = await supabase.rpc('update_user_average_review_score', { userid })
+    const userid = id;
+    const { data, error } = await supabase.rpc(
+      "update_user_average_review_score",
+      { userid }
+    );
   }
 
   const bathroomMutation = useMutation({
@@ -65,7 +68,7 @@ export default function BathroomForm({ bathrooms }) {
     onSuccess: (data) => {
       reviewSupabase.bathroom_id = data.data[0].id;
       // don't need to call update_bathroom_average_score here because it only has one review, and we sent average_rating inside bathroomData
-      queryClient.invalidateQueries({ queryKey: ['bathrooms'] })
+      queryClient.invalidateQueries({ queryKey: ["bathrooms"] });
       reviewMutation.mutate(reviewSupabase);
     },
   });
@@ -76,8 +79,8 @@ export default function BathroomForm({ bathrooms }) {
     },
     onSuccess: (data) => {
       setBathroomId(data.data[0].bathroom_id);
-      updateUsersAverageReviewScoreRPC(profile.id)
-      queryClient.invalidateQueries({ queryKey: ['reviews'] })
+      updateUsersAverageReviewScoreRPC(profile.id);
+      queryClient.invalidateQueries({ queryKey: ["reviews"] });
       setLoading("finished");
     },
   });
@@ -114,7 +117,9 @@ export default function BathroomForm({ bathrooms }) {
       if (
         newGeocode.results[0].address_components[2].short_name !== "Seattle"
       ) {
-        throw ["Please limit submissions to locations inside the city of Seattle."]
+        throw [
+          "Please limit submissions to locations inside the city of Seattle.",
+        ];
       }
 
       // starting this mutation will start the reviewMutation if it's successful
@@ -133,7 +138,6 @@ export default function BathroomForm({ bathrooms }) {
           (cleanlinessRating + styleRating + bathroomFunctionRating) / 3,
         submitted_by: profile.id,
       });
-
     } catch (error) {
       setErrors(error);
       setLoading("submit");
@@ -151,9 +155,9 @@ export default function BathroomForm({ bathrooms }) {
   return (
     <div id="new-bathroom-container">
       <form id="new-bathroom-form" onSubmit={handleSubmit}>
+        <h2 id="submit-bathroom-title">Add a new bathroom</h2>
         <div id="new-bathroom-flex">
           <div id="left-side">
-            <h2 id="submit-bathroom-title">Add a new bathroom</h2>
             <section id="bathroom-fields">
               <div>
                 <label htmlFor="nb-location-name">

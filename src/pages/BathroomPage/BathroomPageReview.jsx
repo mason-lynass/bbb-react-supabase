@@ -6,7 +6,7 @@ export default function BathroomPageReview({review, users}) {
         <div className="one-bathroom-one-review" key={review.id}>
           <div id='review-top'>
             <p>{user.username}</p>
-            <p>{review.average_rating}</p>
+            <p>average rating: {review.average_rating}</p>
           </div>
           <p>{review.description}</p>
           <div id='review-cleanliness'>
