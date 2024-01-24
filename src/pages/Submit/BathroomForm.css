@@ -227,3 +227,13 @@ dialog button {
   }
 
 }
+
+@media (prefers-color-scheme: light) {
+  #new-bathroom-container * {
+    color: var(--main-darkest);
+  }
+
+  #new-bathroom-submit {
+    color: white;
+  }
+ }

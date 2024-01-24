@@ -133,6 +133,10 @@
 }
 
 @media (prefers-color-scheme: light) {
+  #all-filters {
+    background-color: var(--white);
+  }
+
   #all-bathrooms a:nth-of-type(odd) {
     text-align: left;
     background-color: var(--light-blue1);

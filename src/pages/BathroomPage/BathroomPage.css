@@ -195,18 +195,19 @@
 }
 
 @media (prefers-color-scheme: light) {
-  #bathroom-top-split,
+  /* #bathroom-top-split,
   #one-bathroom-reviews, #review-submitted button {
     background-color: var(--light-blue1);
+  } */
+
+  #single-bathroom-container #bathroom-name {
+    color: var(--main-darkest);
   }
 
   .one-bathroom-one-review {
     background-color: var(--dark-blue1);
   }
 
-  #one-bathroom-buttons button, #single-bathroom-container, #one-bathroom-reviews, #new-review-form label {
-    color: var(--white);
-  }
 }
 
 @media screen and (max-width: 1200px) {

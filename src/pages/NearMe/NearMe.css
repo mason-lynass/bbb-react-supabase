@@ -1,116 +1,119 @@
 #near-me {
-    min-height: calc(100vh - 65px);
+  min-height: calc(100vh - 65px);
 }
 
-#near-me-top-flex{
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    gap: 20px 50px;
-    align-items: center;
-    width: 90vw;
-    max-width: 1400px;
-    margin: 0 auto;
+#near-me-top-flex {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 20px 50px;
+  align-items: center;
+  width: 90vw;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 #where-are-you h3 {
-    text-align: center;
-    font-size: 36px;
-    margin: 0;
-    padding: 20px;
-    font-family: Josefin Sans;
-    color: var(--light-blue1);
+  text-align: center;
+  font-size: 36px;
+  margin: 0;
+  padding: 20px;
+  font-family: Josefin Sans;
+  color: var(--light-blue1);
 }
 
 #where-are-you form {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 form input {
-    height: 30px;
-    font-size: 18px;
-    background-color: var(--light-blue1);
-    color: var(--main-darkest);
-    border: 1px solid var(--dark-blue3);
-    padding: 5px;
+  height: 30px;
+  font-size: 18px;
+  background-color: var(--light-blue1);
+  color: var(--main-darkest);
+  border: 1px solid var(--dark-blue3);
+  padding: 5px;
 }
 
 form button {
-    background-color: var(--light-blue5);
-    /* border: 2px solid var(--dark-blue3); */
+  background-color: var(--light-blue5);
+  /* border: 2px solid var(--dark-blue3); */
 }
 
 #map-filter-buttons {
-    width: fit-content;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+  width: fit-content;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 #map-filter-buttons button {
-    margin: 0;
-    background-color: var(--dark-blue2);
-    /* border: 1px solid var(--light-blue2); */
+  margin: 0;
+  background-color: var(--dark-blue2);
+  /* border: 1px solid var(--light-blue2); */
 }
 
 #all-bathrooms-map {
-    width: 90vw;
-    max-width: 1400px;
-    height: 70vh;
-    margin: 0 auto;
-    margin-top: 40px;
-    border: 5px solid  var(--dark-blue3);
+  width: 90vw;
+  max-width: 1400px;
+  height: 70vh;
+  margin: 0 auto;
+  margin-top: 40px;
+  border: 5px solid var(--dark-blue3);
 }
 
 .marker-content-string {
-    color: var(--dark-blue4);
+  color: var(--dark-blue4);
 }
 
 .marker-content-string:hover {
-    color: var(--dark-blue2);
+  color: var(--dark-blue2);
 }
 
 @media screen and (max-width: 600px) {
-    #where-are-you h3 {
-        font-size: 24px;
-        padding: 10px;
-    }
+  #where-are-you h3 {
+    font-size: 24px;
+    padding: 10px;
+  }
 
-    #where-are-you form {
-        flex-flow: row wrap;
-    }
+  #where-are-you form {
+    flex-flow: row wrap;
+  }
 
-    #address {
-        width: 80vw;
-    }
+  #address {
+    width: 80vw;
+  }
 
-    #near-me-top-flex form label {
-        display: none;
-    }
+  #near-me-top-flex form label {
+    display: none;
+  }
 
-    #map-filter-buttons {
-        margin: 20px auto;
-    }
+  #map-filter-buttons {
+    margin: 20px auto;
+  }
 
-    #map-filter-buttons button {
-        font-size: 12px;
-        padding: 10px 5px;
-    }
+  #map-filter-buttons button {
+    font-size: 12px;
+    padding: 10px 5px;
+  }
 
-    #all-bathrooms-map {
-        border: 10px solid var(--dark-blue1);
-        margin: 20px auto;
-    }
+  #all-bathrooms-map {
+    border: 10px solid var(--dark-blue1);
+    margin: 20px auto;
+  }
 }
 
 @media (prefers-color-scheme: light) {
-    #near-me button {
-        color: white;
-    }
+  #where-are-you h3 {
+    color: var(--main-darkest);
+  }
+  #near-me button {
+    color: white;
+  }
 }

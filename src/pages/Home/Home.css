@@ -251,17 +251,18 @@
 }
 
 @media (prefers-color-scheme: light) {
+
+  #where-are-you-home h1, #homepage-about h1 {
+    color: var(--main-darkest);
+  }
+
   .slide-text,
   .one-bathroom-one-review {
     color: var(--white);
   }
 
   #homepage-about .one-bathroom-one-review {
-    background-color: var(--dark-blue4);
+    background-color: var(--dark-blue5);
   }
 
-  #homepage-about {
-    background-color: var(--light-blue1);
-    border: 1px solid var(--dark-blue5);
-  }
 }

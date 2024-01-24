@@ -113,4 +113,13 @@
     #check-your-email {
         color: var(--light-blue5)
     }
+
+    #login-form button, #signup-form button {
+        background-color: var(--light-blue5);
+        color: white;
+    }
+
+    #login-form button:hover, #signup-form button:hover {
+        background-color: var(--light-blue3);
+    }
 }

@@ -39,9 +39,12 @@
 } 
 
 @media (prefers-color-scheme: light) { 
+    #best-bathrooms-title {
+        color: var(--main-darkest)
+    }
+
     .one-bathroom-stock {
-        background-color: var(--light-blue2);
-        border: 2px solid goldenrod;
+        background-color: var(--light-blue1);
         color: var(--main-darkest);
     }
 }
