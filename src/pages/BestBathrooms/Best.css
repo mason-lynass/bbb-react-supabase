@@ -50,8 +50,14 @@
 }
 
 @media screen and (max-width: 600px) {
+    #best-bathrooms-title {
+        font-size: calc((1.5 - 1) * 1.2vw + 2rem);
+        margin-bottom: 20px;
+    }
+
     #best-bathrooms {
         margin: 10px auto;
+        gap: 1vh;
     }
 
     .one-bathroom-stock {

@@ -86,7 +86,7 @@ function RQApp() {
 
   function navSwitch() {
     if (
-      window.screen.width > 600
+      window.screen.width > 1250
     ) {
       return <NavBar session={session} sessionSwitch={sessionSwitch} />;
     } else {

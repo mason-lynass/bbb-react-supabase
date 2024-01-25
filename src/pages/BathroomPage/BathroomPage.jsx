@@ -64,7 +64,7 @@ export default function BathroomPage({ params }) {
     queryFn: async () => fetchOneBathroomFavorites(id),
   });
 
-  // useEffects 
+  // useEffects
   useEffect(() => {
     if (users && bathroomReviews && oBFavorites) setLoaded(true);
   }, [users, bathroomReviews, oBFavorites]);
@@ -163,14 +163,13 @@ export default function BathroomPage({ params }) {
             <h3>{bathroom.address}</h3>
             <h3>{bathroom.neighborhood}</h3>
           </div>
+          <h3>
+            Average review score: {bathroom.average_score} ({numberOfReviews}{" "}
+            reviews)
+          </h3>
           <p id="one-bathroom-description">{bathroom.description}</p>
-          <div id="one-bathroom-stats">
-            <p>
-              Average review score: {bathroom.average_score} ({numberOfReviews}{" "}
-              reviews)
-            </p>
-            <p>Number of favorites: {thisFavorites}</p>
-          </div>
+          <p>Number of favorites: {thisFavorites}</p>
+
           <div id="one-bathroom-filters">
             <p>{bathroomPublic}</p>
             <p>{genderNeutral}</p>
@@ -203,16 +202,23 @@ export default function BathroomPage({ params }) {
   }
 
   function singleBathroomReviews() {
-    return (
-      <>
-        <h2 id="reviews-title">Reviews</h2>
-        <div id="one-bathroom-reviews">
-          {bathroomReviews.map((r) => (
-            <BathroomPageReview review={r} users={users} key={r.id} />
-          ))}
-        </div>
-      </>
-    );
+    if (bathroomReviews.length < 1)
+      return (
+        <>
+          <h2 id="reviews-title">No Reviews</h2>
+        </>
+      );
+    else
+      return (
+        <>
+          <h2 id="reviews-title">Reviews</h2>
+          <div id="one-bathroom-reviews">
+            {bathroomReviews.map((r) => (
+              <BathroomPageReview review={r} users={users} key={r.id} />
+            ))}
+          </div>
+        </>
+      );
   }
 
   function renderMap() {

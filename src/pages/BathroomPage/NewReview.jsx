@@ -7,6 +7,9 @@ import RatingButton from "../../components/RatingButton";
 import { supabase } from "../../ReactQueryApp";
 
 export default function NewReview({ bathroom, setShowReview, bathroomReviews, setShowSubmitted}) {
+  const body = document.querySelector("body");
+  body.classList.add('bodyBlurAB')
+
   const profile = globalStore((state) => state.profile);
   const [errors, setErrors] = useState([]);
   const [date, setDate] = useState(new Date());
@@ -103,14 +106,19 @@ export default function NewReview({ bathroom, setShowReview, bathroomReviews, se
     });
   }
 
+  function newReviewClose () {
+    setShowReview(false)
+    body.classList.remove('bodyBlurAB')
+  }
+
   return (
     <div>
       <dialog id="new-review-dialog" open>
-        <button id="new-review-close" onClick={() => setShowReview(false)}>
+        <button id="new-review-close" onClick={() => newReviewClose()}>
           x
         </button>
         <h2 id="new-review-title">
-          Add your review for {bathroom.location_name}
+          Add your review for <br></br> {bathroom.location_name}
         </h2>
         <form id="new-review-form" onSubmit={handleSubmit}>
           <section id="nr-review-fields">

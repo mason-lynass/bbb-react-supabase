@@ -129,7 +129,7 @@
   max-width: 800px;
   background-color: var(--dark-blue5);
   padding: 10px;
-  border: .5px solid var(--dark-blue5);
+  border: 0.5px solid var(--dark-blue5);
   border-radius: 5px;
   margin: 30px auto;
   color: white;
@@ -145,7 +145,6 @@
 #homepage-about .one-bathroom-one-review {
   margin: 20px auto;
   padding: 0 20px;
-  
 }
 
 #one-bathroom-location p {
@@ -163,28 +162,30 @@
   border: 1px solid var(--dark-blue5);
 }
 
-#homepage-about .one-bathroom-one-review #review-top {
+#homepage-about .one-bathroom-one-review #review-top p {
   font-family: Josefin Sans;
   font-size: 24px;
+  text-align: center;
 }
 
 @media screen and (max-width: 600px) {
   #home-top-flex {
     display: block;
+    padding: 20px 0 40px 0;
   }
 
   #where-are-you-home {
     width: 100vw;
     height: fit-content;
-    margin-bottom: 10px;
   }
 
-  #where-are-you-home h1 {
+  #where-are-you-home h1,
+  #homepage-about h1 {
     font-size: 24px;
   }
 
   #homepage-filters {
-    padding: 20px 0px;
+    padding: 0px;
     border-radius: 10px;
   }
 
@@ -200,7 +201,7 @@
   }
 
   #homepage-filters-and-neighborhood #neighborhood {
-    margin-top: 20px;
+    margin-bottom: 10px;
   }
 
   #home-slideshow {
@@ -229,40 +230,39 @@
   }
 
   #homepage-about {
-    width: 80vw;
+    width: 85vw;
     padding: 20px;
+  }
+
+  #homepage-about h1 {
+    margin: 40px auto;
   }
 
   #homepage-about p {
     font-size: 14px;
   }
 
-  #homepage-about #single-bathroom-container {
-    width: 75vw;
-    padding: 10px;
-    margin: 30px auto;
-  }
-
+  #homepage-about #single-bathroom-container,
   #homepage-about .one-bathroom-one-review {
-    width: 65vw;
+    width: 75vw;
+    padding: 15px;
     margin: 30px auto;
-    padding: 20px;
   }
 }
 
 @media (prefers-color-scheme: light) {
-
-  #where-are-you-home h1, #homepage-about h1 {
+  #where-are-you-home h1,
+  #homepage-about h1 {
     color: var(--main-darkest);
   }
 
   .slide-text,
-  .one-bathroom-one-review {
+  .one-bathroom-one-review,
+  #homepage-about #single-bathroom-container h1 {
     color: var(--white);
   }
 
   #homepage-about .one-bathroom-one-review {
     background-color: var(--dark-blue5);
   }
-
 }

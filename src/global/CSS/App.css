@@ -77,10 +77,12 @@ nav div a {
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 #mobile-open-menu a {
   width: 50%;
+  max-width: 300px;
   text-align: center;
   margin: 1em auto;
 }
@@ -117,7 +119,7 @@ nav div a {
   text-align: center;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1050px) {
   #logo {
     width: 60px;
     height: 60px;
