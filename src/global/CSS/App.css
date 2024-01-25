@@ -72,7 +72,6 @@ nav div a {
   top: 60px;
   left: 0;
   background-color: var(--dark-blue5);
-  padding: 10px;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
