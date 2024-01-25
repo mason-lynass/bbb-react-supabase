@@ -115,8 +115,9 @@ export default function BathroomForm({ bathrooms }) {
       }
 
       if (
-        newGeocode.results[0].address_components[2].short_name !== "Seattle"
+        newGeocode.results[0].address_components[3].short_name !== "Seattle"
       ) {
+        console.log(newGeocode)
         throw [
           "Please limit submissions to locations inside the city of Seattle.",
         ];

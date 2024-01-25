@@ -204,6 +204,10 @@ dialog button {
     margin: 0;
   }
 
+  #new-bathroom-flex {
+    gap: 10px;
+  }
+
   #all-nb-checks {
     display: block;
   }
@@ -212,18 +216,19 @@ dialog button {
     padding: 0 20px;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
   }
 
   #all-nb-checks .nb-checks label {
-    width: fit-content;
-    max-width: 120px;
+    width: 180px;
     font-size: 14px;
+    text-align: left;
   }
 
   #all-nb-checks .nb-checks input {
     margin-bottom: 5px;
+    width: 40px;
   }
 
 }

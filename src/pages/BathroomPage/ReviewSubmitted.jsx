@@ -1,10 +1,8 @@
 export default function ReviewSubmitted({ locationName, setShowSubmitted }) {
   const body = document.querySelector("body");
 
-  body.classList.add("bodyBlur");
-
   function handleClick() {
-    body.classList.remove("bodyBlur");
+    body.classList.remove("bodyBlurAB");
     setShowSubmitted(false)
   }
   return (
@@ -16,7 +14,7 @@ export default function ReviewSubmitted({ locationName, setShowSubmitted }) {
       <p>
         Your submission will be reviewed by our team and only modified if necessary.
       </p>
-      <button onClick={handleClick}>Got it</button>
+      <button onClick={() => handleClick()}>Got it</button>
     </dialog>
   );
 }

@@ -31,6 +31,8 @@ export default function AllBathrooms({}) {
     queryFn: fetchReviewIDs,
   });
 
+  console.log(bathrooms)
+
   let reviewIDsArray;
 
   const publicButton = document.getElementById("public-button");
@@ -50,22 +52,19 @@ export default function AllBathrooms({}) {
   // if user navigates to AllBathrooms and doesn't interact with the homepage, nothing happens
   useEffect(() => {
     if (!location.state) {
-    } else if (location.state.GNBool) {
-      console.log('GN')
+    } else if (location.state.GNBool === true) {
+      console.log("GN");
       setGNBool(true);
-      GNButton.classList.add("button-active");
-    } else if (location.state.ADABool) {
+    } else if (location.state.ADABool === true) {
       setADABool(true);
-      ADAButton.classList.add("button-active");
-    } else if (location.state.publicBool) {
+    } else if (location.state.publicBool === true) {
       setPublicBool(true);
-      publicButton.classList.add("button-active");
     } else if (location.state.neighborhood) {
       setNeighborhood(location.state.neighborhood);
     } else if (location.state.query) {
       setQuery(location.state.query);
     }
-  }, []);
+  }, [location.state]);
 
   const filteredBathrooms = useMemo(() => {
     if (bathrooms)
@@ -236,16 +235,16 @@ export default function AllBathrooms({}) {
       id="all-bathrooms-flex"
     >
       <div id="all-filters">
-        <div id="all-bathrooms-search">
-          <input
-            id="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            type="search"
-            placeholder="Search by bathroom name"
-          ></input>
-        </div>
-        <div id="filters-and-neighborhood">
+        <div id="search-and-neighborhood">
+          <div id="all-bathrooms-search">
+            <input
+              id="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              type="search"
+              placeholder="Search by bathroom name"
+            ></input>
+          </div>
           <div id="neighborhood">
             <select
               aria-label="Neighborhood"
@@ -265,21 +264,33 @@ export default function AllBathrooms({}) {
               })}
             </select>
           </div>
+        </div>
+        <div id="filters">
           <div id="filter-buttons">
             <button
               id="public-button"
+              className={publicBool === true ? "button-active" : ""}
               onClick={(e) => handleFilterClick("public", e)}
             >
               Public bathrooms
             </button>
-            <button id="ADA-button" onClick={(e) => handleFilterClick("ADA")}>
+            <button
+              id="ADA-button"
+              className={ADABool === true ? "button-active" : ""}
+              onClick={(e) => handleFilterClick("ADA")}
+            >
               ADA compliant
             </button>
-            <button id="GN-button" onClick={(e) => handleFilterClick("GN")}>
+            <button
+              id="GN-button"
+              className={GNBool === true ? "button-active" : ""}
+              onClick={(e) => handleFilterClick("GN")}
+            >
               Gender neutral
             </button>
             <button
               id="reviewed-button"
+              className={reviewed === true ? 'button-active' : ''}
               onClick={(e) => handleFilterClick("reviewed")}
             >
               Reviewed bathrooms
