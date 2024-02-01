@@ -54,9 +54,7 @@ export default function Home({ session }) {
   }
 
   function mostRecentBathroom() {
-    console.log(bathrooms)
     const bathroom = bathrooms.sort((a, b) => b.id - a.id)[0];
-    console.log(bathroom)
 
     const bathroomPublic = bathroom.public == "true" ? "public restroom" : "";
     const ADACompliant =
