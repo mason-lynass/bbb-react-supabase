@@ -238,6 +238,10 @@
     margin: 40px auto;
   }
 
+  #homepage-about h1, #homepage-about h2 {
+    font-size: 18px;
+  }
+
   #homepage-about p {
     font-size: 14px;
   }
