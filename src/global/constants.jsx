@@ -10,6 +10,7 @@ export const neighborhoods = [
     "Cedar Park",
     "Central District",
     "Columbia City",
+    "Crown Hill",
     "Downtown Seattle",
     "Dunlap",
     "Fauntelroy",
@@ -64,6 +65,7 @@ export const neighborhoods = [
     "University Heights",
     "View Ridge",
     "Wallingford",
+    "Wedgwood",
     "West Queen Anne",
     "West Woodland",
   ];
