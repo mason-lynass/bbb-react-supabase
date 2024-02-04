@@ -1,6 +1,7 @@
-#near-me {
+/* #near-me {
   min-height: calc(100vh - 65px);
-}
+} */
+
 
 #near-me-top-flex {
   display: flex;
@@ -62,7 +63,7 @@ form button {
 #all-bathrooms-map {
   width: 90vw;
   max-width: 1400px;
-  height: 70vh;
+  height: calc(100vh - 221px - 100px);
   margin: 0 auto;
   margin-top: 40px;
   border: 5px solid var(--dark-blue3);

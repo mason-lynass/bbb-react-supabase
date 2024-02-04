@@ -119,13 +119,8 @@ nav div a {
 }
 
 @media screen and (max-width: 1050px) {
-  #logo {
-    width: 60px;
-    height: 60px;
-  }
 
-  #logo-container {
-    width: 60px;
-    height: 60px;
+  #nav-bar {
+    justify-content: center;
   }
 }

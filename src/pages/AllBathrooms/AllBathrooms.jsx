@@ -31,14 +31,7 @@ export default function AllBathrooms({}) {
     queryFn: fetchReviewIDs,
   });
 
-  console.log(bathrooms)
-
   let reviewIDsArray;
-
-  const publicButton = document.getElementById("public-button");
-  const ADAButton = document.getElementById("ADA-button");
-  const GNButton = document.getElementById("GN-button");
-  const reviewedButton = document.getElementById("reviewed-button");
 
   // this is for the search filter
   const [query, setQuery] = useState("");
@@ -53,7 +46,6 @@ export default function AllBathrooms({}) {
   useEffect(() => {
     if (!location.state) {
     } else if (location.state.GNBool === true) {
-      console.log("GN");
       setGNBool(true);
     } else if (location.state.ADABool === true) {
       setADABool(true);
@@ -83,6 +75,11 @@ export default function AllBathrooms({}) {
   }, [reviewIDs]);
 
   function handleFilterClick(button, e) {
+    const publicButton = document.getElementById("public-button");
+    const ADAButton = document.getElementById("ADA-button");
+    const GNButton = document.getElementById("GN-button");
+    const reviewedButton = document.getElementById("reviewed-button");
+
     switch (button) {
       case "public":
         if (publicBool === true) {
@@ -117,7 +114,6 @@ export default function AllBathrooms({}) {
         setReviewed(!reviewed);
         break;
       default:
-        console.log("nothing");
         break;
     }
   }
@@ -290,7 +286,7 @@ export default function AllBathrooms({}) {
             </button>
             <button
               id="reviewed-button"
-              className={reviewed === true ? 'button-active' : ''}
+              className={reviewed === true ? "button-active" : ""}
               onClick={(e) => handleFilterClick("reviewed")}
             >
               Reviewed bathrooms

@@ -5,8 +5,9 @@
   padding: 50px;
 }
 
-#bathroom-name {
+#bathroom-top-split #bathroom-name {
   text-align: center;
+  font-size: 36px;
   margin-top: 30px;
   font-family: Josefin Sans;
 }
@@ -16,6 +17,7 @@
   grid-template-columns: 1fr 500px;
   /* background-color: var(--dark-blue3); */
   padding: 0 calc(20px + 5vw);
+  min-height: 400px;
 }
 
 #bathroom-top-split section {
@@ -39,6 +41,7 @@
 
 #single-bathroom-container h3 {
   margin: 10px;
+  font-size: 24px;
 }
 
 #one-bathroom-description,
@@ -49,6 +52,10 @@
 #one-bathroom-description {
   padding: 0 10px;
   margin-top: 40px;
+}
+
+#bathroom-top-split #single-bathroom-container p {
+  font-size: 20px;
 }
 
 #one-bathroom-filters p {
@@ -85,6 +92,7 @@
   justify-content: center;
   align-items: center;
   margin: 0px;
+  margin-bottom: 20px;
   gap: 20px;
   /* background-color: var(--dark-blue3); */
   /* min-height: 600px; */
@@ -256,6 +264,16 @@
 
   #single-bathroom-container #bathroom-name {
     padding-top: 10px;
+    font-size: 30px;
+  }
+
+  #bathroom-top-split section #single-bathroom-container h3 {
+    font-size: 16px;
+  }
+
+  #bathroom-top-split section #single-bathroom-container p {
+    font-size: 14px;
+    margin: 20px auto;
   }
 
   #one-bathroom-location h3 {
