@@ -128,7 +128,7 @@
 }
 
 #neighborhood {
-  width: 250px;
+  width: 300px;
 }
 
 #all-filters :is(input, button, select):hover {

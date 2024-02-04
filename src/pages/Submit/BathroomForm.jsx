@@ -136,7 +136,7 @@ export default function BathroomForm({ bathrooms }) {
         gender_neutral: gnBool,
         ada_compliant: ADABool,
         average_score:
-          (cleanlinessRating + styleRating + bathroomFunctionRating) / 3,
+          ((cleanlinessRating + styleRating + bathroomFunctionRating) / 3).toFixed(2),
         submitted_by: profile.id,
       });
     } catch (error) {
