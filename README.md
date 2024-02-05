@@ -1,12 +1,16 @@
 # Better Bathroom Bureau
 
-Better Bathroom Bureau [betterbathroombureau.org](betterbathroombureau.org) is an website dedicated to helping residents and visitors of Seattle access bathroom facilities around the city.
+[Better Bathroom Bureau](betterbathroombureau.org) is an website dedicated to helping residents and visitors of Seattle access bathroom facilities around the city.
 
 Our web app catalogues bathrooms that users of the site submit, along with user reviews and ratings for each facility.
 
 ## About
 
-BBB started as a Tumblr blog of bathroom reviews, written by Mason shortly after moving to Seattle in 2015. In 2022, Mason and [Alex Naughton](https://lexdotcom.com) worked together during their time in a Flatiron School software development bootcamp to develop an alpha version of a BBB website, with a few main pages of the current website and simple features. Starting in the summer of 2023, Mason began to expand on the previous work from bootcamp and build a performant, user-friendly, fast web application, with help from Alex, Evan House, and Matt Phan.
+BBB started as a Tumblr blog of bathroom reviews, written by Mason shortly after moving to Seattle in 2015. 
+
+In 2022, Mason and [Alex Naughton](https://lexdotcom.com) worked together during their time in a Flatiron School software development bootcamp to develop an alpha version of a BBB website, with a few main pages of the current website and simple features. 
+
+Starting in the summer of 2023, Mason began to expand on the previous work from bootcamp and build a performant, user-friendly, fast web application, with help from Alex, Evan House, and Matt Phan.
 
 ## Technologies used:
 
