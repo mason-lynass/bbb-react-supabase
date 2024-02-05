@@ -17,12 +17,19 @@ Starting in the summer of 2023, Mason began to expand on the previous work from 
 This repo contains a React-Vite web application, which connects to an external Supabase Postgres database & API.
 
 The React-Vite front end uses the following technologies:
+
 React-Query - for simplified data fetching, caching, and mutation
+
 Zustand - small, fast state management
+
 React Router 6 - for client-side routing with BrowserRouter
+
 Supabase JS - to communicate with the Supabase Postgres database 
+
 Framer Motion
+
 React DatePicker
+
 Google Maps React map components
 
 This website is deployed with Vercel.
