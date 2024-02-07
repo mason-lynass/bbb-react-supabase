@@ -83,13 +83,11 @@ export default function Home({ session }) {
 
   function mostRecentReview() {
     const bathroomIDs = [...bathrooms].map((b) => b.id);
-
     const approvedReviews = [...reviews].filter((review) =>
       bathroomIDs.includes(review.bathroom_id)
     );
-
     const review = approvedReviews.sort((a, b) => b.id - a.id)[0];
-    const targetBathroom = [...bathrooms].find((b) => (b.id = review.bathroom_id));
+    const targetBathroom = [...bathrooms].find((b) => (b.id === review.bathroom_id));
 
     return (
       <Link to={`/bathrooms/${targetBathroom.id}`} key={targetBathroom.location_name}>
