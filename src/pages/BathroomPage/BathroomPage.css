@@ -190,7 +190,7 @@
   display: block;
   background-color: var(--green-light);
   margin: 30px auto 0 auto;
-  color: var(--dark-blue1);
+  color: var(--dark-blue5);
 }
 
 #new-review-close {
@@ -234,6 +234,10 @@
 
   #one-bathroom-filters p {
     background-color: var(--dark-blue3);
+    color: white;
+  }
+
+  #new-review-dialog {
     color: white;
   }
 
