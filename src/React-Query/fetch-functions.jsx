@@ -1,4 +1,4 @@
-import { supabase } from "../ReactQueryApp";
+import { supabase } from "../global/constants";
 
 // fetch functions, getting data from Supabase using react-query
 // sometimes we will need to get individual rows instead of all of the rows
@@ -7,12 +7,12 @@ import { supabase } from "../ReactQueryApp";
 // things related to all users or one user
 
 export async function fetchUsers() {
-  const { data, error } = await supabase.from("users").select();
+  const { data } = await supabase.from("users").select();
   return data;
 }
 
 export async function fetchOneUser(params) {
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from("users")
     .select()
     .eq("id", params.id);
@@ -20,7 +20,7 @@ export async function fetchOneUser(params) {
 }
 
 export async function fetchOneUserBathrooms(params) {
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from("bathrooms")
     .select()
     .eq("submitted_by", params.id);
@@ -28,7 +28,7 @@ export async function fetchOneUserBathrooms(params) {
 }
 
 export async function fetchOneUserReviews(params) {
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from("reviews")
     .select()
     .eq("user_id", params.id);
@@ -36,7 +36,7 @@ export async function fetchOneUserReviews(params) {
 }
 
 export async function fetchOneUserFavorites(params) {
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from("favorites")
     .select()
     .eq("user_id", params.id);
@@ -46,7 +46,7 @@ export async function fetchOneUserFavorites(params) {
 /// things related to bathrooms
 
 export async function fetchAllBathrooms() {
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from("bathrooms")
     .select()
     .order("id", { ascending: false });
@@ -54,7 +54,7 @@ export async function fetchAllBathrooms() {
 }
 
 export async function fetchApprovedBathrooms() {
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from("bathrooms")
     .select()
     .eq("approved", true)
@@ -63,7 +63,7 @@ export async function fetchApprovedBathrooms() {
 }
 
 export async function fetchOneBathroom(params) {
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from("bathrooms")
     .select()
     .eq("id", params.bathroomid);
@@ -77,7 +77,7 @@ export async function fetchOneBathroomReviewsUsers(paramsArray) {
   // console.log(paramsArray)
   let searchArray = [];
   paramsArray.forEach((p) => searchArray.push(p.id));
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from("users")
     .select()
     .eq("id", searchArray);
@@ -87,12 +87,12 @@ export async function fetchOneBathroomReviewsUsers(paramsArray) {
 /// things related to reviews
 
 export async function fetchReviews() {
-  const { data, error } = await supabase.from("reviews").select();
+  const { data } = await supabase.from("reviews").select();
   return data;
 }
 
 export async function fetchOneBathroomReviews(params) {
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from("reviews")
     .select()
     .eq("bathroom_id", params.bathroomid);
@@ -100,19 +100,19 @@ export async function fetchOneBathroomReviews(params) {
 }
 
 export async function fetchReviewIDs() {
-  const { data, error } = await supabase.from("reviews").select("bathroom_id");
+  const { data } = await supabase.from("reviews").select("bathroom_id");
   return data;
 }
 
 /// things related to favorites
 
 export async function fetchFavorites() {
-  const { data, error } = await supabase.from("favorites").select();
+  const { data } = await supabase.from("favorites").select();
   return data;
 }
 
 export async function fetchOneBathroomFavorites(params) {
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from("favorites")
     .select()
     .eq("bathroom_id", params.bathroomid);

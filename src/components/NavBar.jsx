@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { globalStore } from "../global/Zustand";
 import Logo3 from "../assets/bbb-molly-logo-3.png";
 
-export default function NavBar({ sessionSwitch }) {
+export default function NavBar() {
   const session = globalStore((state) => state.session);
 
   function loginOrAccount() {

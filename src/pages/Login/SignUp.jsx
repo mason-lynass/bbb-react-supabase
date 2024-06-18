@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { supabase } from "../../ReactQueryApp";
+import { supabase } from "../../global/constants";
 import { useNavigate } from "react-router-dom";
 import { motion as m } from "framer-motion";
 
@@ -20,7 +20,7 @@ export default function SignUp() {
         throw [
           "Please ensure that both password fields are identical and try again.",
         ];
-      const { data, error: signUpError } = await supabase.auth.signUp({ email, password });
+      const { error: signUpError } = await supabase.auth.signUp({ email, password });
       
       if (signUpError) throw [signUpError.error_description || signUpError.message]
 

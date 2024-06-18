@@ -7,7 +7,7 @@ import Login from "../Login/Login";
 import "./Submit.css";
 
 export default function Submit({ setBathrooms }) {
-  const { status, error, data: bathrooms} = useQuery({
+  const { data: bathrooms} = useQuery({
     queryKey: ['all-bathrooms'],
     queryFn: fetchAllBathrooms
 })

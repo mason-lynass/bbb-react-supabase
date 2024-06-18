@@ -5,11 +5,9 @@ import { useQuery } from "@tanstack/react-query";
 
 import "./Best.css";
 import BestBathroom from "./BestBathroom";
-import { globalStore } from "../../global/Zustand";
 import { fetchApprovedBathrooms } from "../../React-Query/fetch-functions";
 
-
-export default function Best({}) {
+export default function Best() {
   const [loaded, setLoaded] = useState(false);
   const [best, setBest] = useState([]);
 
@@ -19,7 +17,7 @@ export default function Best({}) {
   // where they will already fetch approvedBathrooms, so might as well just use that instead of making a separate DB request
   const {
     status: bathroomsStatus,
-    error: bathroomsError,
+    // error: bathroomsError,
     data: bathrooms,
   } = useQuery({
     queryKey: ["approved-bathrooms"],

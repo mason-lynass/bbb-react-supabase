@@ -5,26 +5,20 @@ import {
   fetchApprovedBathrooms,
   fetchReviews,
 } from "../../React-Query/fetch-functions";
-import { globalStore } from "../../global/Zustand";
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "../../ReactQueryApp";
 import "./Home.css";
 import { neighborhoods } from "../../global/constants";
 import HomeSlideshow from "./HomeSlideshow";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export default function Home({ session }) {
+export default function Home() {
   const navigate = useNavigate();
 
   const [query, setQuery] = useState("");
-  const [publicBool, setPublicBool] = useState(false);
-  const [ADABool, setADABool] = useState(false);
-  const [GNBool, setGNBool] = useState(false);
-  const [neighborhood, setNeighborhood] = useState("none");
+  const neighborhood = 'none'
 
   const {
     status,
-    error,
     data: bathrooms,
   } = useQuery({
     queryKey: ["approved-bathrooms"],
@@ -33,7 +27,7 @@ export default function Home({ session }) {
 
   const {
     status: rstatus,
-    error: rerror,
+    // error: rerror,
     data: reviews,
   } = useQuery({
     queryKey: ["all-reviews"],
@@ -87,10 +81,15 @@ export default function Home({ session }) {
       bathroomIDs.includes(review.bathroom_id)
     );
     const review = approvedReviews.sort((a, b) => b.id - a.id)[0];
-    const targetBathroom = [...bathrooms].find((b) => (b.id === review.bathroom_id));
+    const targetBathroom = [...bathrooms].find(
+      (b) => b.id === review.bathroom_id
+    );
 
     return (
-      <Link to={`/bathrooms/${targetBathroom.id}`} key={targetBathroom.location_name}>
+      <Link
+        to={`/bathrooms/${targetBathroom.id}`}
+        key={targetBathroom.location_name}
+      >
         <div className="one-bathroom-one-review" key={review.id}>
           <div id="review-top">
             <p>{targetBathroom.location_name}</p>
@@ -149,7 +148,7 @@ export default function Home({ session }) {
                     placeholder="Search by bathroom name"
                   ></input>
                   <button
-                    onClick={(e) =>
+                    onClick={() =>
                       navigate("/bathrooms", { state: { query: query } })
                     }
                   >
@@ -183,19 +182,19 @@ export default function Home({ session }) {
                   <div id="filter-buttons">
                     <button
                       id="public-button"
-                      onClick={(e) => handleFilterClick("public")}
+                      onClick={() => handleFilterClick("public")}
                     >
                       Public restroom
                     </button>
                     <button
                       id="ADA-button"
-                      onClick={(e) => handleFilterClick("ADA")}
+                      onClick={() => handleFilterClick("ADA")}
                     >
                       ADA compliant
                     </button>
                     <button
                       id="GN-button"
-                      onClick={(e) => handleFilterClick("GN")}
+                      onClick={() => handleFilterClick("GN")}
                     >
                       Gender neutral
                     </button>

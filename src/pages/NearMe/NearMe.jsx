@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { motion as m } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
-import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import { GMKey } from "../../ReactQueryApp";
+import { Wrapper } from "@googlemaps/react-wrapper";
+import { GMKey, seattle } from "../../global/constants";
 import NearMeMap from "./NearMeMap";
 import Marker from "../../components/Marker";
 import { fetchApprovedBathrooms } from "../../React-Query/fetch-functions";
 import "./NearMe.css";
-import { seattle } from "../../global/constants";
 
 // lex and I figured a lot of this out here:
 // https://github.com/alexbriannaughton/bbb-app/blob/main/client/src/components/MapViewHomepage.js
@@ -21,7 +20,7 @@ export default function NearMe() {
 
   const {
     isLoading: bathroomsLoading,
-    error,
+    // error,
     data: bathrooms,
   } = useQuery({
     queryKey: ["approved-bathrooms"],
@@ -31,6 +30,7 @@ export default function NearMe() {
   if (bathroomsLoading == true) return <h2>loading...</h2>;
 
   function allBathrooms() {
+
     let allTheBathrooms = [...bathrooms];
 
     const publicBathrooms = [...bathrooms].filter((b) => b.public === true);
@@ -107,7 +107,7 @@ export default function NearMe() {
     }
   }
 
-  function handleFilterClick(button, e) {
+  function handleFilterClick(button) {
     const publicButton = document.getElementById("public-button");
     const ADAButton = document.getElementById("ADA-button");
     const GNButton = document.getElementById("GN-button");
@@ -174,14 +174,14 @@ export default function NearMe() {
             <div id="map-filter-buttons" className="filter-buttons">
               <button
                 id="public-button"
-                onClick={(e) => handleFilterClick("public")}
+                onClick={() => handleFilterClick("public")}
               >
                 Public restroom
               </button>
-              <button id="ADA-button" onClick={(e) => handleFilterClick("ADA")}>
+              <button id="ADA-button" onClick={() => handleFilterClick("ADA")}>
                 ADA compliant
               </button>
-              <button id="GN-button" onClick={(e) => handleFilterClick("GN")}>
+              <button id="GN-button" onClick={() => handleFilterClick("GN")}>
                 Gender neutral
               </button>
             </div>

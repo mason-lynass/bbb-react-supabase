@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { motion as m } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { globalStore } from "../../global/Zustand";
-import { supabase } from "../../ReactQueryApp";
+import { supabase } from "../../global/constants";
 import { fetchUsers } from "../../React-Query/fetch-functions";
 import "./Login.css";
 
@@ -22,7 +22,7 @@ export default function Login() {
   const {
     data: users,
     isLoading: usersLoading,
-    isError: usersError,
+    // isError: usersError,
   } = useQuery({
     queryKey: ["users"],
     queryFn: async () => fetchUsers(),

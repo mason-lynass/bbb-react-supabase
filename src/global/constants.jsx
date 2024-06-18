@@ -1,4 +1,10 @@
+import { createClient } from "@supabase/supabase-js";
+
 export const seattle = { lat: 47.6262, lng: -122.3321 };
+
+export const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY);
+
+export const GMKey = import.meta.env.VITE_GOOGLE_MAPS_KEY;
 
 export const neighborhoods = [
     "Alki",
@@ -57,6 +63,7 @@ export const neighborhoods = [
     "Matthews Beach",
     "Meadowbrook",
     "Mid-Beacon Hill",
+    "Minor",
     "Montlake",
     "Mount Baker",
     "North Admiral",

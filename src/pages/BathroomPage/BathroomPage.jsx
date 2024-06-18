@@ -11,17 +11,16 @@ import {
   fetchOneBathroom,
   fetchOneBathroomFavorites,
   fetchOneBathroomReviews,
-  fetchOneBathroomReviewsUsers,
   fetchUsers,
 } from "../../React-Query/fetch-functions";
 import { globalStore } from "../../global/Zustand";
-import { GMKey } from "../../ReactQueryApp";
-import { supabase } from "../../ReactQueryApp";
+import { GMKey } from "../../global/constants";
+import { supabase } from "../../global/constants";
 import NoBathroomFound from "./NoBathroomFound";
 import ReviewSubmitted from "./ReviewSubmitted";
 import { queryClient } from "../../main";
 
-export default function BathroomPage({ params }) {
+export default function BathroomPage() {
   const id = useParams();
   const profile = globalStore((state) => state.profile);
   const [showReview, setShowReview] = useState(false);
@@ -34,7 +33,7 @@ export default function BathroomPage({ params }) {
   // RQ queries
   const {
     status: oBStatus,
-    error: oBError,
+    // error: oBError,
     data: bathroom,
   } = useQuery({
     queryKey: ["bathrooms", parseInt(id.bathroomid)],
@@ -42,8 +41,8 @@ export default function BathroomPage({ params }) {
   });
 
   const {
-    status: oBReviewStatus,
-    error: oBReviewError,
+    // status: oBReviewStatus,
+    // error: oBReviewError,
     data: bathroomReviews,
   } = useQuery({
     queryKey: ["reviews", { bathroom: parseInt(id.bathroomid) }],
@@ -56,8 +55,8 @@ export default function BathroomPage({ params }) {
   });
 
   const {
-    status: oBFavoritesStatus,
-    error: oBFavoritesError,
+    // status: oBFavoritesStatus,
+    // error: oBFavoritesError,
     data: oBFavorites,
   } = useQuery({
     queryKey: ["favorites", { favorite: parseInt(id.bathroomid) }],
@@ -119,7 +118,7 @@ export default function BathroomPage({ params }) {
         .delete()
         .eq("id", userBathroomFavorite.id);
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       setUserBathroomFavorite(null);
       updateBathroomNumberOfFavoritesRPC(parseInt(id.bathroomid));
       queryClient.invalidateQueries({
@@ -130,10 +129,11 @@ export default function BathroomPage({ params }) {
 
   async function updateBathroomNumberOfFavoritesRPC(bathroom_id) {
     const bathroomid = bathroom_id;
-    const { data, error } = await supabase.rpc(
+    const { error } = await supabase.rpc(
       "update_bathroom_number_of_favorites",
       { bathroomid }
     );
+    if (error) console.error(error)
   }
 
   function addFavorite() {

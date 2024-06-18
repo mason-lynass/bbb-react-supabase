@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { motion as m } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { globalStore } from "../../global/Zustand";
 import {
   fetchApprovedBathrooms,
   fetchReviewIDs,
@@ -10,12 +9,12 @@ import {
 import { neighborhoods } from "../../global/constants";
 import "./AllBathrooms.css";
 
-export default function AllBathrooms({}) {
+export default function AllBathrooms() {
   const location = useLocation();
 
   const {
     status,
-    error,
+    // error,
     data: bathrooms,
   } = useQuery({
     queryKey: ["approved-bathrooms"],
@@ -23,8 +22,8 @@ export default function AllBathrooms({}) {
   });
 
   const {
-    reviewsStatus,
-    reviewsError,
+    // reviewsStatus,
+    // reviewsError,
     data: reviewIDs,
   } = useQuery({
     queryKey: ["review-ids"],
@@ -45,6 +44,7 @@ export default function AllBathrooms({}) {
   // if user navigates to AllBathrooms and doesn't interact with the homepage, nothing happens
   useEffect(() => {
     if (!location.state) {
+      console.log('no location state')
     } else if (location.state.GNBool === true) {
       setGNBool(true);
     } else if (location.state.ADABool === true) {
@@ -74,7 +74,7 @@ export default function AllBathrooms({}) {
     }
   }, [reviewIDs]);
 
-  function handleFilterClick(button, e) {
+  function handleFilterClick(button) {
     const publicButton = document.getElementById("public-button");
     const ADAButton = document.getElementById("ADA-button");
     const GNButton = document.getElementById("GN-button");
@@ -144,6 +144,7 @@ export default function AllBathrooms({}) {
           .filter((b) => b.ada_compliant === true)
           .filter((b) => b.gender_neutral === true)
           .filter((b) => b.public === true);
+          break;
       case publicBool && ADABool && GNBool:
         allTheBathrooms = publicBathrooms
           .filter((b) => b.ada_compliant === true)
@@ -201,6 +202,7 @@ export default function AllBathrooms({}) {
         break;
       case reviewed:
         allTheBathrooms = reviewedBathrooms;
+        break;
       default:
         break;
     }
@@ -266,28 +268,28 @@ export default function AllBathrooms({}) {
             <button
               id="public-button"
               className={publicBool === true ? "button-active" : ""}
-              onClick={(e) => handleFilterClick("public", e)}
+              onClick={() => handleFilterClick("public")}
             >
               Public bathrooms
             </button>
             <button
               id="ADA-button"
               className={ADABool === true ? "button-active" : ""}
-              onClick={(e) => handleFilterClick("ADA")}
+              onClick={() => handleFilterClick("ADA")}
             >
               ADA compliant
             </button>
             <button
               id="GN-button"
               className={GNBool === true ? "button-active" : ""}
-              onClick={(e) => handleFilterClick("GN")}
+              onClick={() => handleFilterClick("GN")}
             >
               Gender neutral
             </button>
             <button
               id="reviewed-button"
               className={reviewed === true ? "button-active" : ""}
-              onClick={(e) => handleFilterClick("reviewed")}
+              onClick={() => handleFilterClick("reviewed")}
             >
               Reviewed bathrooms
             </button>
