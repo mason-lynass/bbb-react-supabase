@@ -9,6 +9,7 @@ import {
 import { neighborhoods } from "../../global/constants";
 import "./AllBathrooms.css";
 
+
 export default function AllBathrooms() {
   const location = useLocation();
 
@@ -45,7 +46,8 @@ export default function AllBathrooms() {
   useEffect(() => {
     if (!location.state) {
       console.log('no location state')
-    } else if (location.state.GNBool === true) {
+    }
+    else if (location.state.GNBool === true) {
       setGNBool(true);
     } else if (location.state.ADABool === true) {
       setADABool(true);

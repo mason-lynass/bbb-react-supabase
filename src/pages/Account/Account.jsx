@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { motion as m } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
-
+import useSound from "use-sound";
 import "./Account.css";
 import { globalStore } from "../../global/Zustand";
 import { supabase } from "../../global/constants";
@@ -12,6 +12,7 @@ import {
   fetchReviews,
 } from "../../React-Query/fetch-functions";
 import ResetPw from "../Login/ResetPw";
+import toiletFlushing from "../../assets/audio/toilet-flushing.mp3"
 
 export default function Account() {
   const [username, setUsername] = useState("");
@@ -22,9 +23,8 @@ export default function Account() {
   const [showResetPassword, setShowResetPassword] = useState(false);
   const [errors, setErrors] = useState(null);
 
-  // const session = globalStore((state) => state.session);
   const profile = globalStore((state) => state.profile);
-  // const navigate = useNavigate();
+  const [playToilet] = useSound(toiletFlushing)
 
   const {
     // status: bathroomStatus,
@@ -97,7 +97,10 @@ export default function Account() {
   async function signOut() {
     const { error } = await supabase.auth.signOut();
     if (error) console.log(error)
-    else globalStore.setState({ profile: null });
+    else {
+  globalStore.setState({ profile: null })
+  playToilet()
+}
   }
 
   function resetPassword() {

@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Wrapper } from "@googlemaps/react-wrapper";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import "./BathroomPage.css";
 import NewReview from "./NewReview";
-import BathroomPageMap from "./BathroomPageMap";
+import { Map, AdvancedMarker, Pin } from "@vis.gl/react-google-maps";
 import BathroomPageReview from "./BathroomPageReview";
-import Marker from "../../components/Marker";
 import {
   fetchOneBathroom,
   fetchOneBathroomFavorites,
@@ -14,7 +12,6 @@ import {
   fetchUsers,
 } from "../../React-Query/fetch-functions";
 import { globalStore } from "../../global/Zustand";
-import { GMKey } from "../../global/constants";
 import { supabase } from "../../global/constants";
 import NoBathroomFound from "./NoBathroomFound";
 import ReviewSubmitted from "./ReviewSubmitted";
@@ -223,12 +220,15 @@ export default function BathroomPage() {
 
   function renderMap() {
     if (location) {
+      const mapID = `${bathroom.location_name}_MAP_ID`
       return (
-        <Wrapper apiKey={GMKey}>
-          <BathroomPageMap center={location} zoom={14}>
-            <Marker position={location} />
-          </BathroomPageMap>
-        </Wrapper>
+        <Map defaultCenter={location} defaultZoom={14} 
+        mapId={mapID} reuseMaps={true}
+        >
+          <AdvancedMarker key={bathroom.location_name} position={location}>
+            <Pin/>
+          </AdvancedMarker>
+        </Map>
       );
     }
   }

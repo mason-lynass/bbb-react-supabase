@@ -5,10 +5,13 @@ import { useQuery } from "@tanstack/react-query";
 import { globalStore } from "../../global/Zustand";
 import { supabase } from "../../global/constants";
 import { fetchUsers } from "../../React-Query/fetch-functions";
+import useSound from "use-sound";
+import doorOpening from '../../assets/audio/door-opening.mp3'
 import "./Login.css";
 
 export default function Login() {
   const navigate = useNavigate();
+  const [playDoor] = useSound(doorOpening)
   const session = globalStore((state) => state.session);
   const profile = globalStore((state) => state.profile);
 
@@ -45,7 +48,7 @@ export default function Login() {
     event.preventDefault();
     const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
       // CHANGE THIS ONCE YOU GET A REAL DOMAIN
-      redirectTo: "http://better-bathroom-bureau.vercel.app/account",
+      redirectTo: "http://www.betterbathroombureau.org/account",
     });
     if (error) alert(error.error_description || error.message);
     if (data) setSuccessMessage(true);
@@ -88,6 +91,7 @@ export default function Login() {
   if (usersLoading == true) return <h2>loading...</h2>;
 
   if (session && profile) {
+    playDoor()
     return <Navigate to="/account" replace={true} />;
   }
 
