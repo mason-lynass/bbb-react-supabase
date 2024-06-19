@@ -1,32 +1,48 @@
 import { useState } from "react";
 import { motion as m } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
-import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import { GMKey } from "../../ReactQueryApp";
-import NearMeMap from "./NearMeMap";
-import Marker from "../../components/Marker";
+import { GMKey, seattle } from "../../global/constants";
+import { globalStore } from "../../global/Zustand";
+import { Map, AdvancedMarker, Pin } from "@vis.gl/react-google-maps";
 import { fetchApprovedBathrooms } from "../../React-Query/fetch-functions";
 import "./NearMe.css";
-import { seattle } from "../../global/constants";
 
 // lex and I figured a lot of this out here:
 // https://github.com/alexbriannaughton/bbb-app/blob/main/client/src/components/MapViewHomepage.js
 
 export default function NearMe() {
-  const [userLocation, setUserLocation] = useState('');
-  const [userGeocode, setUserGeocode] = useState(null);
+  const [userLocation, setUserLocation] = useState("");
+  const [userLocationError, setUserLocationError] = useState([]);
+  const [clickedPin, setClickedPin] = useState('')
+  const [mapCenter, setMapCenter] = useState(seattle);
   const [publicBool, setPublicBool] = useState(false);
+  const [zoom, setZoom] = useState(12);
   const [ADABool, setADABool] = useState(false);
   const [GNBool, setGNBool] = useState(false);
+  const profile = globalStore((state) => state.profile);
 
   const {
     isLoading: bathroomsLoading,
-    error,
+    // error,
     data: bathrooms,
   } = useQuery({
     queryKey: ["approved-bathrooms"],
     queryFn: fetchApprovedBathrooms,
   });
+
+  function pinClick() {
+    if (clickedPin.id) {
+      const linkTo = `bathrooms/${clickedPin.id}`
+      return (
+        <div id='clicked-pin-info'>
+          <h4>{clickedPin.location_name} - {clickedPin.address}</h4>
+          <a href={linkTo}>check out this bathroom page</a>
+        </div>
+      )
+    }
+    else return <div>
+    </div>
+  }
 
   if (bathroomsLoading == true) return <h2>loading...</h2>;
 
@@ -75,39 +91,94 @@ export default function NearMe() {
         lng: bathroom.longitude,
       };
 
-      return (
-        <Marker
-          key={bathroom.id}
-          position={position}
-          bathroom={bathroom}
-          bathrooms={bathrooms}
-        />
-      );
+      if (profile && bathroom.submitted_by === profile.id) {
+        return (
+          <AdvancedMarker
+            key={bathroom.id}
+            position={position}
+            bathroom={bathroom}
+            bathrooms={bathrooms}
+            onClick={() => setClickedPin(bathroom)}
+          >
+            <Pin
+              background={"#5facd0"}
+              glyphColor={"#FFFFFF"}
+              borderColor={"#101e53"}
+            />
+          </AdvancedMarker>
+        );
+      } else
+        return (
+          <AdvancedMarker
+            key={bathroom.id}
+            position={position}
+            bathroom={bathroom}
+            bathrooms={bathrooms}
+            onClick={() => setClickedPin(bathroom)}
+          >
+            <Pin
+              background={"#101e53"}
+              glyphColor={"#FFFFFF"}
+              borderColor={"#5facd0"}
+            />
+          </AdvancedMarker>
+        );
     });
   }
 
   function renderMap() {
+    let mapID = `NEAR_ME_MAP_ID`;
     return (
-      <Wrapper classname="Wrapper" apiKey={GMKey}>
-        <NearMeMap seattle={seattle} zoom={11} userGeocode={userGeocode}>
-          {allBathrooms()}
-        </NearMeMap>
-      </Wrapper>
+      <Map
+        defaultCenter={mapCenter}
+        defaultZoom={zoom}
+        mapId={mapID}
+        reuseMaps={true}
+      >
+        {allBathrooms()}
+      </Map>
     );
   }
 
   async function handleAddressSubmit(e) {
     e.preventDefault();
-    if (userLocation !== '') {
+    if (userLocation !== "") {
       const googleResp = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${userLocation},seattle&key=${GMKey}`
       );
       const newGeocode = await googleResp.json();
-      setUserGeocode(newGeocode.results[0].geometry.location);
+      console.log(newGeocode);
+      if (newGeocode.error_message && newGeocode.status === "REQUEST_DENIED")
+        setUserLocationError([
+          "This address cannot be geolocated. Please avoid using symbols, apartment / suite numbers, city names or zip codes",
+        ]);
+      else {
+        setUserLocationError([]);
+        setMapCenter(newGeocode.results[0].geometry.location);
+        setZoom(15);
+      }
     }
   }
 
-  function handleFilterClick(button, e) {
+  function displayLocationErrors() {
+    return userLocationError.map((err) => {
+      let errorStyle = {
+        color: "red",
+        fontSize: "12px",
+        width: "70vw",
+        maxWidth: "400px",
+        margin: "20px auto",
+        textAlign: "center",
+      };
+      return (
+        <p style={errorStyle} key={err}>
+          {err}
+        </p>
+      );
+    });
+  }
+
+  function handleFilterClick(button) {
     const publicButton = document.getElementById("public-button");
     const ADAButton = document.getElementById("ADA-button");
     const GNButton = document.getElementById("GN-button");
@@ -151,7 +222,7 @@ export default function NearMe() {
       <main id="near-me">
         <section id="where-are-you">
           <h3>Where are you?</h3>
-          <div id='near-me-top-flex'>
+          <div id="near-me-top-flex">
             <form onSubmit={handleAddressSubmit}>
               <label htmlFor="address">Address:</label>
               <input
@@ -164,30 +235,34 @@ export default function NearMe() {
               <button type="submit">Submit</button>
               <button
                 onClick={() => {
-                  setUserGeocode(null);
-                  setUserLocation(null);
+                  setMapCenter(seattle);
+                  setZoom(11);
+                  setUserLocation("");
                 }}
               >
                 Clear
               </button>
             </form>
+
             <div id="map-filter-buttons" className="filter-buttons">
               <button
                 id="public-button"
-                onClick={(e) => handleFilterClick("public")}
+                onClick={() => handleFilterClick("public")}
               >
                 Public restroom
               </button>
-              <button id="ADA-button" onClick={(e) => handleFilterClick("ADA")}>
+              <button id="ADA-button" onClick={() => handleFilterClick("ADA")}>
                 ADA compliant
               </button>
-              <button id="GN-button" onClick={(e) => handleFilterClick("GN")}>
+              <button id="GN-button" onClick={() => handleFilterClick("GN")}>
                 Gender neutral
               </button>
             </div>
           </div>
+          {displayLocationErrors()}
+          {pinClick()}
         </section>
-        {renderMap()}
+        <div id="all-bathrooms-map">{renderMap()}</div>
       </main>
     </m.div>
   );

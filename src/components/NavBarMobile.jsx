@@ -3,7 +3,7 @@ import { globalStore } from "../global/Zustand";
 import { useState } from "react";
 import Logo3 from "../assets/bbb-molly-logo-3.png";
 
-export default function NavBarMobile({ sessionSwitch }) {
+export default function NavBarMobile() {
   const session = globalStore((state) => state.session);
 
   const [navOpen, setNavOpen] = useState(false);

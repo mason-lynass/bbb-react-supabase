@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
-import { Link, redirect, useNavigate, Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { motion as m } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
-
+import useSound from "use-sound";
 import "./Account.css";
 import { globalStore } from "../../global/Zustand";
-import { supabase } from "../../ReactQueryApp";
+import { supabase } from "../../global/constants";
 import {
   fetchAllBathrooms,
   fetchFavorites,
   fetchReviews,
 } from "../../React-Query/fetch-functions";
 import ResetPw from "../Login/ResetPw";
+import toiletFlushing from "../../assets/audio/toilet-flushing.mp3"
 
-export default function Account({ setProfile }) {
+export default function Account() {
   const [username, setUsername] = useState("");
   const [profileBathrooms, setProfileBathrooms] = useState([]);
   const [profileReviews, setProfileReviews] = useState([]);
@@ -22,13 +23,12 @@ export default function Account({ setProfile }) {
   const [showResetPassword, setShowResetPassword] = useState(false);
   const [errors, setErrors] = useState(null);
 
-  const session = globalStore((state) => state.session);
   const profile = globalStore((state) => state.profile);
-  const navigate = useNavigate();
+  const [playToilet] = useSound(toiletFlushing)
 
   const {
-    status: bathroomStatus,
-    error: bathroomError,
+    // status: bathroomStatus,
+    // error: bathroomError,
     data: bathrooms,
   } = useQuery({
     queryKey: ["all-bathrooms"],
@@ -36,8 +36,8 @@ export default function Account({ setProfile }) {
   });
 
   const {
-    status: reviewStatus,
-    error: reviewError,
+    // status: reviewStatus,
+    // error: reviewError,
     data: reviews,
   } = useQuery({
     queryKey: ["all-reviews"],
@@ -45,8 +45,8 @@ export default function Account({ setProfile }) {
   });
 
   const {
-    status: favStatus,
-    error: favError,
+    // status: favStatus,
+    // error: favError,
     data: favorites,
   } = useQuery({
     queryKey: ["all-favorites"],
@@ -96,7 +96,11 @@ export default function Account({ setProfile }) {
 
   async function signOut() {
     const { error } = await supabase.auth.signOut();
-    globalStore.setState({ profile: null });
+    if (error) console.log(error)
+    else {
+  globalStore.setState({ profile: null })
+  playToilet()
+}
   }
 
   function resetPassword() {
@@ -213,7 +217,7 @@ export default function Account({ setProfile }) {
             <h2>Hi there, {profile.username}!</h2>
             <section className="account-section" id="account-bathrooms">
               <h3
-                onClick={(e) =>
+                onClick={() =>
                   open === "bathrooms" ? setOpen(null) : setOpen("bathrooms")
                 }
               >
@@ -223,7 +227,7 @@ export default function Account({ setProfile }) {
             </section>
             <section className="account-section" id="account-reviews">
               <h3
-                onClick={(e) =>
+                onClick={() =>
                   open === "reviews" ? setOpen(null) : setOpen("reviews")
                 }
               >
@@ -234,7 +238,7 @@ export default function Account({ setProfile }) {
             </section>
             <section className="account-section" id="account-favorites">
               <h3
-                onClick={(e) =>
+                onClick={() =>
                   open === "favorites" ? setOpen(null) : setOpen("favorites")
                 }
               >

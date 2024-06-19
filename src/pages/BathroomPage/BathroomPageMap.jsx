@@ -1,3 +1,5 @@
+// this component is obsolete now that we are using the React Google Maps npm package
+
 import React from "react"
 
 export default function BathroomPageMap({ center, zoom, children }) {
@@ -8,7 +10,7 @@ export default function BathroomPageMap({ center, zoom, children }) {
         if (ref.current && !map) {
             setMap(new window.google.maps.Map(ref.current, { center, zoom }))
         }
-    }, [ref, map])
+    }, [ref, map, center, zoom])
 
     return (
     <>

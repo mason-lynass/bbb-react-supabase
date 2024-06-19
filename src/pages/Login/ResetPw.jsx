@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../../ReactQueryApp";
+import { supabase } from "../../global/constants";
 
 export default function ResetPw() {
   const navigate = useNavigate();

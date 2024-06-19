@@ -1,14 +1,18 @@
-import { QueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { queryClient } from "../../main";
 import { globalStore } from "../../global/Zustand";
 import { useMutation } from "@tanstack/react-query";
 import RatingButton from "../../components/RatingButton";
-import { supabase } from "../../ReactQueryApp";
+import { supabase } from "../../global/constants";
+import DatePicker from "react-datepicker";
 
-export default function NewReview({ bathroom, setShowReview, bathroomReviews, setShowSubmitted}) {
+export default function NewReview({
+  bathroom,
+  setShowReview,
+  bathroomReviews,
+  setShowSubmitted,
+}) {
   const body = document.querySelector("body");
-  body.classList.add('bodyBlurAB')
+  body.classList.add("bodyBlurAB");
 
   const profile = globalStore((state) => state.profile);
   const [errors, setErrors] = useState([]);
@@ -24,7 +28,9 @@ export default function NewReview({ bathroom, setShowReview, bathroomReviews, se
 
   // to see if the user recently submitted a review recently (one month)
   const today = Date.now();
-  const userBathroomReviews = bathroomReviews.filter((r) => r.user_id === profile.id);
+  const userBathroomReviews = bathroomReviews.filter(
+    (r) => r.user_id === profile.id
+  );
   const recentReview = userBathroomReviews.sort((a, b) => b.date - a.date)[0];
   let recentReviewDate;
   if (!recentReview) recentReviewDate = 0;
@@ -49,25 +55,27 @@ export default function NewReview({ bathroom, setShowReview, bathroomReviews, se
 
   async function updateBathroomAverageScoreRPC(bathroom_id) {
     const newbathroomid = bathroom_id;
-    const { data, error } = await supabase.rpc(
+    const { error } = await supabase.rpc(
       "update_bathroom_average_score",
       { newbathroomid }
     );
+    if (error) console.error(error)
   }
 
   async function updateUsersAverageReviewScoreRPC(id) {
     const userid = id;
-    const { data, error } = await supabase.rpc(
+    const { error } = await supabase.rpc(
       "update_user_average_review_score",
       { userid }
     );
+    if (error) console.error(error)
   }
 
   const reviewMutation = useMutation({
     mutationFn: () => {
       return supabase.from("reviews").insert(reviewSupabase).select();
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       updateBathroomAverageScoreRPC(bathroom.id);
       updateUsersAverageReviewScoreRPC(profile.id);
       setShowReview(false);
@@ -102,13 +110,17 @@ export default function NewReview({ bathroom, setShowReview, bathroomReviews, se
 
   function displayErrors() {
     return errors.map((e) => {
-      return <p className="display-error">{e}</p>;
+      return (
+        <p className="display-error" key={e}>
+          {e}
+        </p>
+      );
     });
   }
 
-  function newReviewClose () {
-    setShowReview(false)
-    body.classList.remove('bodyBlurAB')
+  function newReviewClose() {
+    setShowReview(false);
+    body.classList.remove("bodyBlurAB");
   }
 
   return (
@@ -122,6 +134,15 @@ export default function NewReview({ bathroom, setShowReview, bathroomReviews, se
         </h2>
         <form id="new-review-form" onSubmit={handleSubmit}>
           <section id="nr-review-fields">
+            <div>
+              <label htmlFor="date-picker">Date visited:</label>
+              <DatePicker
+                id="date-picker"
+                name="date"
+                selected={date}
+                onChange={(date) => setDate(date)}
+              />
+            </div>
             <div>
               <label htmlFor="nr-bathroom-description">
                 Bathroom description:

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { motion as m } from "framer-motion";
 
 import Home from "./pages/Home/home.jsx";
@@ -22,40 +21,31 @@ import "./global/CSS/App.css";
 import { useQuery } from "@tanstack/react-query";
 import { globalStore } from "./global/Zustand.jsx";
 
-// keys to Supabase
-const url = import.meta.env.VITE_SUPABASE_URL;
-const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
-export const supabase = createClient(url, key);
-
-export const GMKey = import.meta.env.VITE_GOOGLE_MAPS_KEY;
+import { supabase } from "./global/constants.jsx";
 
 // this version uses BrowserRouter instead of createBrowserRouter
 // we're gonna use this version of the main App component
 function RQApp() {
-  const profile = globalStore((state) => state.profile);
-
-  const {
-    data: users,
-    isLoading: usersLoading,
-    isError: usersError,
-  } = useQuery({
+  const { data: users } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const { data, error } = await supabase.from("users").select(); // get the data from Supabase
-      globalStore.setState({ users: data });
-      return data;
+      if (error) console.log(error);
+      else {
+        globalStore.setState({ users: data });
+        return data;
+      }
     },
   });
 
   const {
     data: session,
-    isLoading: sessionLoading,
-    isError: sessionError,
   } = useQuery({
     queryKey: ["session"],
     queryFn: async () => {
       const { data, error } = await supabase.auth.getSession();
-      if (data.session) {
+      if (error) console.error (error)
+      else if (data.session) {
         globalStore.setState({ session: data.session });
         setSessionSwitch(true);
       }
@@ -83,11 +73,8 @@ function RQApp() {
     return () => subscription.unsubscribe(); // cleanup function
   }, [users, session]);
 
-
   function navSwitch() {
-    if (
-      window.screen.width > 1250
-    ) {
+    if (window.screen.width > 1250) {
       return <NavBar session={session} sessionSwitch={sessionSwitch} />;
     } else {
       return <NavBarMobile session={session} sessionSwitch={sessionSwitch} />;

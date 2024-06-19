@@ -24,7 +24,7 @@ export default function HomeSlideshow() {
       );
     }, 10000);
     return () => {};
-  }, [imageNumber]);
+  }, [imageNumber, slides.length]);
 
   return (
     <div id="home-slideshow">

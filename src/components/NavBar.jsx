@@ -1,9 +1,12 @@
 import { NavLink } from "react-router-dom";
 import { globalStore } from "../global/Zustand";
+import useSound from "use-sound"
 import Logo3 from "../assets/bbb-molly-logo-3.png";
+import sinkRunning from '../assets/audio/sink-running.mp3'
 
-export default function NavBar({ sessionSwitch }) {
+export default function NavBar() {
   const session = globalStore((state) => state.session);
+  const [playSink] = useSound(sinkRunning)
 
   function loginOrAccount() {
     if (!session) {
@@ -18,7 +21,7 @@ export default function NavBar({ sessionSwitch }) {
           <p id="underline">Log In</p>
         </NavLink>
       );
-    } else return <NavLink to="/account">Account</NavLink>;
+    } else return <NavLink to="/account" onClick={playSink}>Account</NavLink>;
   }
 
   return (

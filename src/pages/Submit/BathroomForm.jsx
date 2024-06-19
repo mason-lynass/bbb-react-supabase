@@ -1,18 +1,15 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Navigate, useNavigate } from "react-router-dom";
 import "./BathroomForm.css";
 import RatingButton from "../../components/RatingButton";
 import SubmittedDialog from "./SubmittedDialog";
 import { globalStore } from "../../global/Zustand";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../main";
-import { supabase } from "../../ReactQueryApp";
-import { GMKey } from "../../ReactQueryApp";
-import { submitBathroom, submitReview } from "../../React-Query/mutations";
+import { supabase, GMKey } from "../../global/constants";
 
-export default function BathroomForm({ bathrooms }) {
+export default function BathroomForm() {
   const profile = globalStore((state) => state.profile);
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState("submit");
@@ -55,10 +52,11 @@ export default function BathroomForm({ bathrooms }) {
 
   async function updateUsersAverageReviewScoreRPC(id) {
     const userid = id;
-    const { data, error } = await supabase.rpc(
+    const { error } = await supabase.rpc(
       "update_user_average_review_score",
       { userid }
     );
+    if (error) console.error(error)
   }
 
   const bathroomMutation = useMutation({
@@ -211,7 +209,7 @@ export default function BathroomForm({ bathrooms }) {
                     name="public-check-true"
                     type="checkbox"
                     value={true}
-                    onChange={(e) => setPublicBool(!publicBool)}
+                    onChange={() => setPublicBool(!publicBool)}
                   ></input>
                 </div>
                 <div className="nb-checks" id="nb-gn">
@@ -221,7 +219,7 @@ export default function BathroomForm({ bathrooms }) {
                     name="gn-check-true"
                     type="checkbox"
                     value={true}
-                    onChange={(e) => setGNBool(!gnBool)}
+                    onChange={() => setGNBool(!gnBool)}
                   ></input>
                 </div>
                 <div className="nb-checks" id="nb-ada">
@@ -233,7 +231,7 @@ export default function BathroomForm({ bathrooms }) {
                     name="ada-check-true"
                     type="checkbox"
                     value={true}
-                    onChange={(e) => setADABool(!ADABool)}
+                    onChange={() => setADABool(!ADABool)}
                   ></input>
                 </div>
               </div>
