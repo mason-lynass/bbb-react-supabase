@@ -37,7 +37,7 @@ export default function NavBarMobile() {
             All Bathrooms
           </NavLink>
           <NavLink to="/best" onClick={() => setNavOpen(false)}>
-            Best New Bathrooms
+            Best Bathrooms
           </NavLink>
           <NavLink to="/near-me" onClick={() => setNavOpen(false)}>
             Bathrooms Near Me
