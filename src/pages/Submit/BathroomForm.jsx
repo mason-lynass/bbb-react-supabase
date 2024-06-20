@@ -6,6 +6,8 @@ import RatingButton from "../../components/RatingButton";
 import SubmittedDialog from "./SubmittedDialog";
 import { globalStore } from "../../global/Zustand";
 import { useMutation } from "@tanstack/react-query";
+import { englishDataset, RegExpMatcher, englishRecommendedTransformers } from "obscenity";
+
 import { queryClient } from "../../main";
 import { supabase, GMKey } from "../../global/constants";
 
@@ -13,6 +15,11 @@ export default function BathroomForm() {
   const profile = globalStore((state) => state.profile);
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState("submit");
+
+  const matcher = new RegExpMatcher({
+    ...englishDataset.build(),
+    ...englishRecommendedTransformers
+  })
 
   // bathroom fields
   const [address, setAddress] = useState("");
@@ -113,12 +120,34 @@ export default function BathroomForm() {
       }
 
       if (
-        newGeocode.results[0].address_components[3].short_name !== "Seattle"
+        newGeocode.results[0].address_components.filter((comp) => comp.short_name === "Seattle") === 0
       ) {
         console.log(newGeocode)
         throw [
           "Please limit submissions to locations inside the city of Seattle.",
         ];
+      }
+
+      if (matcher.hasMatch(bathroomDescription) || matcher.hasMatch(reviewDescription) || matcher.hasMatch(cleanliness) || matcher.hasMatch(bathroomFunction) || matcher.hasMatch(style)) {
+        const bathroomBad = matcher.getAllMatches(reviewDescription)
+        const reviewBad = matcher.getAllMatches(reviewDescription)
+        const cleanBad = matcher.getAllMatches(cleanliness)
+        const funcBad = matcher.getAllMatches(bathroomFunction)
+        const styleBad = matcher.getAllMatches(style)
+        const badWords = [bathroomBad, reviewBad, cleanBad, funcBad, styleBad]
+        const theWords = []
+        for (const wordsArray of badWords) {
+          for (const word of wordsArray) {
+            if (word.termId) {
+              const { phraseMetadata } = englishDataset.getPayloadWithPhraseMetadata(word);
+              theWords.push(phraseMetadata.originalWord)
+            }
+          }
+        }
+        console.log(theWords)
+        throw [
+          `Please avoid using obscene language on this website. Bad words: ${theWords}`
+        ]
       }
 
       // starting this mutation will start the reviewMutation if it's successful

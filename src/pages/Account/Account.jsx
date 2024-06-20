@@ -5,6 +5,11 @@ import { useQuery } from "@tanstack/react-query";
 import useSound from "use-sound";
 import "./Account.css";
 import { globalStore } from "../../global/Zustand";
+import {
+  RegExpMatcher,
+  englishDataset,
+  englishRecommendedTransformers,
+} from "obscenity";
 import { supabase } from "../../global/constants";
 import {
   fetchAllBathrooms,
@@ -12,7 +17,7 @@ import {
   fetchReviews,
 } from "../../React-Query/fetch-functions";
 import ResetPw from "../Login/ResetPw";
-import toiletFlushing from "../../assets/audio/toilet-flushing.mp3"
+import toiletFlushing from "../../assets/audio/toilet-flushing.mp3";
 
 export default function Account() {
   const [username, setUsername] = useState("");
@@ -24,7 +29,12 @@ export default function Account() {
   const [errors, setErrors] = useState(null);
 
   const profile = globalStore((state) => state.profile);
-  const [playToilet] = useSound(toiletFlushing)
+  const [playToilet] = useSound(toiletFlushing);
+
+  const matcher = new RegExpMatcher({
+    ...englishDataset.build(),
+    ...englishRecommendedTransformers,
+  });
 
   const {
     // status: bathroomStatus,
@@ -57,6 +67,21 @@ export default function Account() {
     e.preventDefault();
     // this updates the username in the users table where the id === logged in user id
     try {
+      if (matcher.hasMatch(username)) {
+        const usernameBad = matcher.getAllMatches(username);
+        const theWords = [];
+        for (const word of usernameBad) {
+          if (word.termId) {
+            const { phraseMetadata } =
+              englishDataset.getPayloadWithPhraseMetadata(word);
+            theWords.push(phraseMetadata.originalWord);
+          }
+        }
+        console.log(theWords);
+        throw [
+          `Please avoid using obscene language on this website. Bad words: ${theWords}`,
+        ];
+      }
       const { error, data: newName } = await supabase
         .from("users")
         .update({ username: username })
@@ -96,11 +121,11 @@ export default function Account() {
 
   async function signOut() {
     const { error } = await supabase.auth.signOut();
-    if (error) console.log(error)
+    if (error) console.log(error);
     else {
-  globalStore.setState({ profile: null })
-  playToilet()
-}
+      globalStore.setState({ profile: null });
+      playToilet();
+    }
   }
 
   function resetPassword() {

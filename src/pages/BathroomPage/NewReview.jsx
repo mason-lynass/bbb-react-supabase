@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import RatingButton from "../../components/RatingButton";
 import { supabase } from "../../global/constants";
 import DatePicker from "react-datepicker";
+import { englishDataset, RegExpMatcher, englishRecommendedTransformers } from "obscenity";
 
 export default function NewReview({
   bathroom,
@@ -25,6 +26,11 @@ export default function NewReview({
   const [bathroomFunctionRating, setBathroomFunctionRating] = useState(null);
   const [style, setStyle] = useState("");
   const [styleRating, setStyleRating] = useState(null);
+
+  const matcher = new RegExpMatcher({
+    ...englishDataset.build(),
+    ...englishRecommendedTransformers
+  })
 
   // to see if the user recently submitted a review recently (one month)
   const today = Date.now();
@@ -102,6 +108,26 @@ export default function NewReview({
           ];
         }
       }
+      if (matcher.hasMatch(reviewDescription) || matcher.hasMatch(cleanliness) || matcher.hasMatch(bathroomFunction) || matcher.hasMatch(style)) {
+        const reviewBad = matcher.getAllMatches(reviewDescription)
+        const cleanBad = matcher.getAllMatches(cleanliness)
+        const funcBad = matcher.getAllMatches(bathroomFunction)
+        const styleBad = matcher.getAllMatches(style)
+        const badWords = [reviewBad, cleanBad, funcBad, styleBad]
+        const theWords = []
+        for (const wordsArray of badWords) {
+          for (const word of wordsArray) {
+            if (word.termId) {
+              const { phraseMetadata } = englishDataset.getPayloadWithPhraseMetadata(word);
+              theWords.push(phraseMetadata.originalWord)
+            }
+          }
+        }
+        console.log(theWords)
+        throw [
+          `Please avoid using obscene language on this website. Bad words: ${theWords}`
+        ]
+      }
       reviewMutation.mutate();
     } catch (error) {
       setErrors(error);
@@ -109,6 +135,7 @@ export default function NewReview({
   }
 
   function displayErrors() {
+    console.log(errors)
     return errors.map((e) => {
       return (
         <p className="display-error" key={e}>
