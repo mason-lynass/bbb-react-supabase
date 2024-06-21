@@ -123,7 +123,6 @@ export default function NewReview({
             }
           }
         }
-        console.log(theWords)
         throw [
           `Please avoid using obscene language on this website. Bad words: ${theWords}`
         ]
@@ -135,7 +134,7 @@ export default function NewReview({
   }
 
   function displayErrors() {
-    console.log(errors)
+    console.error(errors)
     return errors.map((e) => {
       return (
         <p className="display-error" key={e}>

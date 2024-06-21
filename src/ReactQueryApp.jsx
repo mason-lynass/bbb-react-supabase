@@ -30,7 +30,7 @@ function RQApp() {
     queryKey: ["users"],
     queryFn: async () => {
       const { data, error } = await supabase.from("users").select(); // get the data from Supabase
-      if (error) console.log(error);
+      if (error) console.error(error);
       else {
         globalStore.setState({ users: data });
         return data;

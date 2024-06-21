@@ -122,7 +122,6 @@ export default function BathroomForm() {
       if (
         newGeocode.results[0].address_components.filter((comp) => comp.short_name === "Seattle") === 0
       ) {
-        console.log(newGeocode)
         throw [
           "Please limit submissions to locations inside the city of Seattle.",
         ];
@@ -144,7 +143,6 @@ export default function BathroomForm() {
             }
           }
         }
-        console.log(theWords)
         throw [
           `Please avoid using obscene language on this website. Bad words: ${theWords}`
         ]

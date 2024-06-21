@@ -77,7 +77,6 @@ export default function Account() {
             theWords.push(phraseMetadata.originalWord);
           }
         }
-        console.log(theWords);
         throw [
           `Please avoid using obscene language on this website. Bad words: ${theWords}`,
         ];

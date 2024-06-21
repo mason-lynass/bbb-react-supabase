@@ -130,8 +130,8 @@ export default function NearMe() {
     let mapID = `NEAR_ME_MAP_ID`;
     return (
       <Map
-        defaultCenter={mapCenter}
-        defaultZoom={zoom}
+        center={mapCenter}
+        zoom={zoom}
         mapId={mapID}
         reuseMaps={true}
       >
@@ -147,7 +147,6 @@ export default function NearMe() {
         `https://maps.googleapis.com/maps/api/geocode/json?address=${userLocation},seattle&key=${GMKey}`
       );
       const newGeocode = await googleResp.json();
-      console.log(newGeocode);
       if (newGeocode.error_message && newGeocode.status === "REQUEST_DENIED")
         setUserLocationError([
           "This address cannot be geolocated. Please avoid using symbols, apartment / suite numbers, city names or zip codes",
