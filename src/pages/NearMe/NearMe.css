@@ -2,12 +2,9 @@
   min-height: calc(100vh - 65px);
 } */
 
-#width-test {
-  width: 1000px;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
+#loading {
+  text-align: center;
+  margin: 100px auto;
 }
 
 #near-me-top-flex {

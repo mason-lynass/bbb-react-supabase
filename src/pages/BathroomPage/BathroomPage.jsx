@@ -152,6 +152,15 @@ export default function BathroomPage() {
     let numberOfReviews = 0;
     if (bathroomReviews) numberOfReviews = bathroomReviews.length;
 
+    function oneBathroomFilters () {
+      let filters = [bathroomPublic, genderNeutral, ADACompliant]
+      let returnElements = []
+      for (let filter of filters) {
+        if (filter !== "") returnElements.push(filter)
+      }
+      return returnElements.map((el) => <p key={el}>{el}</p>)
+    }
+
     return (
       <>
         <div id="single-bathroom-container">
@@ -160,17 +169,17 @@ export default function BathroomPage() {
             <h3>{bathroom.address}</h3>
             <h3>{bathroom.neighborhood}</h3>
           </div>
-          <h3>
-            Average review score: {bathroom.average_score} ({numberOfReviews}{" "}
-            reviews)
-          </h3>
           <p id="one-bathroom-description">{bathroom.description}</p>
           <p>Number of favorites: {thisFavorites}</p>
-
+          <p>
+            Average review score: {bathroom.average_score} ({numberOfReviews}{" "}
+            reviews)
+          </p>
           <div id="one-bathroom-filters">
-            <p>{bathroomPublic}</p>
+            {/* <p>{bathroomPublic}</p>
             <p>{genderNeutral}</p>
-            <p>{ADACompliant}</p>
+            <p>{ADACompliant}</p> */}
+            {oneBathroomFilters()}
           </div>
         </div>
       </>
@@ -222,7 +231,7 @@ export default function BathroomPage() {
     if (location) {
       const mapID = `${bathroom.location_name}_MAP_ID`
       return (
-        <Map defaultCenter={location} defaultZoom={14} 
+        <Map center={location} zoom={14} 
         mapId={mapID} reuseMaps={true}
         >
           <AdvancedMarker key={bathroom.location_name} position={location}>
@@ -239,13 +248,13 @@ export default function BathroomPage() {
     return <NoBathroomFound bathroomID={id.bathroomid} />;
 
   return (
-    <main>
+    <main id='one-bathroom-main'>
       <div id="bathroom-top-split">
         <section>
           {singleBathroom(bathroom)}
           {singleBathroomButtons()}
         </section>
-        {renderMap()}
+        <div id="bathroom-page-map">{renderMap()}</div>
       </div>
       {loaded === true ? (
         <section>{singleBathroomReviews(bathroom)}</section>

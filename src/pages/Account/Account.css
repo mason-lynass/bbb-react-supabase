@@ -36,17 +36,34 @@
     overflow: scroll;
 }
 
-#account-bathrooms h3 {
+#account-bathrooms h3, #bathrooms-header {
     background-color: var(--dark-blue4);
 }
 
-#account-reviews h3 {
+#account-reviews h3, #reviews-header {
     background-color: var(--dark-blue3);
 }
 
+#account .account-section-header p {
+    margin: 5px 0px;
+    font-size: 12px;
+}
+
+.account-section-header {
+    display: grid;
+    grid-template-columns: 45% 35% 10%;
+    border-bottom: 1px solid var(--light-blue1);
+    border-radius: 0  0 20px 20px ;
+    gap: 2.5%;
+    justify-content: left;
+    align-items: center;
+    padding: 5px 20px;
+}
+
+
 .one-bathroom, .one-review, .one-favorite {
     display: grid;
-    grid-template-columns: 50% 35% 5% 5%;
+    grid-template-columns: 45% 35% 10%;
     border-bottom: 1px solid var(--light-blue1);
     border-radius: 0  0 20px 20px ;
     gap: 2.5%;
@@ -76,11 +93,11 @@
     align-items: center;
 }
 
-#sign-out {
+#reset-password {
     margin: 20px;
 }
 
-#sign-out button, #reset-password button, #reset-pw form button {
+#sign-out button, #reset-password button, #handle-user-location button, #reset-pw form button {
     background-color: var(--dark-blue1);
 }
 
@@ -137,9 +154,28 @@
     display: block;
 }
 
+#other-info {
+    width: 90vw;
+    max-width: 620px;
+    margin: 100px auto 0px auto;
+    text-align: center;
+}
+
 @media screen and (max-width: 600px) {
     #account :is(h2) {
         font-size: 20px;
+    }
+
+    #account :is(p) {
+        font-size: 12px;
+    }
+
+    #account .account-section-header {
+        background-color: var(--dark-blue1);
+    }
+
+    #account .account-section-header p {
+        font-size: 10px;
     }
 
     #account #no-username {

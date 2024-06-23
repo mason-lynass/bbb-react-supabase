@@ -29,6 +29,9 @@ export default function Account() {
   const [errors, setErrors] = useState(null);
 
   const profile = globalStore((state) => state.profile);
+  const userGeolocationPreference = globalStore(
+    (state) => state.allowGeolocation
+  );
   const [playToilet] = useSound(toiletFlushing);
 
   const matcher = new RegExpMatcher({
@@ -107,10 +110,14 @@ export default function Account() {
   useEffect(() => {
     if (profile && bathrooms && reviews && favorites) {
       setProfileBathrooms(
-        bathrooms.filter((b) => b.submitted_by === profile.id)
+        bathrooms
+          .filter((b) => b.submitted_by === profile.id)
+          .sort((a, b) => b.id - a.id)
       );
       setProfileReviews(
-        reviews.filter((review) => review.user_id === profile.id)
+        reviews
+          .filter((review) => review.user_id === profile.id)
+          .sort((a, b) => b.id - a.id)
       );
       setProfileFavorites(
         favorites.filter((favorite) => favorite.user_id === profile.id)
@@ -131,44 +138,87 @@ export default function Account() {
     setShowResetPassword(!showResetPassword);
   }
 
+  function handleUserLocation () {
+
+    function turnOff () {
+      globalStore.setState({ tempUserLocation: null, allowGeolocation: false });
+    }
+
+    function turnOn () {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const latLng = [position.coords.latitude, position.coords.longitude];
+        globalStore.setState({
+          tempUserLocation: { lat: latLng[0], lng: latLng[1] },
+          allowGeolocation: true
+        });
+      });
+    }
+
+    if (userGeolocationPreference === true) {
+      return (
+        <button onClick={turnOff}>Turn off User Location</button>
+      )
+    } else return (
+      <button onClick={turnOn}>Turn on User Location</button>
+    )
+
+  }
+
   function myBathrooms() {
     if (open === "bathrooms") {
-      return profileBathrooms.map((bathroom) => {
-        let linkto = `/bathrooms/${bathroom.id}`;
-        return (
-          <Link to={linkto} key={bathroom.id}>
-            <div className="one-bathroom" key={bathroom.id}>
-              <p>{bathroom.location_name}</p>
-              <p>{bathroom.address}</p>
-              <p>{bathroom.approved === true ? "" : "NA"}</p>
-              <p>{bathroom.number_of_favorites}</p>
-            </div>
-          </Link>
-        );
-      });
+      return (
+        <>
+          <div className="account-section-header" id="bathrooms-header">
+            <p>Location Name</p>
+            <p>Address</p>
+            <p>Favorites</p>
+          </div>
+          {profileBathrooms.map((bathroom) => {
+            let linkto = `/bathrooms/${bathroom.id}`;
+            return (
+              <Link to={linkto} key={bathroom.id}>
+                <div className="one-bathroom" key={bathroom.id}>
+                  <p>{bathroom.location_name}</p>
+                  <p>{bathroom.address}</p>
+                  <p>{bathroom.number_of_favorites}</p>
+                </div>
+              </Link>
+            );
+          })}
+        </>
+      );
     }
   }
 
   function myReviews() {
     if (open === "reviews") {
-      return profileReviews.map((review) => {
-        let thisBathroom = bathrooms.filter(
-          (bathroom) => bathroom.id === review.bathroom_id
-        )[0];
-        let linkto = `/bathrooms/${thisBathroom.id}`;
-        return (
-          <Link to={linkto} key={review.id}>
-            <div className="one-review">
-              <p>{thisBathroom.location_name}</p>
-              <p>
-                {review.description.slice(0, 80)}
-                {review.description.length > 80 ? "..." : ""}
-              </p>
-              <p>{review.average_rating}</p>
-            </div>
-          </Link>
-        );
-      });
+      return (
+        <>
+          <div className="account-section-header" id="reviews-header">
+            <p>Location Name</p>
+            <p>Review Date</p>
+            <p>Average Rating</p>
+          </div>
+          {profileReviews.map((review) => {
+            let thisBathroom = bathrooms.filter(
+              (bathroom) => bathroom.id === review.bathroom_id
+            )[0];
+            let linkto = `/bathrooms/${thisBathroom.id}`;
+            let reviewDate = new Date(review.created_at)
+              .toDateString()
+              .slice(4);
+            return (
+              <Link to={linkto} key={review.id}>
+                <div className="one-review">
+                  <p>{thisBathroom.location_name}</p>
+                  <p>{reviewDate}</p>
+                  <p>{review.average_rating}</p>
+                </div>
+              </Link>
+            );
+          })}
+        </>
+      );
     }
   }
 
@@ -279,8 +329,22 @@ export default function Account() {
                   {showResetPassword === true ? "Nevermind" : "Reset Password"}
                 </button>
               </div>
+              <div id="handle-user-location">
+                {handleUserLocation()}
+              </div>
             </div>
             <div>{showResetPassword === true ? <ResetPw /> : ""}</div>
+            <div id="other-info">
+              <p>
+                {profileBathrooms.length > 0 || profileReviews.length > 0
+                  ? "Thanks for contributing your experiences to the Better Bathroom Bureau!"
+                  : ""}
+              </p>
+              <p>
+                If you have any questions, comments, or suggestions, feel free
+                to reach out at <a target="_blank" rel="noopener noreferrer" href="mailto:betterbathroombureau@gmail.com">betterbathroombureau@gmail.com</a>.
+              </p>
+            </div>
           </m.div>
         </main>
       );

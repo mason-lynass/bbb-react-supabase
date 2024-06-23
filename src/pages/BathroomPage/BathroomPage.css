@@ -50,8 +50,11 @@
 }
 
 #one-bathroom-description {
-  padding: 0 10px;
-  margin-top: 40px;
+  padding: 10px;
+  margin: 10px auto;
+  width: fit-content;
+  background-color: var(--dark-blue3);
+  border-radius: 5px;
 }
 
 #bathroom-top-split #single-bathroom-container p {
@@ -61,8 +64,9 @@
 #one-bathroom-filters p {
   text-align: center;
   margin: 10px auto;
-  background-color: var(--dark-blue2);
-  width: 250px;
+  background-color: var(--light-blue5);
+  padding: 5px 10px;
+  width: fit-content;
   border-radius: 5px;
 }
 
@@ -112,7 +116,7 @@
   width: 45vw;
   max-width: 500px;
   padding: 20px;
-  background-color: var(--dark-blue1);
+  background-color: var(--dark-blue3);
 }
 
 .one-bathroom-one-review div:first-child {
@@ -181,7 +185,7 @@
   width: 100%;
   height: 40px;
   margin: 5px auto;
-  background-color: var(--light-blue1);
+  background-color: var(--light-blue3);
   color: black;
   font-size: 16px;
 }
@@ -241,15 +245,14 @@
   }
 
   .one-bathroom-one-review {
-    background-color: var(--dark-blue1);
+    background-color: var(--dark-blue5);
   }
 
   #one-bathroom-filters p {
     background-color: var(--dark-blue3);
-    color: white;
   }
 
-  #new-review-dialog {
+  #new-review-dialog, #one-bathroom-filters p, #one-bathroom-description {
     color: white;
   }
 
@@ -263,6 +266,7 @@
 }
 
 @media screen and (max-width: 600px) {
+
   #bathroom-top-split {
     display: block;
     padding: 0px 5px;
@@ -274,27 +278,24 @@
     margin: auto;
   }
 
-  #bathroom-top-split section #single-bathroom-container {
-    padding: 0 10px;
+  #single-bathroom-container * {
+    margin: 5px auto;
+    font-size: 14px;
   }
 
   #single-bathroom-container #bathroom-name {
-    padding-top: 10px;
+    margin-top: 20px;
+    padding-top: 0;
     font-size: 30px;
   }
 
   #bathroom-top-split section #single-bathroom-container h3 {
     font-size: 16px;
+    margin: 5px auto;
   }
 
   #bathroom-top-split section #single-bathroom-container p {
     font-size: 14px;
-    margin: 20px auto;
-  }
-
-  #one-bathroom-location h3 {
-    font-size: 16px;
-    margin: 10px auto;
   }
 
   #one-bathroom-description {
@@ -304,12 +305,15 @@
   #one-bathroom-stats p {
     text-align: center;
     font-size: 14px;
-    margin: 5px auto;
   }
 
   #one-bathroom-filters p {
     font-size: 12px;
     width: 200px;
+  }
+
+  #one-bathroom-buttons {
+    margin: 20px auto;
   }
 
   #bathroom-page-map {

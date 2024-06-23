@@ -13,13 +13,18 @@ import "./NearMe.css";
 export default function NearMe() {
   const [userLocation, setUserLocation] = useState("");
   const [userLocationError, setUserLocationError] = useState([]);
-  const [clickedPin, setClickedPin] = useState('')
+  const [clickedPin, setClickedPin] = useState("");
   const [mapCenter, setMapCenter] = useState(seattle);
   const [publicBool, setPublicBool] = useState(false);
   const [zoom, setZoom] = useState(12);
   const [ADABool, setADABool] = useState(false);
   const [GNBool, setGNBool] = useState(false);
+  const [GeoDialogStatus, setGeoDialogStatus] = useState("open");
   const profile = globalStore((state) => state.profile);
+  const userGeolocationPreference = globalStore(
+    (state) => state.allowGeolocation
+  );
+  const tempUserLocation = globalStore((state) => state.tempUserLocation);
 
   const {
     isLoading: bathroomsLoading,
@@ -32,19 +37,19 @@ export default function NearMe() {
 
   function pinClick() {
     if (clickedPin.id) {
-      const linkTo = `bathrooms/${clickedPin.id}`
+      const linkTo = `bathrooms/${clickedPin.id}`;
       return (
-        <div id='clicked-pin-info'>
-          <h4>{clickedPin.location_name} - {clickedPin.address}</h4>
+        <div id="clicked-pin-info">
+          <h4>
+            {clickedPin.location_name} - {clickedPin.address}
+          </h4>
           <a href={linkTo}>check out this bathroom page</a>
         </div>
-      )
-    }
-    else return <div>
-    </div>
+      );
+    } else return <div></div>;
   }
 
-  if (bathroomsLoading == true) return <h2>loading...</h2>;
+  if (bathroomsLoading == true) return <h2 id="loading">loading...</h2>;
 
   function allBathrooms() {
     let allTheBathrooms = [...bathrooms];
@@ -130,7 +135,9 @@ export default function NearMe() {
     let mapID = `NEAR_ME_MAP_ID`;
     return (
       <Map
+        defaultCenter={seattle}
         center={mapCenter}
+        defaultZoom={window.screen.availWidth <= 600 ? 11 : 12}
         zoom={zoom}
         mapId={mapID}
         reuseMaps={true}
@@ -212,6 +219,65 @@ export default function NearMe() {
     }
   }
 
+  function handleGeolocation() {
+    function handleAllowAccess() {
+      globalStore.setState({ allowGeolocation: true });
+      setGeoDialogStatus("thanks");
+    }
+
+    function handleDialogClose() {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const latLng = [position.coords.latitude, position.coords.longitude];
+        setMapCenter({ lat: latLng[0], lng: latLng[1] });
+        globalStore.setState({
+          tempUserLocation: { lat: latLng[0], lng: latLng[1] },
+        });
+        setZoom(15);
+      });
+      setGeoDialogStatus("close");
+    }
+
+    if (GeoDialogStatus === "open" && tempUserLocation !== null) {
+      setMapCenter(tempUserLocation);
+      setZoom(15);
+      setGeoDialogStatus("close");
+    } else if (GeoDialogStatus === "open" && userGeolocationPreference === null)
+      return (
+        <div>
+          <dialog>
+            <p>
+              Do you want to allow this website to access your current location?
+            </p>
+            <p>
+              With permission, this page can use your device's location to
+              display bathrooms closest to you, without the need to manually
+              input your address.
+            </p>
+            <p>
+              We'll ask for this permission every time you access the site, and
+              you can temporarily update this setting on the Account page.
+            </p>
+            <button autoFocus onClick={() => handleAllowAccess()}>
+              Allow Location Access
+            </button>
+            <button onClick={() => setGeoDialogStatus("close")}>
+              Not right now
+            </button>
+          </dialog>
+        </div>
+      );
+    else if (GeoDialogStatus === "thanks")
+      return (
+        <div>
+          <dialog>
+            <p>Thanks!</p>
+            <p>You can temporarily update this setting on the Account page.</p>
+            <button onClick={() => handleDialogClose()}>Sounds great</button>
+          </dialog>
+        </div>
+      );
+  }
+
   return (
     <m.div
       initial={{ opacity: 0 }}
@@ -263,6 +329,7 @@ export default function NearMe() {
         </section>
         <div id="all-bathrooms-map">{renderMap()}</div>
       </main>
+      {handleGeolocation()}
     </m.div>
   );
 }

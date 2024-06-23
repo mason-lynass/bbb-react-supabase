@@ -12,7 +12,10 @@ export const globalStore = create((set) => ({
     reviews: [],
     setReviews: (input) => set(() => ({reviews: input})),
     favorites: [],
-    setFavorites: (input) => set(() => ({favorites: input}))
+    setFavorites: (input) => set(() => ({favorites: input})),
+    allowGeolocation: null,
+    setGeolocation: (input) => set(() => ({setGeolocation: input})),
+    tempUserLocation: null,
 }))
 
 // const createSessionStore = (set) => ({
