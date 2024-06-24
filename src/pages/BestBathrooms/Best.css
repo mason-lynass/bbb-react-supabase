@@ -20,6 +20,8 @@
     max-width: 450px;
     padding: 10px 20px;
     background-color: var(--dark-blue3);
+    border: 2px solid goldenrod;
+    border-radius: 10px;
 }
 
 .one-bathroom-stock:hover {

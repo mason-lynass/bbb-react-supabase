@@ -130,7 +130,7 @@ export default function BathroomPage() {
       "update_bathroom_number_of_favorites",
       { bathroomid }
     );
-    if (error) console.error(error)
+    if (error) console.error(error);
   }
 
   function addFavorite() {
@@ -152,13 +152,13 @@ export default function BathroomPage() {
     let numberOfReviews = 0;
     if (bathroomReviews) numberOfReviews = bathroomReviews.length;
 
-    function oneBathroomFilters () {
-      let filters = [bathroomPublic, genderNeutral, ADACompliant]
-      let returnElements = []
+    function oneBathroomFilters() {
+      let filters = [bathroomPublic, genderNeutral, ADACompliant];
+      let returnElements = [];
       for (let filter of filters) {
-        if (filter !== "") returnElements.push(filter)
+        if (filter !== "") returnElements.push(filter);
       }
-      return returnElements.map((el) => <p key={el}>{el}</p>)
+      return returnElements.map((el) => <p key={el}>{el}</p>);
     }
 
     return (
@@ -229,13 +229,19 @@ export default function BathroomPage() {
 
   function renderMap() {
     if (location) {
-      const mapID = `${bathroom.location_name}_MAP_ID`
+      const mapID = `${bathroom.location_name}_MAP_ID`;
       return (
-        <Map center={location} zoom={14} 
-        mapId={mapID} reuseMaps={true}
+        <Map
+          defaultCenter={location}
+          defaultZoom={14}
+          mapId={mapID}
+          reuseMaps={true}
+          options={{
+            gestureHandling: "greedy",
+          }}
         >
           <AdvancedMarker key={bathroom.location_name} position={location}>
-            <Pin/>
+            <Pin />
           </AdvancedMarker>
         </Map>
       );
@@ -248,7 +254,7 @@ export default function BathroomPage() {
     return <NoBathroomFound bathroomID={id.bathroomid} />;
 
   return (
-    <main id='one-bathroom-main'>
+    <main id="one-bathroom-main">
       <div id="bathroom-top-split">
         <section>
           {singleBathroom(bathroom)}

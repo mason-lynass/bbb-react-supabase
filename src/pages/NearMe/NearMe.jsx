@@ -135,12 +135,18 @@ export default function NearMe() {
     let mapID = `NEAR_ME_MAP_ID`;
     return (
       <Map
-        defaultCenter={seattle}
+        // defaultCenter={mapCenter}
         center={mapCenter}
-        defaultZoom={window.screen.availWidth <= 600 ? 11 : 12}
+        // defaultZoom={window.screen.availWidth <= 600 ? zoom - 1 : zoom}
         zoom={zoom}
         mapId={mapID}
         reuseMaps={true}
+        onCenterChanged={(map) => setMapCenter(map.detail.center)}
+        onZoomChanged={(map) => setZoom(map.detail.zoom)}
+        options={{
+          gestureHandling: "greedy",
+          draggable: true,
+        }}
       >
         {allBathrooms()}
       </Map>

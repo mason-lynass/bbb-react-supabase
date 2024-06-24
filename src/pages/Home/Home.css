@@ -171,7 +171,8 @@
 @media screen and (max-width: 600px) {
   #home-top-flex {
     display: block;
-    padding: 20px 0 40px 0;
+    padding: 0;
+    margin: 10px auto;
   }
 
   #where-are-you-home {
@@ -187,6 +188,11 @@
   #homepage-filters {
     padding: 0px;
     border-radius: 10px;
+    font-size: 12px;
+  }
+
+  #homepage-filters button {
+    width: 25vw;
   }
 
   #homepage-bathrooms-search {
@@ -200,14 +206,11 @@
     width: 250px;
   }
 
-  #homepage-filters-and-neighborhood #neighborhood {
-    margin-bottom: 10px;
-  }
-
   #home-slideshow {
     width: 90vw;
-    margin: 0 auto;
+    margin: 20px auto;
     height: calc(90vw * 0.9);
+    border: 5px ridge goldenrod;
   }
 
   .slide-image {
@@ -231,7 +234,7 @@
 
   #homepage-about {
     width: 85vw;
-    padding: 20px;
+    padding: 0;
   }
 
   #homepage-about h1 {
@@ -260,13 +263,15 @@
     color: var(--main-darkest);
   }
 
-  .slide-text,
-  .one-bathroom-one-review,
-  #homepage-about #single-bathroom-container h1 {
+  .slide-text {
     color: var(--white);
   }
 
-  #homepage-about .one-bathroom-one-review {
-    background-color: var(--dark-blue5);
+  #homepage-about #single-bathroom-container,
+  #homepage-about .one-bathroom-one-review,
+  #home #homepage-about .one-bathroom-one-review *,
+  #homepage-about #one-bathroom-description {
+    background-color: var(--light-blue1);
+    color: var(--main-darkest);
   }
 }

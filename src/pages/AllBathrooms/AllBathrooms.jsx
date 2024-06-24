@@ -69,12 +69,13 @@ export default function AllBathrooms() {
 
   const reviewedBathrooms = useMemo(() => {
     if (reviewIDs && bathrooms) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       reviewIDsArray = [
         ...new Set(reviewIDs.map((r) => r.bathroom_id).sort((a, b) => a - b)),
       ];
       return filteredBathrooms.filter((b) => reviewIDsArray.includes(b.id));
     }
-  }, [reviewIDs]);
+  }, [reviewIDs, bathrooms]);
 
   function handleFilterClick(button) {
     const publicButton = document.getElementById("public-button");

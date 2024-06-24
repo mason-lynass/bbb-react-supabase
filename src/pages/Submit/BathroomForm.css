@@ -44,9 +44,11 @@
 #bathroom-fields input,
 #bathroom-fields label,
 #bathroom-fields textarea,
+#bathroom-fields select,
 #review-fields input,
 #review-fields label,
-#review-fields textarea {
+#review-fields textarea,
+#get-address-disclaimer {
   width: 90%;
   margin: auto;
   display: block;
@@ -61,6 +63,7 @@
 
 #bathroom-fields input,
 #review-fields input,
+#bathroom-fields select,
 #bathroom-fields textarea,
 #review-fields textarea {
   font-size: 16px;
@@ -79,6 +82,21 @@
 #bathroom-fields textarea,
 #review-fields textarea {
   height: 50px;
+}
+
+#get-address {
+  width: fit-content;
+  margin: 5px auto;
+  display: block;
+  background-color: var(--dark-blue1);
+}
+
+#get-address-disclaimer {
+  font-size: 10px;
+}
+
+#geocode-error {
+  font-size: 12px;
 }
 
 .react-datepicker-wrapper {
@@ -145,7 +163,7 @@
   height: 60px;
   font-size: 24px;
   color: white;
-  background-color: var(--light-blue5);
+  background-color: var(--dark-blue1);
   margin: 20px auto;
 }
 
@@ -198,6 +216,21 @@ dialog button {
     min-width: 0px;
   }
 
+  #bathroom-fields * {
+    width: 100%;
+    padding: 0;
+  }
+
+  #bathroom-fields #get-address {
+    width: fit-content;
+    padding: 5px 10px;
+  }
+
+  #bathroom-fields #get-address-disclaimer {
+    padding: 5px 20px;
+    width: calc(100% - 40px);
+  }
+
   #new-bathroom-flex, #left-side, #bathroom-fields, #review-fields {
     width: 100%;
     min-width: 0;
@@ -210,6 +243,7 @@ dialog button {
 
   #all-nb-checks {
     display: block;
+    margin: 15px 0;
   }
 
   .nb-checks {
@@ -238,7 +272,8 @@ dialog button {
     color: var(--main-darkest);
   }
 
-  #new-bathroom-submit {
+  #new-bathroom-submit, #get-address {
+    background-color: var(--dark-blue1);
     color: white;
   }
  }

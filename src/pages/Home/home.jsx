@@ -50,11 +50,20 @@ export default function Home() {
   function mostRecentBathroom() {
     const bathroom = bathrooms.sort((a, b) => b.id - a.id)[0];
 
-    const bathroomPublic = bathroom.public == "true" ? "public restroom" : "";
+    const bathroomPublic = bathroom.public === true ? "public restroom" : "";
     const ADACompliant =
-      bathroom.ada_compliant == "true" ? "ADA compliant facilities" : "";
+      bathroom.ada_compliant === true ? "ADA compliant facilities" : "";
     const genderNeutral =
-      bathroom.gender_neutral == "true" ? "gender neutral facilities" : "";
+      bathroom.gender_neutral === true ? "gender neutral facilities" : "";
+
+      function oneBathroomFilters () {
+        let filters = [bathroomPublic, genderNeutral, ADACompliant]
+        let returnElements = []
+        for (let filter of filters) {
+          if (filter !== "") returnElements.push(filter)
+        }
+        return returnElements.map((el) => <p key={el}>{el}</p>)
+      }
 
     return (
       <Link to={`/bathrooms/${bathroom.id}`} key={bathroom.location_name}>
@@ -66,9 +75,7 @@ export default function Home() {
           </div>
           <p id="one-bathroom-description">{bathroom.description}</p>
           <div id="one-bathroom-filters">
-            <p>{bathroomPublic}</p>
-            <p>{genderNeutral}</p>
-            <p>{ADACompliant}</p>
+            {oneBathroomFilters()}
           </div>
         </div>
       </Link>

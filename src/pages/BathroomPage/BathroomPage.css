@@ -245,7 +245,8 @@
   }
 
   .one-bathroom-one-review {
-    background-color: var(--dark-blue5);
+    background-color: var(--light-blue1);
+    color: var(--main-darkest);
   }
 
   #one-bathroom-filters p {
@@ -270,6 +271,7 @@
   #bathroom-top-split {
     display: block;
     padding: 0px 5px;
+    margin: auto;
   }
 
   #bathroom-top-split section {
@@ -324,6 +326,7 @@
 
   #reviews-title {
     margin: 20px auto;
+    padding: 0;
   }
 
   #one-bathroom-reviews {
@@ -357,6 +360,12 @@
 
   #nr-review-fields {
     width: 80vw;
+    margin: 0 auto;
+    padding: 0 10px;
+  }
+
+  .nr-flex {
+    margin: 10px auto;
   }
 
   #nr-review-fields textarea {
@@ -384,5 +393,9 @@
   #all-rating-buttons {
     width: 250px;
     flex-flow: row wrap;
+  }
+
+  #new-review-submit {
+    margin: 20px auto;
   }
 }

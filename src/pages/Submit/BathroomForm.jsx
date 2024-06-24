@@ -6,10 +6,14 @@ import RatingButton from "../../components/RatingButton";
 import SubmittedDialog from "./SubmittedDialog";
 import { globalStore } from "../../global/Zustand";
 import { useMutation } from "@tanstack/react-query";
-import { englishDataset, RegExpMatcher, englishRecommendedTransformers } from "obscenity";
+import {
+  englishDataset,
+  RegExpMatcher,
+  englishRecommendedTransformers,
+} from "obscenity";
 
 import { queryClient } from "../../main";
-import { supabase, GMKey } from "../../global/constants";
+import { supabase, GMKey, neighborhoods } from "../../global/constants";
 
 export default function BathroomForm() {
   const profile = globalStore((state) => state.profile);
@@ -18,17 +22,21 @@ export default function BathroomForm() {
 
   const matcher = new RegExpMatcher({
     ...englishDataset.build(),
-    ...englishRecommendedTransformers
-  })
+    ...englishRecommendedTransformers,
+  });
 
   // bathroom fields
   const [address, setAddress] = useState("");
+  const [neighborhood, setNeighborhood] = useState("");
+  const [latLng, setLatLng] = useState({ lat: null, lng: null });
   const [locationName, setLocationName] = useState("");
   const [bathroomDescription, setBathroomDescription] = useState("");
   const [publicBool, setPublicBool] = useState(false);
   const [gnBool, setGNBool] = useState(false);
   const [ADABool, setADABool] = useState(false);
   const [bathroomid, setBathroomId] = useState(null);
+  const [geocodeRequested, setGeocodeRequested] = useState(false);
+  const [geocodeErrors, setGeocodeErrors] = useState([]);
 
   // review fields
   const [date, setDate] = useState(new Date());
@@ -59,11 +67,10 @@ export default function BathroomForm() {
 
   async function updateUsersAverageReviewScoreRPC(id) {
     const userid = id;
-    const { error } = await supabase.rpc(
-      "update_user_average_review_score",
-      { userid }
-    );
-    if (error) console.error(error)
+    const { error } = await supabase.rpc("update_user_average_review_score", {
+      userid,
+    });
+    if (error) console.error(error);
   }
 
   const bathroomMutation = useMutation({
@@ -106,64 +113,94 @@ export default function BathroomForm() {
           "Was this really the best bathroom of all time? Please don't abuse our database.",
         ];
 
-      const googleResp = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}%20Seattle&key=${GMKey}`
-      );
-      const newGeocode = await googleResp.json();
-
       if (
-        !googleResp.ok ||
-        newGeocode.results[0].geometry === undefined ||
-        newGeocode.results[0].geometry.location.lat == 47.6061389
+        matcher.hasMatch(bathroomDescription) ||
+        matcher.hasMatch(reviewDescription) ||
+        matcher.hasMatch(cleanliness) ||
+        matcher.hasMatch(bathroomFunction) ||
+        matcher.hasMatch(style)
       ) {
-        throw ["Please enter a valid address"];
-      }
-
-      if (
-        newGeocode.results[0].address_components.filter((comp) => comp.short_name === "Seattle") === 0
-      ) {
-        throw [
-          "Please limit submissions to locations inside the city of Seattle.",
-        ];
-      }
-
-      if (matcher.hasMatch(bathroomDescription) || matcher.hasMatch(reviewDescription) || matcher.hasMatch(cleanliness) || matcher.hasMatch(bathroomFunction) || matcher.hasMatch(style)) {
-        const bathroomBad = matcher.getAllMatches(reviewDescription)
-        const reviewBad = matcher.getAllMatches(reviewDescription)
-        const cleanBad = matcher.getAllMatches(cleanliness)
-        const funcBad = matcher.getAllMatches(bathroomFunction)
-        const styleBad = matcher.getAllMatches(style)
-        const badWords = [bathroomBad, reviewBad, cleanBad, funcBad, styleBad]
-        const theWords = []
+        const bathroomBad = matcher.getAllMatches(reviewDescription);
+        const reviewBad = matcher.getAllMatches(reviewDescription);
+        const cleanBad = matcher.getAllMatches(cleanliness);
+        const funcBad = matcher.getAllMatches(bathroomFunction);
+        const styleBad = matcher.getAllMatches(style);
+        const badWords = [bathroomBad, reviewBad, cleanBad, funcBad, styleBad];
+        const theWords = [];
         for (const wordsArray of badWords) {
           for (const word of wordsArray) {
             if (word.termId) {
-              const { phraseMetadata } = englishDataset.getPayloadWithPhraseMetadata(word);
-              theWords.push(phraseMetadata.originalWord)
+              const { phraseMetadata } =
+                englishDataset.getPayloadWithPhraseMetadata(word);
+              theWords.push(phraseMetadata.originalWord);
             }
           }
         }
         throw [
-          `Please avoid using obscene language on this website. Bad words: ${theWords}`
-        ]
+          `Please avoid using obscene language on this website. Bad words: ${theWords}`,
+        ];
       }
 
-      // starting this mutation will start the reviewMutation if it's successful
-      // see line 60, "onSuccess" of the bathroomMutation
-      bathroomMutation.mutate({
-        address: address,
-        location_name: locationName,
-        latitude: newGeocode.results[0].geometry.location.lat,
-        longitude: newGeocode.results[0].geometry.location.lng,
-        neighborhood: newGeocode.results[0].address_components[2].long_name,
-        description: bathroomDescription,
-        public: publicBool,
-        gender_neutral: gnBool,
-        ada_compliant: ADABool,
-        average_score:
-          ((cleanlinessRating + styleRating + bathroomFunctionRating) / 3).toFixed(2),
-        submitted_by: profile.id,
-      });
+      if (geocodeRequested(true)) {
+        bathroomMutation.mutate({
+          address: address,
+          location_name: locationName,
+          latitude: latLng.lat,
+          longitude: latLng.lng,
+          neighborhood: neighborhood,
+          description: bathroomDescription,
+          public: publicBool,
+          gender_neutral: gnBool,
+          ada_compliant: ADABool,
+          average_score: (
+            (cleanlinessRating + styleRating + bathroomFunctionRating) /
+            3
+          ).toFixed(2),
+          submitted_by: profile.id,
+        });
+      } else {
+        const googleResp = await fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${address}%20Seattle&key=${GMKey}`
+        );
+        const newGeocode = await googleResp.json();
+
+        if (
+          !googleResp.ok ||
+          newGeocode.results[0].geometry === undefined ||
+          newGeocode.results[0].geometry.location.lat == 47.6061389
+        ) {
+          throw ["Please enter a valid address"];
+        }
+
+        if (
+          newGeocode.results[0].address_components.filter(
+            (comp) => comp.short_name === "Seattle"
+          ) === 0
+        ) {
+          throw [
+            "Please limit submissions to locations inside the city of Seattle.",
+          ];
+        }
+
+        // starting this mutation will start the reviewMutation if it's successful
+        // see "onSuccess" of the bathroomMutation
+        bathroomMutation.mutate({
+          address: address,
+          location_name: locationName,
+          latitude: newGeocode.results[0].geometry.location.lat,
+          longitude: newGeocode.results[0].geometry.location.lng,
+          neighborhood: newGeocode.results[0].address_components[2].long_name,
+          description: bathroomDescription,
+          public: publicBool,
+          gender_neutral: gnBool,
+          ada_compliant: ADABool,
+          average_score: (
+            (cleanlinessRating + styleRating + bathroomFunctionRating) /
+            3
+          ).toFixed(2),
+          submitted_by: profile.id,
+        });
+      }
     } catch (error) {
       setErrors(error);
       setLoading("submit");
@@ -177,6 +214,48 @@ export default function BathroomForm() {
       </p>
     );
   }
+
+  function displayGeocodeErrors() {
+    return (
+      <p id="geocode-error" className="display-error">
+        {geocodeErrors}
+      </p>
+    );
+  }
+
+  async function getAddressFromPlace(e) {
+    e.preventDefault()
+    const googleResp = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+        locationName
+      )}%20Seattle&key=${GMKey}`
+    );
+    const newGeocode = await googleResp.json();
+
+    console.log(newGeocode);
+
+    if (newGeocode.status === "OK" && !newGeocode.results[0].partial_match) {
+      const commaIndex = newGeocode.results[0].formatted_address.indexOf(",");
+      setAddress(newGeocode.results[0].formatted_address.slice(0, commaIndex));
+      setNeighborhood(
+        newGeocode.results[0].address_components.filter((com) =>
+          com.types.includes("neighborhood")
+        )[0].long_name
+      );
+      setLatLng({
+        lat: newGeocode.results[0].geometry.location.lat,
+        lng: newGeocode.results[0].geometry.location.lng,
+      });
+      setGeocodeErrors([])
+      setGeocodeRequested(true);
+    } else {
+      setGeocodeErrors(
+        "Failed to find information about this place. Try adding a neighborhood or street to this field before another attempt."
+      );
+    }
+  }
+
+  console.log(address, neighborhood, latLng, geocodeRequested);
 
   return (
     <div id="new-bathroom-container">
@@ -196,6 +275,40 @@ export default function BathroomForm() {
                   value={locationName}
                   onChange={(e) => setLocationName(e.target.value)}
                 ></input>
+              </div>
+              <div>
+                <button id="get-address" onClick={(e) => getAddressFromPlace(e)}>
+                  Get Address from Place Name
+                </button>
+                {displayGeocodeErrors()}
+                <p id="get-address-disclaimer">
+                  If there might be more than one location with your place name
+                  (ex. "Safeway", "Dick's", "Taco Time"), please check the
+                  address this provides, or leave more information about the
+                  neighborhood or surrounding area. Thanks!
+                </p>
+              </div>
+              <div id="nb-neighborhood">
+                <label htmlFor="neighborhood-dropdown">
+                  Neighborhood (optional):
+                </label>
+                <select
+                  aria-label="Neighborhood"
+                  value={neighborhood}
+                  onChange={(e) => setNeighborhood(e.target.value)}
+                  id="neighborhood-dropdown"
+                >
+                  <option value="none" key="null">
+                    - Neighborhood -
+                  </option>
+                  {neighborhoods.map((n) => {
+                    return (
+                      <option value={n} key={n}>
+                        {n}
+                      </option>
+                    );
+                  })}
+                </select>
               </div>
               <div>
                 <label htmlFor="nb-address">Street Address:</label>
@@ -331,7 +444,7 @@ export default function BathroomForm() {
           </section>
         </div>
         {displayErrors()}
-        <button id="new-bathroom-submit" type="submit">
+        <button id="new-bathroom-submit" type="submit" onClick={(e) => handleSubmit(e)}>
           {loading === "submit" ? "Submit" : "Loading..."}
         </button>
         <br />

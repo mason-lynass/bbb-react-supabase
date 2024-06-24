@@ -111,11 +111,12 @@ form button {
 
   #map-filter-buttons button {
     font-size: 12px;
-    padding: 10px 5px;
+    padding: 5px;
+    width: 25vw;
   }
 
   #all-bathrooms-map {
-    border: 10px solid var(--dark-blue1);
+    border: 5px solid var(--dark-blue1);
     margin: 20px auto;
   }
 }

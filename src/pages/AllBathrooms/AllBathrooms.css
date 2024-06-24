@@ -211,6 +211,10 @@
     padding: 1px 0;
   }
 
+  #search-and-neighborhood {
+    gap: 10px;
+  }
+
   #all-bathrooms-search {
     margin: 0 auto;
   }
@@ -235,8 +239,9 @@
   }
 
   #all-bathrooms-flex #filter-buttons {
+    width: 98%;
     margin: 20px auto 0 auto;
-    gap: 10px 20px;
+    gap: 10px 5px;
   }
 
   #all-bathrooms-flex #filter-buttons button {
