@@ -141,7 +141,7 @@ export default function BathroomForm() {
         ];
       }
 
-      if (geocodeRequested(true)) {
+      if (geocodeRequested === true) {
         bathroomMutation.mutate({
           address: address,
           location_name: locationName,
@@ -182,6 +182,8 @@ export default function BathroomForm() {
           ];
         }
 
+        console.log(newGeocode)
+
         // starting this mutation will start the reviewMutation if it's successful
         // see "onSuccess" of the bathroomMutation
         bathroomMutation.mutate({
@@ -209,7 +211,7 @@ export default function BathroomForm() {
 
   function displayErrors() {
     return (
-      <p key={errors} className="display-error">
+      <p key={errors} id='errors' className="display-error">
         {errors}
       </p>
     );
@@ -232,8 +234,6 @@ export default function BathroomForm() {
     );
     const newGeocode = await googleResp.json();
 
-    console.log(newGeocode);
-
     if (newGeocode.status === "OK" && !newGeocode.results[0].partial_match) {
       const commaIndex = newGeocode.results[0].formatted_address.indexOf(",");
       setAddress(newGeocode.results[0].formatted_address.slice(0, commaIndex));
@@ -254,8 +254,6 @@ export default function BathroomForm() {
       );
     }
   }
-
-  console.log(address, neighborhood, latLng, geocodeRequested);
 
   return (
     <div id="new-bathroom-container">
