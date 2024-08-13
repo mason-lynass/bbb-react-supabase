@@ -216,9 +216,13 @@ dialog button {
     min-width: 0px;
   }
 
-  #bathroom-fields * {
+  #bathroom-fields > div {
     width: 100%;
     padding: 0;
+  }
+
+  #date-picker {
+    width: 100%;
   }
 
   #bathroom-fields #get-address {
