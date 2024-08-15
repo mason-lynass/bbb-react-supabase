@@ -136,6 +136,13 @@
   margin: 20px auto;
 }
 
+#review-image img {
+  width: 95%;
+  display: block;
+  margin: auto;
+  border: 5px ridge var(--white);
+}
+
 .bodyBlurAB::after {
   content: "";
   height: 140vh;
