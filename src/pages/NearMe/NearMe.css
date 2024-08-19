@@ -87,6 +87,17 @@ form button {
   margin: 10px auto;
 }
 
+#dialog-buttons {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+#dialog-buttons button {
+  background-color: var(--dark-blue2);
+}
+
 @media screen and (max-width: 600px) {
   #where-are-you h3 {
     font-size: 24px;
