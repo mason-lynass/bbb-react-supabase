@@ -36,7 +36,7 @@
 }
 
 #login-form button, #signup-form button {
-    background-color: var(--green-light);
+    background-color: var(--dark-blue2);
     color: var(--main-darkest);
     /* border: 1px solid var(--light-blue1); */
     padding: 0 40px;
@@ -122,6 +122,11 @@
     font-size: 12px;
     text-align: left;
     padding: 0 20px;
+}
+
+#terms-and-conditions button {
+    margin: 15px auto;
+    color: var(--dark-blue2);
 }
 
 @media screen and (max-width: 600px) {
