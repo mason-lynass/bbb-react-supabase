@@ -13,7 +13,7 @@ import {
 } from "obscenity";
 
 import { queryClient } from "../../main";
-import { supabase, GMKey, neighborhoods } from "../../global/constants";
+import { supabase, GMKey, neighborhoods, cld } from "../../global/constants";
 
 export default function BathroomForm() {
   const profile = globalStore((state) => state.profile);
@@ -47,6 +47,7 @@ export default function BathroomForm() {
   const [bathroomFunctionRating, setBathroomFunctionRating] = useState(null);
   const [style, setStyle] = useState("");
   const [styleRating, setStyleRating] = useState(null);
+  const [photoPath, setPhotoPath] = useState(null);
 
   const reviewSupabase = {
     user_id: profile.id,
@@ -77,11 +78,16 @@ export default function BathroomForm() {
     mutationFn: (bathroomData) => {
       return supabase.from("bathrooms").insert(bathroomData).select();
     },
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       reviewSupabase.bathroom_id = data.data[0].id;
       // don't need to call update_bathroom_average_score here because it only has one review, and we sent average_rating inside bathroomData
       queryClient.invalidateQueries({ queryKey: ["bathrooms"] });
-      reviewMutation.mutate(reviewSupabase);
+      if (photoPath) {
+        const cldURL = await handlePhotoUpload()
+        if (cldURL) reviewMutation.mutate(reviewSupabase);
+        // else console.error('photo upload didnt work for some reason')
+      }
+      else reviewMutation.mutate(reviewSupabase);
     },
   });
 
@@ -96,6 +102,38 @@ export default function BathroomForm() {
       setLoading("finished");
     },
   });
+
+  async function handlePhotoUpload() {
+    setLoading("uploading photo");
+
+    const url = `https://api.cloudinary.com/v1_1/${cld.cloudinaryConfig.cloud.cloudName}/upload`;
+    const fd = new FormData();
+    const preset = 'bbb_review_upload'
+    const photoDate = new Date(reviewSupabase.date).toISOString().split('T')[0]
+    fd.append("upload_preset", preset);
+    fd.append("file", photoPath);
+    fd.append('public_id', `${reviewSupabase.bathroom_id}_XXX_${photoDate}`)
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: fd,
+      })
+
+      if (!response.ok) {
+        throw new Error('Photo upload failed')
+      }
+
+      const data = await response.json()
+      const cldURL = data.secure_url
+      return cldURL
+    }
+
+    catch (error) {
+      console.error("Error uploading the file:", error);
+      return null; // Return null in case of an error
+    }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -182,8 +220,6 @@ export default function BathroomForm() {
           ];
         }
 
-        console.log(newGeocode)
-
         // starting this mutation will start the reviewMutation if it's successful
         // see "onSuccess" of the bathroomMutation
         bathroomMutation.mutate({
@@ -211,7 +247,7 @@ export default function BathroomForm() {
 
   function displayErrors() {
     return (
-      <p key={errors} id='errors' className="display-error">
+      <p key={errors} id="errors" className="display-error">
         {errors}
       </p>
     );
@@ -226,7 +262,7 @@ export default function BathroomForm() {
   }
 
   async function getAddressFromPlace(e) {
-    e.preventDefault()
+    e.preventDefault();
     const googleResp = await fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
         locationName
@@ -246,7 +282,7 @@ export default function BathroomForm() {
         lat: newGeocode.results[0].geometry.location.lat,
         lng: newGeocode.results[0].geometry.location.lng,
       });
-      setGeocodeErrors([])
+      setGeocodeErrors([]);
       setGeocodeRequested(true);
     } else {
       setGeocodeErrors(
@@ -275,7 +311,10 @@ export default function BathroomForm() {
                 ></input>
               </div>
               <div>
-                <button id="get-address" onClick={(e) => getAddressFromPlace(e)}>
+                <button
+                  id="get-address"
+                  onClick={(e) => getAddressFromPlace(e)}
+                >
                   Get Address from Place Name
                 </button>
                 {displayGeocodeErrors()}
@@ -439,10 +478,24 @@ export default function BathroomForm() {
               </label>
               <RatingButton rating={styleRating} setRating={setStyleRating} />
             </div>
+            <div id='photo-div-bf'>
+              <label>Upload a photo (optional):</label>
+              <input
+                id="nr-photo"
+                name="new-review-photo"
+                type="file"
+                accept="image/png, image/jpeg, image/heic"
+                onChange={(e) => setPhotoPath(e.target.files[0])}
+              />
+            </div>
           </section>
         </div>
         {displayErrors()}
-        <button id="new-bathroom-submit" type="submit" onClick={(e) => handleSubmit(e)}>
+        <button
+          id="new-bathroom-submit"
+          type="submit"
+          onClick={(e) => handleSubmit(e)}
+        >
           {loading === "submit" ? "Submit" : "Loading..."}
         </button>
         <br />

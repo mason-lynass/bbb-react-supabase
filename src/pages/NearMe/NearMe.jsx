@@ -263,12 +263,14 @@ export default function NearMe() {
               We'll ask for this permission every time you access the site, and
               you can temporarily update this setting on the Account page.
             </p>
+            <div style={{display: 'flex', flexFlow: 'row nowrap', justifyContent: 'center', gap: '10px'}}>
             <button autoFocus onClick={() => handleAllowAccess()}>
               Allow Location Access
             </button>
             <button onClick={() => setGeoDialogStatus("close")}>
               Not right now
             </button>
+            </div>
           </dialog>
         </div>
       );
@@ -278,7 +280,7 @@ export default function NearMe() {
           <dialog>
             <p>Thanks!</p>
             <p>You can temporarily update this setting on the Account page.</p>
-            <button onClick={() => handleDialogClose()}>Sounds great</button>
+            <button style={{display: 'block', margin: 'auto'}} onClick={() => handleDialogClose()}>Sounds great</button>
           </dialog>
         </div>
       );

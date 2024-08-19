@@ -204,7 +204,7 @@ export default function Account() {
               (bathroom) => bathroom.id === review.bathroom_id
             )[0];
             let linkto = `/bathrooms/${thisBathroom.id}`;
-            let reviewDate = new Date(review.created_at)
+            let reviewDate = new Date(review.date)
               .toDateString()
               .slice(4);
             return (

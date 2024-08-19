@@ -14,7 +14,7 @@ export default function SubmittedDialog({ locationName }) {
     // return <Navigate to={`/account`} />;
   }
   return (
-    <dialog>
+    <dialog id='submitted-dialog'>
       <h3>Thanks for submitting {locationName} and leaving a review!</h3>
       <p>
         Your bathroom submission will be verified by our team and approved

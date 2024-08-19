@@ -87,6 +87,43 @@
     text-align: center;
 }
 
+#t-and-c {
+    margin: 30px auto;
+}
+
+#t-and-c a {
+    color: var(--light-blue5)
+}
+
+#t-and-c a:hover {
+    cursor: pointer;
+    color: var(--dark-blue2)
+}
+
+#terms-and-conditions b { 
+    text-decoration: underline;
+}
+
+#terms-and-conditions {
+    width: 90vw;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    top: 100px;
+}
+
+#terms-and-conditions h4 { 
+    font-size: 16px;
+    margin: 10px auto 20px auto;
+    text-align: center;
+}
+
+#terms-and-conditions p { 
+    font-size: 12px;
+    text-align: left;
+    padding: 0 20px;
+}
+
 @media screen and (max-width: 600px) {
 
     #login-form, #signup-form {
@@ -115,11 +152,11 @@
     }
 
     #login-form button, #signup-form button {
-        background-color: var(--light-blue5);
+        background-color: var(--dark-blue2);
         color: white;
     }
 
     #login-form button:hover, #signup-form button:hover {
-        background-color: var(--light-blue3);
+        background-color: var(--light-blue5);
     }
 }
