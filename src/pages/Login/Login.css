@@ -37,7 +37,7 @@
 
 #login-form button, #signup-form button {
     background-color: var(--dark-blue2);
-    color: var(--main-darkest);
+    color: var(--white);
     /* border: 1px solid var(--light-blue1); */
     padding: 0 40px;
     height: 50px;
