@@ -8,6 +8,7 @@
   text-align: center;
   font-family: Josefin Sans;
   color: var(--light-blue1);
+  font-size: 40px;
 }
 
 #homepage-filters,
@@ -51,9 +52,9 @@
 }
 
 #home-slideshow {
-  width: 90vw;
+  width: 60vw;
   max-width: 1200px;
-  height: 600px;
+  height: 450px;
   object-fit: contain;
   overflow: hidden;
   margin: 30px auto;
@@ -78,26 +79,25 @@
 }
 
 .slide-image {
-  height: 700px;
+  height: 450px;
   width: 100%;
   object-fit: cover;
 }
 
 .slide-text {
   position: relative;
-  top: -220px;
-  left: 50px;
-  font-size: 2rem;
+  top: -66px;
+  left: 0px;
+  font-size: 16px;
   width: fit-content;
-  background: linear-gradient(
+  /* background: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 0) 0%,
-    var(--dark-blue1) 5%,
+    var(--dark-blue1) 0%,
     var(--dark-blue1) 95%,
     rgba(0, 0, 0, 0) 100%
-  );
-  border-radius: 15px;
-  padding: 10px 50px;
+  ); */
+  background: var(--dark-blue1);
+  padding: 10px 20px;
   opacity: 1;
   transition: opacity 2s 0.5s;
 }
@@ -105,7 +105,7 @@
 #homepage-about {
   width: 90vw;
   max-width: 1000px;
-  margin: 5vw auto 5vw auto;
+  margin: 20px auto;
   padding: 30px;
   border-radius: 10px;
 }
@@ -119,9 +119,9 @@
 
 #homepage-about h1 {
   text-align: center;
-  margin: 0px auto 80px auto;
+  margin: 0px auto 40px auto;
   color: var(--light-blue1);
-  font-size: 44px;
+  font-size: 30px;
   line-height: 1.3;
 }
 

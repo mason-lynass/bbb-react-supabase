@@ -2,7 +2,7 @@ import { useState } from "react";
 import { globalStore } from "../../global/Zustand";
 import { useMutation } from "@tanstack/react-query";
 import RatingButton from "../../components/RatingButton";
-import { supabase } from "../../global/constants";
+import { supabase, cld } from "../../global/constants";
 import DatePicker from "react-datepicker";
 import { englishDataset, RegExpMatcher, englishRecommendedTransformers } from "obscenity";
 
@@ -26,6 +26,8 @@ export default function NewReview({
   const [bathroomFunctionRating, setBathroomFunctionRating] = useState(null);
   const [style, setStyle] = useState("");
   const [styleRating, setStyleRating] = useState(null);
+  const [photoPath, setPhotoPath] = useState(null);
+
 
   const matcher = new RegExpMatcher({
     ...englishDataset.build(),
@@ -89,7 +91,38 @@ export default function NewReview({
     },
   });
 
-  function handleSubmit(e) {
+  async function handlePhotoUpload() {
+
+    const url = `https://api.cloudinary.com/v1_1/${cld.cloudinaryConfig.cloud.cloudName}/upload`;
+    const fd = new FormData();
+    const preset = 'bbb_review_upload'
+    const photoDate = new Date(reviewSupabase.date).toISOString().split('T')[0]
+    fd.append("upload_preset", preset);
+    fd.append("file", photoPath);
+    fd.append('public_id', `${reviewSupabase.bathroom_id}_XXX_${photoDate}`)
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: fd,
+      })
+
+      if (!response.ok) {
+        throw new Error('Photo upload failed')
+      }
+
+      const data = await response.json()
+      const cldURL = data.secure_url
+      return cldURL
+    }
+
+    catch (error) {
+      console.error("Error uploading the file:", error);
+      return null; // Return null in case of an error
+    }
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault();
     try {
       if (reviewDescription === "") throw ["Please leave a brief description."];
@@ -127,14 +160,17 @@ export default function NewReview({
           `Please avoid using obscene language on this website. Bad words: ${theWords}`
         ]
       }
-      reviewMutation.mutate();
+      if (photoPath) {
+        const cldURL = await handlePhotoUpload()
+        if (cldURL) reviewMutation.mutate();
+      }
+      else reviewMutation.mutate();
     } catch (error) {
       setErrors(error);
     }
   }
 
   function displayErrors() {
-    console.error(errors)
     return errors.map((e) => {
       return (
         <p className="display-error" key={e}>
@@ -160,6 +196,8 @@ export default function NewReview({
         </h2>
         <form id="new-review-form" onSubmit={handleSubmit}>
           <section id="nr-review-fields">
+          <p style={{textAlign: 'right', fontSize: '12px', margin: '0 auto'}}>* - optional</p>
+
             <div>
               <label htmlFor="date-picker">Date visited:</label>
               <DatePicker
@@ -181,9 +219,19 @@ export default function NewReview({
                 onChange={(e) => setReviewDescription(e.target.value)}
               />
             </div>
+            <div id='photo-div'>
+              <label>* Upload a photo:</label>
+              <input
+                id="nr-photo"
+                name="new-review-photo"
+                type="file"
+                accept="image/png, image/jpeg, image/heic"
+                onChange={(e) => setPhotoPath(e.target.files[0])}
+              />
+            </div>
             <div className="nr-flex">
               <div>
-                <label htmlFor="nr-cleanliness">Cleanliness:</label>
+                <label htmlFor="nr-cleanliness">* Cleanliness:</label>
                 <textarea
                   id="nr-cleanliness"
                   type="text"
@@ -203,7 +251,7 @@ export default function NewReview({
             </div>
             <div className="nr-flex">
               <div>
-                <label htmlFor="nr-function">Function:</label>
+                <label htmlFor="nr-function">* Function:</label>
                 <textarea
                   id="nr-function"
                   type="text"
@@ -221,7 +269,7 @@ export default function NewReview({
             </div>
             <div className="nr-flex">
               <div>
-                <label htmlFor="nr-style">Style:</label>
+                <label htmlFor="nr-style">* Style:</label>
                 <textarea
                   id="nr-style"
                   type="text"

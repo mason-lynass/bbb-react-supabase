@@ -1,5 +1,5 @@
 #about {
-  margin: 2vw;
+  margin: 0 2vw;
 }
 
 #about h1,
@@ -28,7 +28,7 @@
 #references-contact {
   width: 90vw;
   max-width: 1000px;
-  margin: 20px auto;
+  margin: auto;
   padding: 10px 20px;
   border-radius: 20px;
 }
