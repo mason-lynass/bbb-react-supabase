@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Analytics } from '@vercel/analytics/react'
 import RQApp from "./ReactQueryApp.jsx";
 import "./global/CSS/index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <BrowserRouter>
         <APIProvider apiKey={GMKey}>
           <RQApp />
+          <Analytics />
         </APIProvider>
         <ReactQueryDevtools />
       </BrowserRouter>
