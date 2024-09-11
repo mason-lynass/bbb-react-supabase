@@ -18,7 +18,7 @@ nav div a {
 }
 
 #nav-bar-mobile {
-  height: 60px;
+  height: 65px;
 }
 
 #nav-left {
@@ -50,8 +50,8 @@ nav div a {
 
 #nav-title-mobile {
   font-size: 16px;
-  padding-top: 20px;
-  margin: 0;
+  padding-top: 25px;
+  margin: auto;
   z-index: -1;
   position: absolute;
   top: 0;
@@ -61,7 +61,7 @@ nav div a {
 }
 
 #mobile-menu-button {
-  margin: 0 10px;
+  margin: auto 10px;
   background-color: var(--light-blue4);
   color: black;
   font-size: 12px;
