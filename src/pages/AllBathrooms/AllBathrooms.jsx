@@ -44,14 +44,11 @@ export default function AllBathrooms() {
   // this handles whatever user interaction happened on the homepage that took us to AllBathrooms
   // if user navigates to AllBathrooms and doesn't interact with the homepage, nothing happens
   useEffect(() => {
-    if (!location.state) {
-      console.log('no location state')
-    }
-    else if (location.state.GNBool === true) {
+    if (location.state.GNBool) {
       setGNBool(true);
-    } else if (location.state.ADABool === true) {
+    } else if (location.state.ADABool) {
       setADABool(true);
-    } else if (location.state.publicBool === true) {
+    } else if (location.state.publicBool) {
       setPublicBool(true);
     } else if (location.state.neighborhood) {
       setNeighborhood(location.state.neighborhood);
@@ -85,7 +82,7 @@ export default function AllBathrooms() {
 
     switch (button) {
       case "public":
-        if (publicBool === true) {
+        if (publicBool) {
           publicButton.classList.remove("button-active");
         } else {
           publicButton.classList.add("button-active");
@@ -93,7 +90,7 @@ export default function AllBathrooms() {
         setPublicBool(!publicBool);
         break;
       case "ADA":
-        if (ADABool === true) {
+        if (ADABool) { //Checking true/false against boolean values is redundant and could make it less legible
           ADAButton.classList.remove("button-active");
         } else {
           ADAButton.classList.add("button-active");
@@ -101,7 +98,7 @@ export default function AllBathrooms() {
         setADABool(!ADABool);
         break;
       case "GN":
-        if (GNBool === true) {
+        if (GNBool) {
           GNButton.classList.remove("button-active");
         } else {
           GNButton.classList.add("button-active");
@@ -109,7 +106,7 @@ export default function AllBathrooms() {
         setGNBool(!GNBool);
         break;
       case "reviewed":
-        if (reviewed === true) {
+        if (reviewed) {
           reviewedButton.classList.remove("button-active");
         } else {
           reviewedButton.classList.add("button-active");
@@ -144,9 +141,7 @@ export default function AllBathrooms() {
     switch (true) {
       case publicBool && ADABool && GNBool && reviewed:
         allTheBathrooms = reviewedBathrooms
-          .filter((b) => b.ada_compliant === true)
-          .filter((b) => b.gender_neutral === true)
-          .filter((b) => b.public === true);
+          .filter((b) => b.ada_compliant === true && b.gender_neutral === true && b.public === true); //reduce how many times it loops through the data
           break;
       case publicBool && ADABool && GNBool:
         allTheBathrooms = publicBathrooms
@@ -213,7 +208,10 @@ export default function AllBathrooms() {
     return (
       <div id="all-bathrooms">
         {allTheBathrooms.map((bathroom) => (
-          <Link to={`/bathrooms/${bathroom.id}`} key={bathroom.location_name}>
+          <Link to={`/bathrooms/${bathroom.id}`} 
+          key={bathroom.location_name}
+          //if location_name ever has a space, this will break the key or id! This could be a good spot to use Lodash's kebabCase method and confirm the text consistency
+          >
             <div className="one-bathroom-all" id={bathroom.location_name}>
               <h3>{bathroom.location_name}</h3>
               <h4>{bathroom.address}</h4>

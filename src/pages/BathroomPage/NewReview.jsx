@@ -188,7 +188,10 @@ export default function NewReview({
   return (
     <div>
       <dialog id="new-review-dialog" open>
-        <button id="new-review-close" onClick={() => newReviewClose()}>
+        <button id="new-review-close" onClick={() => newReviewClose()} 
+        //I'd recommend adding an attribute to provide insights for any screen readers
+        //For example - aria-label="Close"
+        >
           x
         </button>
         <h2 id="new-review-title">
