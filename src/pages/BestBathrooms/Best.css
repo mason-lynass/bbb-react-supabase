@@ -11,11 +11,9 @@
     text-align: center;
     margin-bottom: 80px;
     color: var(--light-blue1);
-    font-family: Josefin Sans;
 }
 
 .one-bathroom-stock {
-    /* border: 5px solid gold; */
     width: 45vw;
     max-width: 450px;
     padding: 10px 20px;
@@ -30,10 +28,6 @@
 
 .one-bathroom-stock h2, .one-bathroom-stock h3 {
     text-align: center;
-}
-
-.one-bathroom-stock h2 {
-    font-family: Josefin Sans;
 }
 
 .one-bathroom-stock p {
