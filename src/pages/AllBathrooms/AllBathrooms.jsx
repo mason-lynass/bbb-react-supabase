@@ -14,8 +14,6 @@ export default function AllBathrooms() {
   const location = useLocation();
 
   const {
-    status,
-    // error,
     data: bathrooms,
   } = useQuery({
     queryKey: ["approved-bathrooms"],
@@ -23,8 +21,6 @@ export default function AllBathrooms() {
   });
 
   const {
-    // reviewsStatus,
-    // reviewsError,
     data: reviewIDs,
   } = useQuery({
     queryKey: ["review-ids"],
@@ -93,7 +89,7 @@ export default function AllBathrooms() {
         setPublicBool(!publicBool);
         break;
       case "ADA":
-        if (ADABool) { //Checking true/false against boolean values is redundant and could make it less legible
+        if (ADABool) { 
           ADAButton.classList.remove("button-active");
         } else {
           ADAButton.classList.add("button-active");

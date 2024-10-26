@@ -188,10 +188,7 @@ export default function NewReview({
   return (
     <div>
       <dialog id="new-review-dialog" open>
-        <button id="new-review-close" onClick={() => newReviewClose()} 
-        //I'd recommend adding an attribute to provide insights for any screen readers
-        //For example - aria-label="Close"
-        >
+        <button id="new-review-close" aria-label="Close" onClick={() => newReviewClose()}>
           x
         </button>
         <h2 id="new-review-title">
@@ -286,7 +283,6 @@ export default function NewReview({
               </div>
             </div>
             <button id="new-review-submit" type="submit">
-              {/* {loading === "submit" ? "Submit" : "Loading..."} */}
               Submit
             </button>
             {displayErrors()}

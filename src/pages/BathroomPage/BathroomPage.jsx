@@ -30,7 +30,6 @@ export default function BathroomPage() {
   // RQ queries
   const {
     status: oBStatus,
-    // error: oBError,
     data: bathroom,
   } = useQuery({
     queryKey: ["bathrooms", parseInt(id.bathroomid)],
@@ -38,8 +37,6 @@ export default function BathroomPage() {
   });
 
   const {
-    // status: oBReviewStatus,
-    // error: oBReviewError,
     data: bathroomReviews,
   } = useQuery({
     queryKey: ["reviews", { bathroom: parseInt(id.bathroomid) }],
@@ -52,8 +49,6 @@ export default function BathroomPage() {
   });
 
   const {
-    // status: oBFavoritesStatus,
-    // error: oBFavoritesError,
     data: oBFavorites,
   } = useQuery({
     queryKey: ["favorites", { favorite: parseInt(id.bathroomid) }],
@@ -176,9 +171,6 @@ export default function BathroomPage() {
             reviews)
           </p>
           <div id="one-bathroom-filters">
-            {/* <p>{bathroomPublic}</p>
-            <p>{genderNeutral}</p>
-            <p>{ADACompliant}</p> */}
             {oneBathroomFilters()}
           </div>
         </div>
@@ -197,11 +189,13 @@ export default function BathroomPage() {
 
   function singleBathroomButtons() {
     if (profile)
+    // this button will open up a modal over the whole window that displays the NewReview component
+    // this function favoriteButton() will make a DB request to create a new favorite with the user id and bathroom id
       return (
         <div id="one-bathroom-buttons">
-          {/* this will open up a modal over the whole window that displays the NewReview component */}
+          
           <button onClick={() => setShowReview(true)}>Write a Review</button>
-          {/* this will make a DB request to create a new favorite with the user id and bathroom id */}
+          
           {favoriteButton()}
         </div>
       );

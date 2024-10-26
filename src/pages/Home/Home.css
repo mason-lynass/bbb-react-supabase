@@ -34,10 +34,10 @@
   padding: 3px 20px;
 }
 
-#homepage-bathrooms-search button:hover,
+/* #homepage-bathrooms-search button:hover,
 #homepage-filters-and-neighborhood button:hover {
   background-color: var(--light-blue4);
-}
+} */
 
 #homepage-filters-and-neighborhood #filter-buttons {
   gap: 10px;
@@ -110,6 +110,11 @@
   border-radius: 10px;
 }
 
+#homepage-about :is(h1, h2, h3) {
+  font-family: 'Montserrat';
+}
+
+
 #homepage-about p,
 #homepage-about h2 {
   max-width: 680px;
@@ -141,6 +146,7 @@
   margin: 10px auto;
   padding-top: 20px;
   color: white;
+  font-family: 'Josefin Sans';
 }
 
 #homepage-about .one-bathroom-one-review {

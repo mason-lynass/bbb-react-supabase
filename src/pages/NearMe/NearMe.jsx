@@ -7,9 +7,6 @@ import { Map, AdvancedMarker, Pin } from "@vis.gl/react-google-maps";
 import { fetchApprovedBathrooms } from "../../React-Query/fetch-functions";
 import "./NearMe.css";
 
-// lex and I figured a lot of this out here:
-// https://github.com/alexbriannaughton/bbb-app/blob/main/client/src/components/MapViewHomepage.js
-
 export default function NearMe() {
   const [userLocation, setUserLocation] = useState("");
   const [userLocationError, setUserLocationError] = useState([]);
@@ -28,7 +25,6 @@ export default function NearMe() {
 
   const {
     isLoading: bathroomsLoading,
-    // error,
     data: bathrooms,
   } = useQuery({
     queryKey: ["approved-bathrooms"],
@@ -135,9 +131,7 @@ export default function NearMe() {
     let mapID = `NEAR_ME_MAP_ID`;
     return (
       <Map
-        // defaultCenter={mapCenter}
         center={mapCenter}
-        // defaultZoom={window.screen.availWidth <= 600 ? zoom - 1 : zoom}
         zoom={zoom}
         mapId={mapID}
         reuseMaps={true}

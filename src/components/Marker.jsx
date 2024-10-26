@@ -1,5 +1,3 @@
-// if this comment is here, I haven't modified anything since I copied this from old BBB
-
 import React, { useState } from "react";
 
 const Marker = (options) => {
@@ -10,21 +8,14 @@ const Marker = (options) => {
 
   if (options.bathroom) {
     contentString = `<a class='marker-content-string' href='bathrooms/${options.bathroom.id}'>${options.bathroom.location_name}</a>`;
-    // `<h3>${options.bathroom.location}</h3>` +
-    // `<p>${options.bathroom.description}</p>` +
-    // `<p>${options.bathroom.b_average_score}</p>`
   }
 
   const infowindow = new window.google.maps.InfoWindow({
-    content:
-      // <Link className="bigger" to={`bathrooms/${options.bathroom.id}`}>
-      contentString,
-    // </Link>
+    content: contentString,
   });
 
   if (marker) {
     marker.addListener("click", () => {
-      // console.log("clickie!")
       infowindow.open({
         anchor: marker,
       });

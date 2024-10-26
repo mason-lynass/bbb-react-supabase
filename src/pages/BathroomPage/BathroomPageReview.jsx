@@ -1,7 +1,6 @@
 import { AdvancedImage, lazyload} from '@cloudinary/react'
 import {cld} from '../../global/constants.jsx'
 import { scale } from '@cloudinary/url-gen/actions/resize'
-// import { byRadius } from '@cloudinary/url-gen/actions/roundCorners'
 
 export default function BathroomPageReview({ review, users }) {
 

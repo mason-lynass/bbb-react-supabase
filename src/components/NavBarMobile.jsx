@@ -40,13 +40,13 @@ export default function NavBarMobile() {
             Best Bathrooms
           </NavLink>
           <NavLink to="/near-me" onClick={() => setNavOpen(false)}>
-            Bathrooms Near Me
+            Near Me
           </NavLink>
           <NavLink to="/submit" onClick={() => setNavOpen(false)}>
-            Submit a Bathroom
+            Submit
           </NavLink>
           <NavLink to="/about" onClick={() => setNavOpen(false)}>
-            Our Mission
+            About
           </NavLink>
           {loginOrAccount()}
         </div>
