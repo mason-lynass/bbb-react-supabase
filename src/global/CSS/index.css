@@ -1,9 +1,5 @@
 :root {
-  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
-  font-family: Montserrat;
-  /* font-family: Comfortaa; */
-  /* font-family: Josefin Sans; */
-  /* font-family: Roboto; */
+  font-family: 'sans-serif', Montserrat;
   line-height: 1.5;
   font-weight: 600;
 
@@ -67,6 +63,10 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+h1, h2, h3 {
+  font-family: Josefin Sans;
 }
 
 button {

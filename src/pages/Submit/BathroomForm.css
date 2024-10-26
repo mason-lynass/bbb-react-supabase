@@ -1,7 +1,6 @@
 #submit-bathroom-title {
   text-align: center;
   font-size: 30px;
-  font-family: Josefin Sans;
   width: fit-content;
   margin: auto;
   width: 25%;
@@ -23,9 +22,7 @@
 
 #bathroom-fields,
 #review-fields {
-  /* background-color: var(--dark-blue3); */
   border-radius: 20px;
-  /* border: 1px solid var(--light-blue1); */
   border: 0px;
   width: 45%;
   min-width: 500px;

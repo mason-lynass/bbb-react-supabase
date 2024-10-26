@@ -36,10 +36,6 @@
   margin: auto 0px;
 }
 
-.one-bathroom-all h3 {
-  font-family: Josefin Sans;
-}
-
 #all-bathrooms a:nth-of-type(odd) {
   text-align: left;
   background-color: var(--dark-blue5);

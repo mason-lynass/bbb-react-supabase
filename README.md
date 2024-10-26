@@ -1,6 +1,6 @@
 # Better Bathroom Bureau
 
-[Better Bathroom Bureau](betterbathroombureau.org) is an website dedicated to helping residents and visitors of Seattle access bathroom facilities around the city.
+[Better Bathroom Bureau](https://betterbathroombureau.org) is an website dedicated to helping residents and visitors of Seattle access bathroom facilities around the city.
 
 Our web app catalogues bathrooms that users of the site submit, along with user reviews and ratings for each facility.
 
