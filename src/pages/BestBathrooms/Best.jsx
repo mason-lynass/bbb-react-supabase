@@ -17,7 +17,6 @@ export default function Best() {
   // where they will already fetch approvedBathrooms, so might as well just use that instead of making a separate DB request
   const {
     status: bathroomsStatus,
-    // error: bathroomsError,
     data: bathrooms,
   } = useQuery({
     queryKey: ["approved-bathrooms"],

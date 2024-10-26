@@ -85,7 +85,6 @@ export default function BathroomForm() {
       if (photoPath) {
         const cldURL = await handlePhotoUpload()
         if (cldURL) reviewMutation.mutate(reviewSupabase);
-        // else console.error('photo upload didnt work for some reason')
       }
       else reviewMutation.mutate(reviewSupabase);
     },

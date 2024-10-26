@@ -25,7 +25,6 @@ export default function Login() {
   const {
     data: users,
     isLoading: usersLoading,
-    // isError: usersError,
   } = useQuery({
     queryKey: ["users"],
     queryFn: async () => fetchUsers(),
@@ -47,7 +46,6 @@ export default function Login() {
   async function sendForgotPwEmail(event) {
     event.preventDefault();
     const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-      // CHANGE THIS ONCE YOU GET A REAL DOMAIN
       redirectTo: "http://www.betterbathroombureau.org/account",
     });
     if (error) alert(error.error_description || error.message);

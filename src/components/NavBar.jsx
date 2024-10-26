@@ -36,9 +36,9 @@ export default function NavBar() {
         <div>
           <NavLink to="/bathrooms">All Bathrooms</NavLink>
           <NavLink to="/best">Best Bathrooms</NavLink>
-          <NavLink to="/near-me">Bathrooms Near Me</NavLink>
-          <NavLink to="/submit">Submit a Bathroom</NavLink>
-          <NavLink to="/about">Our Mission</NavLink>
+          <NavLink to="/near-me">Near Me</NavLink>
+          <NavLink to="/submit">Submit</NavLink>
+          <NavLink to="/about">About</NavLink>
         </div>
         <div>{loginOrAccount()}</div>
       </nav>

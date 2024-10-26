@@ -61,7 +61,6 @@ function RQApp() {
       globalStore.setState({
         profile: users.find((user) => session.user.id === user.id),
       }); // this function needs session to setProfile
-      // setLoading(false);
     }
 
     const {

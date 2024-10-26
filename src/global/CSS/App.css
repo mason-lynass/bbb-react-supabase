@@ -12,10 +12,6 @@
   z-index: 10;
 }
 
-nav div a {
-  font-family: Josefin Sans;
-}
-
 #nav-bar-mobile {
   height: 65px;
 }
@@ -64,6 +60,7 @@ nav div a {
   background-color: var(--light-blue4);
   color: black;
   font-size: 12px;
+  font-family: 'Josefin Sans';
 }
 
 #mobile-open-menu {
@@ -76,6 +73,7 @@ nav div a {
   justify-content: center;
   align-items: center;
   width: 100%;
+  font-family: 'Josefin Sans';
 }
 
 #mobile-open-menu a {
@@ -83,6 +81,10 @@ nav div a {
   max-width: 300px;
   text-align: center;
   margin: 1em auto;
+}
+
+nav {
+  margin: 0 10px;
 }
 
 nav,
@@ -95,10 +97,11 @@ nav div {
 
 nav div a {
   display: block;
-  width: 80px;
+  width: fit-content;
   text-align: center;
-  margin: 1vw;
+  margin: 10px;
   line-height: 1.2;
+  font-family: 'Josefin Sans';
 }
 
 #login p {
@@ -117,7 +120,7 @@ nav div a {
   text-align: center;
 }
 
-@media screen and (max-width: 1050px) {
+@media screen and (max-width: 1009px) {
 
   #nav-bar {
     justify-content: center;

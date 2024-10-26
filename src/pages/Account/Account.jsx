@@ -40,8 +40,6 @@ export default function Account() {
   });
 
   const {
-    // status: bathroomStatus,
-    // error: bathroomError,
     data: bathrooms,
   } = useQuery({
     queryKey: ["all-bathrooms"],
@@ -49,8 +47,6 @@ export default function Account() {
   });
 
   const {
-    // status: reviewStatus,
-    // error: reviewError,
     data: reviews,
   } = useQuery({
     queryKey: ["all-reviews"],
@@ -58,8 +54,6 @@ export default function Account() {
   });
 
   const {
-    // status: favStatus,
-    // error: favError,
     data: favorites,
   } = useQuery({
     queryKey: ["all-favorites"],

@@ -11,7 +11,6 @@ export default function SubmittedDialog({ locationName }) {
   function handleClick() {
     body.classList.remove('bodyBlur')
     navigate('/account')
-    // return <Navigate to={`/account`} />;
   }
   return (
     <dialog id='submitted-dialog'>

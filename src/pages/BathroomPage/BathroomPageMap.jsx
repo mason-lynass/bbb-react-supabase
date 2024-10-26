@@ -1,5 +1,3 @@
-// this component is obsolete now that we are using the React Google Maps npm package
-
 import React from "react"
 
 export default function BathroomPageMap({ center, zoom, children }) {
