@@ -44,7 +44,10 @@ export default function AllBathrooms() {
   // this handles whatever user interaction happened on the homepage that took us to AllBathrooms
   // if user navigates to AllBathrooms and doesn't interact with the homepage, nothing happens
   useEffect(() => {
-    if (location.state.GNBool) {
+    if (!location.state) {
+      console.log('no location state')
+    }
+    else if (location.state.GNBool) {
       setGNBool(true);
     } else if (location.state.ADABool) {
       setADABool(true);
