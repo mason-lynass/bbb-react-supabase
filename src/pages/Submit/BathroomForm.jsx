@@ -19,6 +19,7 @@ export default function BathroomForm() {
   const profile = globalStore((state) => state.profile);
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState("submit");
+  const [loadingMessages, setLoadingMessages] = useState('empty')
 
   const matcher = new RegExpMatcher({
     ...englishDataset.build(),
@@ -83,10 +84,17 @@ export default function BathroomForm() {
       // don't need to call update_bathroom_average_score here because it only has one review, and we sent average_rating inside bathroomData
       queryClient.invalidateQueries({ queryKey: ["bathrooms"] });
       if (photoPath) {
+        setLoadingMessages('photo')
         const cldURL = await handlePhotoUpload()
-        if (cldURL) reviewMutation.mutate(reviewSupabase);
+        if (cldURL) {
+          setLoadingMessages('review')
+          reviewMutation.mutate(reviewSupabase);
+        } 
       }
-      else reviewMutation.mutate(reviewSupabase);
+      else {
+        setLoadingMessages('review')
+        reviewMutation.mutate(reviewSupabase);
+      } 
     },
   });
 
@@ -179,6 +187,7 @@ export default function BathroomForm() {
       }
 
       if (geocodeRequested === true) {
+        setLoadingMessages('bathroom')
         bathroomMutation.mutate({
           address: address,
           location_name: locationName,
@@ -221,6 +230,7 @@ export default function BathroomForm() {
 
         // starting this mutation will start the reviewMutation if it's successful
         // see "onSuccess" of the bathroomMutation
+        setLoadingMessages('bathroom')
         bathroomMutation.mutate({
           address: address,
           location_name: locationName,
@@ -258,6 +268,16 @@ export default function BathroomForm() {
         {geocodeErrors}
       </p>
     );
+  }
+
+  function displayLoadingMessages() {
+    if (loadingMessages === 'bathroom') {
+      return <p>Submitting bathroom...</p>
+    } else if (loadingMessages === 'photo') {
+      return <p>Uploading photo...</p>
+    } else if (loadingMessages === 'review') {
+      return <p>Adding review...</p>
+    }
   }
 
   async function getAddressFromPlace(e) {
@@ -497,6 +517,9 @@ export default function BathroomForm() {
         >
           {loading === "submit" ? "Submit" : "Loading..."}
         </button>
+        <div id='loading-messages'>
+        {displayLoadingMessages()}
+        </div>
         <br />
         {bathroomid ? <SubmittedDialog locationName={locationName} /> : ""}
       </form>

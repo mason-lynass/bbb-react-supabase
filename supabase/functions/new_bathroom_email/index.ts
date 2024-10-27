@@ -9,6 +9,12 @@ const handler = async (_request: Request): Promise<Response> => {
     const username = event.username
     const user_email = event.user_email
 
+    console.log(event)
+    console.log(event.new)
+
+    console.log(username)
+    console.log(user_email)
+
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -20,7 +26,9 @@ const handler = async (_request: Request): Promise<Response> => {
         to: 'masonlynass@gmail.com',
         subject: 'New Bathroom Created',
         html: `<strong>A new bathroom -  ${location_name} - has been created in the database!</strong><p>ID: ${id}</p>
-        <p>created by ${username} - ${user_email}</p>`,
+        <p>created by ${username} - ${user_email}</p>
+        <p>event: ${event}</p>
+        <p>event.new: ${event.new}</p>`,
       }),
     })
   

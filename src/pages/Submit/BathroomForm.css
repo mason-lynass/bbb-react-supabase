@@ -216,6 +216,13 @@ dialog p {
   color: white;
 }
 
+#loading-messages {
+  margin: 10px auto;
+  display: block;
+  width: fit-content;
+  color: var(--light-blue4);
+}
+
 @media screen and (max-width: 600px) {
 
   #submit h2 {
